@@ -1,0 +1,38 @@
+﻿<Window x:Class="Launcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Launcher"
+        mc:Ignorable="d"
+        Title="Stranded in Space" Height="720" Width="1280" Icon="logo_petit.png" ResizeMode="CanMinimize">
+    <Window.Background>
+        <ImageBrush ImageSource="lune-reddit-c2bd60-10@1x.jpeg" Stretch="UniformToFill"/>
+    </Window.Background>
+    <Grid>
+        <Label Content="Stranded in Space" Height="91" Margin="295,10,293.6,0" Foreground="White" FontFamily="OCR A Extended" FontSize="64" Width="685" VerticalAlignment="Top"/>
+        <Label Content="By the SwaltySpaceCrew" Height="57" Margin="401,120,401.6,0" Foreground="White" VerticalAlignment="Top" FontFamily="OCR A Extended" FontSize="34"/>
+        <Button x:Name="Play" Content="Jouer" Height="117" Margin="930,311,0,0" VerticalAlignment="Top" FontFamily="OCR A Extended" FontSize="36" Foreground="White" Width="293" HorizontalAlignment="Left" Click="Play_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="astro-perdu.jpg" Stretch="UniformToFill"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="Account" Content="Compte" HorizontalAlignment="Left" Height="117" Margin="930,498,0,0" VerticalAlignment="Top" Width="293" FontFamily="OCR A Extended" FontSize="36" Foreground="White" Click="Account_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="astro-perdu.jpg" Stretch="UniformToFill"/>
+            </Button.Background>
+        </Button>
+        <ScrollViewer HorizontalAlignment="Left" Height="304" Margin="61,311,0,0" VerticalAlignment="Top" Width="666">
+            <ScrollViewer.Background>
+                <ImageBrush/>
+            </ScrollViewer.Background>
+            <StackPanel>
+                <Label x:Name="last_actu" Content="Dernière actualité:" FontFamily="OCR A Extended" Foreground="#FFFFFF" FontSize="30"/>
+                <TextBlock x:Name="actu" Text="Lorem ipsum dolor sit amet." FontFamily="OCR A Extended" Foreground="#FFFFFF" FontSize="20" TextWrapping="WrapWithOverflow"/>
+                <Label x:Name="Previous" Content="&#xD;&#xA;Actualités précédentes:" FontFamily="OCR A Extended" Foreground="#FFFFFF" FontSize="30" Height="77"/>
+                <TextBlock x:Name="prevactu" Text="Lorem ipsum dolor sit amet." FontFamily="OCR A Extended" Foreground="#FFFFFF" FontSize="20" TextWrapping="WrapWithOverflow"/>
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

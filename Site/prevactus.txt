@@ -1,0 +1,14 @@
+25/04:
+
+Ici on mettra toutes nos actualites, voici comment ca va marcher:
+-on modifie le fichier "actus" qui se situe dans le dossier "Projet" de Wampserver
+-on sauvegarde ledit fichier
+-on execute le launcher
+-celui-ci recupere les informations ecrites dans "actus" et les affiche dans l'onglet des actualites du launcher.
+
+c'est simple ! et en fait non, c'est pas simple :/
+
+21/04:
+
+Ici on mettra les anciennes actualites, meme principe que pour les actualites precedentes, mis a part qu'il faudra du coup rajouter les actualites qui etaient avant dans "actus".
+Ainsi, on aura un historique des actualites liees au jeu. :)

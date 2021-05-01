@@ -1,0 +1,167 @@
+﻿@font-face {
+    font-family: "aoox";
+    src: url('../font/aoox.ttf');
+}
+
+@font-face {
+    font-family: "nasa";
+    src: url('../font/nasa.ttf');
+}
+
+.menu {
+    font-family: aoox;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #222427;
+}
+
+.submenu {
+    position: absolute;
+    visibility: hidden; 
+    -moz-transition: all .2s;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.submenu li {
+    margin-top: 17px;
+}
+.menu li:hover .submenu {
+    padding: 20px;
+    background-color: #222427;
+    visibility: visible;
+}
+
+.connexion {
+    margin-left: auto;
+    font-family: aoox;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #222427;
+}
+.connexion a {
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.connexion a:hover {
+    color: #222427;
+    background-color: ghostwhite;
+}
+
+.cobutton {
+    margin-left: auto;
+    font-family: nasa;
+}
+
+.cobutton a {
+    color: black;
+    font-weight: bold;
+}
+
+.cobutton a:hover {
+    color: #222427;
+    background-color: ghostwhite;
+    text-decoration: underline;
+}
+
+.logo {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 30px;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+}
+
+.links {
+    display: flex;
+    justify-content: space-around;
+    width: 45%;
+}
+
+.links a:hover {
+    color: #222427;
+    background-color: ghostwhite;
+
+}
+.links li {
+    list-style: none;
+}
+
+.links a {
+    color: white;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+.pop {
+    height: 90px;
+    width: 105px;
+}
+
+.title {
+    font-family: aoox;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: nasa;
+    font-size: 25px;
+    color: black;
+    text-align: center;
+    background-image: url("../images/fond3.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body a {
+    color: black;
+    text-decoration: none;
+}
+
+
+.text {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.top {
+    position: fixed;
+    width: 25px;
+    height: 25px;
+    bottom: 50px;
+    right: 30px;
+}
+
+.top img {
+    width: 33px;
+}
+
+footer {
+    padding-bottom: 20px;
+    margin-top: 20px;
+    color: white;
+    font-size: 15px;
+    background-color: #222427;
+    text-align: center;
+}
+
+.actualites {
+    background-color: #fff;
+    background-image:
+    linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+    linear-gradient(#eee .1em, transparent .1em);
+    background-size: 100% 1.2em;
+}
