@@ -550,6 +550,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 8184972497026359360}
   scoreBoard: {fileID: 7469208483943597839}
   crosshair: {fileID: 2984108657165032880}
+  maxMunitions: 10
 --- !u!114 &1863195092447118859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,6 +1081,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4242103549478655201}
     m_Modifications:
+    - target: {fileID: 27501964817031006, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1261322305057248908}
     - target: {fileID: 3023389419519533978, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
       propertyPath: m_Pivot.x

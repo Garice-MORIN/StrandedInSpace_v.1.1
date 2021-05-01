@@ -17,6 +17,7 @@ public class Health : NetworkBehaviour
     public bool destroyOnDeath;
 
     private NetworkStartPosition[] spawnPoints;
+    private bool doDrop;
 
     private void Start()
     {
@@ -38,9 +39,18 @@ public class Health : NetworkBehaviour
         }
         health -= damage;
 
-        if(health <= 0){
+        if(health <= 0)
+        {
+            doDrop = gameObject.tag == "Enemy" ? true : false;
             if(destroyOnDeath)
             {
+                if(doDrop)
+                {
+                    Vector3 position = gameObject.transform.position + new Vector3(0,0.5f,0);
+                    var orientation = Quaternion.Euler(0f, 0f, 0f);
+                    var toSpawn = (GameObject)Instantiate(Resources.Load("munitions") as GameObject, position, orientation);
+                    NetworkServer.Spawn(toSpawn);
+                }
                 Destroy(gameObject);
                 FindObjectOfType<EnemiesSpawner>().enemiesLeft--;
             }

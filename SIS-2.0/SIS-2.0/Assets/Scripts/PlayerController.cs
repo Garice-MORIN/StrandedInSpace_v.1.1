@@ -25,9 +25,11 @@ public class PlayerController : NetworkBehaviour
     public GameObject scoreBoard;
     private NetworkManager networkManager;
     public GameObject crosshair;
+    public int maxMunitions;
 
 
     float currentSpeed = 5f;
+    int nbMunitions;
     bool isGrounded;
     bool constructionMode = false;
     Vector3 velocity;
@@ -111,26 +113,26 @@ public class PlayerController : NetworkBehaviour
                 }
                 else
                 {
-                    shot.SetPosition(0, muzzle.position);
-                    CmdTryShoot(muzzle.position, Camera.main.transform.forward, gunRange);
-                    shot.enabled = true;
-                    shotDuration = 1;
+                    Debug.Log(nbMunitions);
+                    if(nbMunitions > 0)
+                    {
+                        shot.SetPosition(0, muzzle.position);
+                        CmdTryShoot(muzzle.position, Camera.main.transform.forward, gunRange);
+                        nbMunitions--;
+                        shot.enabled = true;
+                        shotDuration = 1;
+                    }
                 }
             }
 
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire2") && constructionMode)
             {
-                if (constructionMode)
-                {
-                    CmdDestroy();
-                }
-                else
-                {
-                    shot.SetPosition(0, muzzle.position);
-                    CmdTryShoot(muzzle.position, Camera.main.transform.forward, gunRange);
-                    shot.enabled = true;
-                    shotDuration = 1;
-                }
+                CmdDestroy();
+            }
+
+            if(Input.GetButtonDown("Reload"))
+            {
+                nbMunitions = maxMunitions;
             }
            /* if (Input.GetButtonDown("Fire1"))
             {
@@ -245,6 +247,8 @@ public class PlayerController : NetworkBehaviour
         shot.SetPositions(initShotPosition);
         shot.startWidth = shotWidth;
         shot.endWidth = shotWidth;
+        nbMunitions = maxMunitions;
+        Debug.Log(nbMunitions);
     }
 
     public GameObject getAimingObject()
