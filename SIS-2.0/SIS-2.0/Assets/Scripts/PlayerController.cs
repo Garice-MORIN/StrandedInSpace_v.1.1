@@ -26,6 +26,7 @@ public class PlayerController : NetworkBehaviour
     private NetworkManager networkManager;
     public GameObject crosshair;
     public int maxMunitions;
+    public int munitions = 0;
 
 
     float currentSpeed = 5f;

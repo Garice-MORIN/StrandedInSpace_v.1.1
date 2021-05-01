@@ -46,7 +46,7 @@ public class Health : NetworkBehaviour
             {
                 if(doDrop)
                 {
-                    Vector3 position = gameObject.transform.position + new Vector3(0,0.5f,0);
+                    Vector3 position = gameObject.transform.position + new Vector3(0,-0.5f,0);
                     var orientation = Quaternion.Euler(0f, 0f, 0f);
                     var toSpawn = (GameObject)Instantiate(Resources.Load("munitions") as GameObject, position, orientation);
                     NetworkServer.Spawn(toSpawn);
