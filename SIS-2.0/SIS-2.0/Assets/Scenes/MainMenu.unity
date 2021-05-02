@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -573,7 +573,6 @@ MonoBehaviour:
   anchor: {fileID: 0}
   sensitivitySlider: {fileID: 0}
   inverted: 1
-  variables: {fileID: 0}
   musicLevel: {fileID: 0}
   effectlevel: {fileID: 0}
   networkManager: {fileID: 0}
@@ -1999,7 +1998,7 @@ MonoBehaviour:
   - {fileID: 9000190440345884112, guid: e0fdc35a1e667454d967455d9fed5fa1, type: 3}
   - {fileID: 8913524930736230560, guid: f62f3cd8b5845b649847482303805b77, type: 3}
   - {fileID: 3472940866351633763, guid: 8135ea9ea6ad275479bec721dd4326a2, type: 3}
-  - {fileID: 9000190440345884112, guid: 4bce869f072693a4c8228e961dd4989c, type: 3}
+  - {fileID: 5308503868554301355, guid: 86ea8ea0b0fa9f34ab9a1256824ab8af, type: 3}
 --- !u!4 &550045063
 Transform:
   m_ObjectHideFlags: 0
@@ -5758,7 +5757,6 @@ MonoBehaviour:
   anchor: {fileID: 1647330469}
   sensitivitySlider: {fileID: 1964409433}
   inverted: 1
-  variables: {fileID: 11400000, guid: 7fd782f8c73b5784c9ad2f525d97120c, type: 2}
   musicLevel: {fileID: 1575771290}
   effectlevel: {fileID: 2046325093}
   networkManager: {fileID: 550045062}

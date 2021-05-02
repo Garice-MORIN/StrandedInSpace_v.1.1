@@ -31,7 +31,7 @@ public class EnemiesSpawner : NetworkBehaviour
     {
         if(Application.isPlaying)
         {
-            path = "StandAlone/Spawns.txt";
+            path = "D:/Projet S2 EPITA/StrandedInSpace_v.1.1/SIS-2.0/SIS-2.0/StandAlone/Spawns.txt";
         }
         else
         {

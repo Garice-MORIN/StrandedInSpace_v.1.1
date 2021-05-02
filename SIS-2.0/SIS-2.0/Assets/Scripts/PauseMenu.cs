@@ -79,6 +79,6 @@ public class PauseMenu : MonoBehaviour
     public void OnEffectValueChanged()
     {
         effectSource.volume = effectSlider.value;
-        PlayerPrefs.SetFloat("Music", audioSlider.value);
+        PlayerPrefs.SetFloat("Effects", audioSlider.value);
     }
 }

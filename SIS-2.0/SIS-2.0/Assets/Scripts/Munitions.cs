@@ -1,16 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Munitions : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    public Transform munitions;
+    public AudioSource audioSource;
+    private void OnTriggerEnter(Collider collider)
     {
-        if(other.tag != "Player")
+        if(collider.tag != "Player")
         {
             return;
         }
-        other.GetComponent<PlayerController>().munitions += Mathf.CeilToInt(Random.Range(5, 10));
+        collider.GetComponent<PlayerController>().munitions += Mathf.CeilToInt(Random.Range(5, 10));
+        collider.GetComponent<PlayerController>().gunSource.clip = collider.GetComponent<PlayerController>().soundArray[2];
+        collider.GetComponent<PlayerController>().gunSource.Play();
         Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        munitions.Rotate(0f, 0.5f, 0f);
     }
 }

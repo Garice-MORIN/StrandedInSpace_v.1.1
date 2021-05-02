@@ -7,6 +7,7 @@ public class PlayerController : NetworkBehaviour
     public Camera myCam;
     public AudioListener myAudioListener;
     public GameObject myCanvas;
+    public AudioSource gunSource;
     public LayerMask groundMask;
     public LayerMask rayMask;
     public Transform MeleeRangeCheck;
@@ -20,27 +21,30 @@ public class PlayerController : NetworkBehaviour
     public Transform playerBody;
     public Transform muzzle;
     public int gunDamage  = 10;
-    public LineRenderer shot;
     public GameObject pauseMenu;
     public GameObject scoreBoard;
     private NetworkManager networkManager;
     public GameObject crosshair;
-    public int maxMunitions;
-    public int munitions = 0;
+    public AudioClip[] soundArray;
+    public int maxMunitions; //Taille du chargeur de l'arme
+    public int munitions; //Munitions en réserve
 
 
     float currentSpeed = 5f;
-    int nbMunitions;
+    int nbMunitions; //Nombre de munitions dans le chargeur
     bool isGrounded;
     bool constructionMode = false;
     Vector3 velocity;
     float gravity = -19.62f;
     float jumpHeight = 2f;
-    float shotWidth = 0.1f;
-    float shotDuration = 1f;
 
     private void Start()
     {
+        soundArray = new AudioClip[] {
+            Resources.Load("EmptyGun") as AudioClip,
+            Resources.Load("GunFire") as AudioClip,
+            Resources.Load("Pick up") as AudioClip
+        };
         pauseMenu.SetActive(false);
         scoreBoard.SetActive(false);
         crosshair.SetActive(true);
@@ -114,14 +118,15 @@ public class PlayerController : NetworkBehaviour
                 }
                 else
                 {
-                    Debug.Log(nbMunitions);
                     if(nbMunitions > 0)
                     {
-                        shot.SetPosition(0, muzzle.position);
-                        CmdTryShoot(muzzle.position, Camera.main.transform.forward, gunRange);
+                        CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
                         nbMunitions--;
-                        shot.enabled = true;
-                        shotDuration = 1;
+                    }
+                    else
+                    {
+                        gunSource.clip = soundArray[0];
+                        gunSource.Play();
                     }
                 }
             }
@@ -133,18 +138,10 @@ public class PlayerController : NetworkBehaviour
 
             if(Input.GetButtonDown("Reload"))
             {
-                nbMunitions = maxMunitions;
+                nbMunitions = munitions > maxMunitions ? maxMunitions : munitions;
+                munitions -= nbMunitions;
             }
-           /* if (Input.GetButtonDown("Fire1"))
-            {
-                shot.SetPosition(0, muzzle.position);
-                CmdTryShoot(muzzle.position,Camera.main.transform.forward, gunRange); //Appel du serveur pour faire apparaitre Raycat + LineRenderer
-                shot.enabled = true;
-                shotDuration = 1;
-                //CmdFire();
-            }*/
-            shotDuration = shotDuration > 0f ? shotDuration - Time.deltaTime : 0f; //Efface le LineRenderer au bout d'une seconde 
-            shot.enabled = !(shotDuration == 0f);
+           
 
         }
     }
@@ -184,24 +181,27 @@ public class PlayerController : NetworkBehaviour
     [Command]
     void CmdTryShoot(Vector3 origin, Vector3 direction, float range)
     {
-        // Création d'un raycast et d'un LineRenderer simultanément
+        // Création d'un raycast 
         if (!gunParticle.isPlaying)
         {
             RpcStartParticles();
         }
+        if(gunSource.isPlaying)
+        {
+            gunSource.Stop();
+        }
+        gunSource.volume = PlayerPrefs.GetFloat("Effects");
+        gunSource.clip = soundArray[1];
+        gunSource.Play();
         Ray ray = new Ray(origin, direction);
-        Vector3 endPosition = origin + (range * direction);
         RaycastHit hit;
         if (Physics.Raycast(ray,out hit,range,rayMask))
         {
-            endPosition = hit.point;
             if(hit.collider.tag == "Enemy")
             {
-                hit.collider.GetComponent<Health>().TakeDamage(20);
+                hit.collider.GetComponent<Health>().TakeDamage(gunDamage);
             }
         }
-        
-        shot.SetPosition(1, endPosition);
     }
 
     [Command]
@@ -244,12 +244,10 @@ public class PlayerController : NetworkBehaviour
             myCam.enabled = true;
             myAudioListener.enabled = true;
         }
-        Vector3[] initShotPosition = new Vector3[2] { Vector3.zero, Vector3.zero };
-        shot.SetPositions(initShotPosition);
-        shot.startWidth = shotWidth;
-        shot.endWidth = shotWidth;
+        gunSource.volume = PlayerPrefs.GetFloat("Effects");
         nbMunitions = maxMunitions;
-        Debug.Log(nbMunitions);
+        munitions = 20;
+        Debug.Log(munitions);
     }
 
     public GameObject getAimingObject()
