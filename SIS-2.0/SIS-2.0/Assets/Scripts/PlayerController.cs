@@ -29,11 +29,13 @@ public class PlayerController : NetworkBehaviour
     public AudioClip[] soundArray;
     public Animator animator;
     public GameObject holster;
+    public GameObject weapon;
     public int maxMunitions; //Taille du chargeur de l'arme
     public int munitions; //Munitions en réserve
 
 
     float currentSpeed = 5f;
+    float reloadTime;
     int nbMunitions; //Nombre de munitions dans le chargeur
     int indexWeapon = 0;
     bool isGrounded;
@@ -55,6 +57,9 @@ public class PlayerController : NetworkBehaviour
         scoreBoard.SetActive(false);
         crosshair.SetActive(true);
         networkManager = NetworkManager.singleton;
+        weapon = holster.GetComponent<WeaponSwitching>().SelectWeapon(0);
+        munitions = 10;
+        reloadTime = 1f;
     }
 
     void Update()
@@ -162,10 +167,37 @@ public class PlayerController : NetworkBehaviour
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
-                holster.GetComponent<WeaponSwitching>().SelectWeapon(indexWeapon);
+                weapon = holster.GetComponent<WeaponSwitching>().SelectWeapon(indexWeapon);
+                ChangeWeaponStats();
+                animator = weapon.GetComponent<WeaponCharacteristics>().animator;
             }
            
 
+        }
+    }
+
+    public void ChangeWeaponStats()
+    {
+        gunDamage = weapon.GetComponent<WeaponCharacteristics>().damage;
+        reloadTime = weapon.GetComponent<WeaponCharacteristics>().reloadSpeed;
+        maxMunitions = weapon.GetComponent<WeaponCharacteristics>().munitions;
+        if(nbMunitions >= maxMunitions)
+        {
+            nbMunitions -= maxMunitions;
+            munitions += nbMunitions - maxMunitions;
+        }
+        else
+        {
+            if(munitions >= maxMunitions - nbMunitions)
+            {
+                nbMunitions = maxMunitions;
+                munitions -= maxMunitions - nbMunitions;
+            }
+            else
+            {
+                nbMunitions += munitions;
+                munitions = 0;
+            }
         }
     }
 
@@ -198,6 +230,8 @@ public class PlayerController : NetworkBehaviour
             currentSpeed = 5f;
         }
     }
+
+
 
     IEnumerator Reload()
     {
@@ -323,4 +357,10 @@ public class PlayerController : NetworkBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+}
+
+enum WeaponTypes
+{
+    Pistol,
+    AssaultRifle
 }

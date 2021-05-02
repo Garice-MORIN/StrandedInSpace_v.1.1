@@ -13,30 +13,16 @@ public class EnemiesSpawner : NetworkBehaviour
     public int enemiesLeft = 0;
 
     GameObject[] allSpawnPoints;
-    string path;
+    string filename = "Spawns.txt";
     Queue<string> queue = new Queue<string>();
 
     public override void OnStartServer()
     {
-        ChoosePath();
         CreateSpawnList();
 
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         LoadEnemies();
         
-    }
-
-    //Locate spawn file
-    public void ChoosePath()
-    {
-        if(Application.isPlaying)
-        {
-            path = "D:/Projet S2 EPITA/StrandedInSpace_v.1.1/SIS-2.0/SIS-2.0/StandAlone/Spawns.txt";
-        }
-        else
-        {
-            path = "Assets/Scripts/Spawns.txt";
-        }
     }
 
     //Spawn next wave if there is at least one left
@@ -78,7 +64,7 @@ public class EnemiesSpawner : NetworkBehaviour
 
     void CreateSpawnList()
     {
-        StreamReader sr = new StreamReader(path);
+        StreamReader sr = new StreamReader(Application.dataPath + '/' + filename);
         string s;
         while ((s = sr.ReadLine()) != null)
         {

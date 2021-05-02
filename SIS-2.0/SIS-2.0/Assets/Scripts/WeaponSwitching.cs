@@ -4,15 +4,16 @@ public class WeaponSwitching : MonoBehaviour
 { 
     // Start is called before the first frame update
     
-    public void SelectWeapon(int index)
+    public GameObject SelectWeapon(int index)
     {
         int i = 0;
-
+        GameObject returned = null;
         foreach(Transform weapon in transform)
         {
             if(i == index)
             {
                 weapon.gameObject.SetActive(true);
+                returned = weapon.gameObject;
             }
             else
             {
@@ -20,5 +21,6 @@ public class WeaponSwitching : MonoBehaviour
             }
             i++;
         }
+        return returned;
     }
 }
