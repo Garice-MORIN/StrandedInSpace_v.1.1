@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 
@@ -26,14 +27,18 @@ public class PlayerController : NetworkBehaviour
     private NetworkManager networkManager;
     public GameObject crosshair;
     public AudioClip[] soundArray;
+    public Animator animator;
+    public GameObject holster;
     public int maxMunitions; //Taille du chargeur de l'arme
     public int munitions; //Munitions en réserve
 
 
     float currentSpeed = 5f;
     int nbMunitions; //Nombre de munitions dans le chargeur
+    int indexWeapon = 0;
     bool isGrounded;
     bool constructionMode = false;
+    bool isReloading;
     Vector3 velocity;
     float gravity = -19.62f;
     float jumpHeight = 2f;
@@ -43,7 +48,8 @@ public class PlayerController : NetworkBehaviour
         soundArray = new AudioClip[] {
             Resources.Load("EmptyGun") as AudioClip,
             Resources.Load("GunFire") as AudioClip,
-            Resources.Load("Pick up") as AudioClip
+            Resources.Load("Pick up") as AudioClip,
+            Resources.Load("Reload") as AudioClip
         };
         pauseMenu.SetActive(false);
         scoreBoard.SetActive(false);
@@ -118,16 +124,24 @@ public class PlayerController : NetworkBehaviour
                 }
                 else
                 {
-                    if(nbMunitions > 0)
+                    if(!isReloading)
                     {
-                        CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
-                        nbMunitions--;
+                        if (nbMunitions > 0)
+                        {
+                            CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
+                            nbMunitions--;
+                        }
+                        else
+                        {
+                            gunSource.clip = soundArray[0];
+                            gunSource.Play();
+                        }
                     }
                     else
                     {
-                        gunSource.clip = soundArray[0];
-                        gunSource.Play();
+                        return;
                     }
+
                 }
             }
 
@@ -138,8 +152,17 @@ public class PlayerController : NetworkBehaviour
 
             if(Input.GetButtonDown("Reload"))
             {
-                nbMunitions = munitions > maxMunitions ? maxMunitions : munitions;
-                munitions -= nbMunitions;
+                if(munitions > 0 && nbMunitions < maxMunitions)
+                {
+                    StartCoroutine(Reload());
+                    return;
+                }
+            }
+
+            if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
+                indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
+                holster.GetComponent<WeaponSwitching>().SelectWeapon(indexWeapon);
             }
            
 
@@ -174,6 +197,21 @@ public class PlayerController : NetworkBehaviour
         {
             currentSpeed = 5f;
         }
+    }
+
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        animator.SetBool("isReloading", true);
+        gunSource.clip = soundArray[3];
+        gunSource.Play();
+
+        yield return new WaitForSeconds(1f);
+
+        nbMunitions = munitions > maxMunitions ? maxMunitions : munitions;
+        munitions -= nbMunitions;
+        animator.SetBool("isReloading", false);
+        isReloading = false;
     }
 
     // Client --> Server
@@ -247,6 +285,7 @@ public class PlayerController : NetworkBehaviour
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
         nbMunitions = maxMunitions;
         munitions = 20;
+        isReloading = false;
         Debug.Log(munitions);
     }
 

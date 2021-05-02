@@ -10,7 +10,7 @@ public class Munitions : MonoBehaviour
         {
             return;
         }
-        collider.GetComponent<PlayerController>().munitions += Mathf.CeilToInt(Random.Range(5, 10));
+        collider.GetComponent<PlayerController>().munitions += Mathf.CeilToInt(Random.Range(50, 100));
         collider.GetComponent<PlayerController>().gunSource.clip = collider.GetComponent<PlayerController>().soundArray[2];
         collider.GetComponent<PlayerController>().gunSource.Play();
         Destroy(gameObject);
