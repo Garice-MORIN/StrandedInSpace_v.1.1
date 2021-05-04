@@ -30,17 +30,26 @@ public class PlayerController : NetworkBehaviour
     public Animator animator;
     public GameObject holster;
     public GameObject weapon;
+    public GameObject[] holsterArray;
+    public Transform holsterTransform;
     public int maxMunitions; //Taille du chargeur de l'arme
     public int munitions; //Munitions en réserve
+
+    public NetworkAnimator networkAnimator;
+
+    [SyncVar(hook = "OnWeaponChanged")]
+    public int activeWeapon = 0;
 
 
     float currentSpeed = 5f;
     float reloadTime;
+    float fireRate;
     int nbMunitions; //Nombre de munitions dans le chargeur
     int indexWeapon = 0;
     bool isGrounded;
     bool constructionMode = false;
     bool isReloading;
+    bool canShoot;
     Vector3 velocity;
     float gravity = -19.62f;
     float jumpHeight = 2f;
@@ -60,6 +69,8 @@ public class PlayerController : NetworkBehaviour
         weapon = holster.GetComponent<WeaponSwitching>().SelectWeapon(0);
         munitions = 10;
         reloadTime = 1f;
+        fireRate = 0.5f;
+        canShoot = true;
     }
 
     void Update()
@@ -121,6 +132,7 @@ public class PlayerController : NetworkBehaviour
             /*_______________________________PEW PEW_____________________________*/
 
             //Fire command
+
             if (Input.GetButtonDown("Fire1"))
             {
                 if (constructionMode)
@@ -131,15 +143,22 @@ public class PlayerController : NetworkBehaviour
                 {
                     if(!isReloading)
                     {
-                        if (nbMunitions > 0)
+                        if (nbMunitions > 0 && canShoot)
                         {
-                            CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
+                            StartCoroutine(Shoot());
                             nbMunitions--;
                         }
                         else
                         {
-                            gunSource.clip = soundArray[0];
-                            gunSource.Play();
+                            if (nbMunitions <= 0 && canShoot)
+                            {
+                                gunSource.clip = soundArray[0];
+                                gunSource.Play();
+                            }
+                            else
+                            {
+                                return;
+                            }
                         }
                     }
                     else
@@ -167,21 +186,43 @@ public class PlayerController : NetworkBehaviour
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
-                weapon = holster.GetComponent<WeaponSwitching>().SelectWeapon(indexWeapon);
-                ChangeWeaponStats();
-                animator = weapon.GetComponent<WeaponCharacteristics>().animator;
+                CmdChangeActiveWeapon(indexWeapon);
+                ChangeWeaponStats(indexWeapon);
+                Debug.Log(indexWeapon + "    " + activeWeapon);
             }
            
 
         }
     }
 
-    public void ChangeWeaponStats()
+    public void OnWeaponChanged(int _old, int _new)
     {
+        if(_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
+        {
+            holsterArray[_old].SetActive(false);
+        }
+        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null)
+        {
+            holsterArray[_new].SetActive(true);
+        }
+    }
+
+    [Command]
+    public void CmdChangeActiveWeapon(int newIndex)
+    {
+        activeWeapon = newIndex;
+    }
+
+    public void ChangeWeaponStats(int index)
+    {
+        var weapon = holsterArray[index];
         gunDamage = weapon.GetComponent<WeaponCharacteristics>().damage;
         reloadTime = weapon.GetComponent<WeaponCharacteristics>().reloadSpeed;
         maxMunitions = weapon.GetComponent<WeaponCharacteristics>().munitions;
-        if(nbMunitions >= maxMunitions)
+        fireRate = weapon.GetComponent<WeaponCharacteristics>().fireRate;
+        animator = weapon.GetComponent<WeaponCharacteristics>().animator;
+        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
+        if (nbMunitions >= maxMunitions)
         {
             nbMunitions -= maxMunitions;
             munitions += nbMunitions - maxMunitions;
@@ -240,7 +281,7 @@ public class PlayerController : NetworkBehaviour
         gunSource.clip = soundArray[3];
         gunSource.Play();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(reloadTime);
 
         nbMunitions = munitions > maxMunitions ? maxMunitions : munitions;
         munitions -= nbMunitions;
@@ -248,6 +289,15 @@ public class PlayerController : NetworkBehaviour
         isReloading = false;
     }
 
+    IEnumerator Shoot()
+    {
+        canShoot = false;
+        CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
+
+        yield return new WaitForSecondsRealtime(fireRate);
+
+        canShoot = true;
+    }
     // Client --> Server
 
     [Command]
@@ -320,7 +370,10 @@ public class PlayerController : NetworkBehaviour
         nbMunitions = maxMunitions;
         munitions = 20;
         isReloading = false;
-        Debug.Log(munitions);
+        var weapon = holsterArray[0];
+        holsterArray[0].SetActive(true);
+        holsterArray[1].SetActive(false);
+        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
     }
 
     public GameObject getAimingObject()
