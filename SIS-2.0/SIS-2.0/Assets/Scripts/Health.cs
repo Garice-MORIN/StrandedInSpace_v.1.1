@@ -6,10 +6,10 @@ using Mirror;
 
 public class Health : NetworkBehaviour
 {
-    public int maxHP;// = 100;
+    public int maxHP;
 
     [SyncVar(hook = "OnChangeHealth")]
-    public int health;// = maxHP; 
+    public int health;
 
     public RectTransform HPBar;
     public RectTransform background;
@@ -26,11 +26,13 @@ public class Health : NetworkBehaviour
         {
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
         }
+        //Initialize health bars
         background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
         HPBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
         HPBar.localPosition = new Vector3(maxHP/2, 0, 0);
     }
 
+    //Give damage to entity
     public void TakeDamage(int damage)
     {   
         if(!isServer)
@@ -41,11 +43,13 @@ public class Health : NetworkBehaviour
 
         if(health <= 0)
         {
-            doDrop = gameObject.tag == "Enemy" ? true : false;
+            doDrop = gameObject.tag == "Enemy" ? true : false; //Check if entity drop ammunation on death
+            //TODO: Add a probability to drop ammunations
             if(destroyOnDeath)
             {
                 if(doDrop)
                 {
+                    //Spawn ammo crate
                     Vector3 position = gameObject.transform.position + new Vector3(0,-0.5f,0);
                     var orientation = Quaternion.Euler(0f, 0f, 0f);
                     var toSpawn = (GameObject)Instantiate(Resources.Load("munitions") as GameObject, position, orientation);
@@ -63,8 +67,8 @@ public class Health : NetworkBehaviour
 
     }
     
+    //Respawn player
     [ClientRpc]
-
     public void RpcRespawn()
     {
         if(isLocalPlayer)
@@ -78,9 +82,9 @@ public class Health : NetworkBehaviour
         }
     }
 
+    //Update health bar when damage is received
     public void OnChangeHealth(int oldHealth, int newHealth)
     {
-        HPBar.sizeDelta = new Vector2(newHealth, HPBar.sizeDelta.y);  //Actualise la taille de la barre de vie 
+        HPBar.sizeDelta = new Vector2(newHealth, HPBar.sizeDelta.y);
     }
-
 }

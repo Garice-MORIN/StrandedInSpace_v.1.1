@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//DEPRECATED
+
 public class WeaponSwitching : MonoBehaviour
 { 
     // Start is called before the first frame update

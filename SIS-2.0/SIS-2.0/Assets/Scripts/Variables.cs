@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//DEPRECATED
+
 [CreateAssetMenu(menuName = "Variables")]
 public class Variables : ScriptableObject
 {

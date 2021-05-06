@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+/* Class used to give weapons their charachteristics */
+
 public class WeaponCharacteristics : MonoBehaviour
 {
     public Animator animator;

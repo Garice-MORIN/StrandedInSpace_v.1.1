@@ -13,8 +13,8 @@ public class CameraBis : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;    //Lock le curseur au milieu de l'écran au moment de la connexion
-        inverted = PlayerPrefs.GetInt("Inverted");
+        Cursor.lockState = CursorLockMode.Locked;    //Lock cursor in the center of the screen on connection
+        inverted = PlayerPrefs.GetInt("Inverted"); 
         sensitivity = PlayerPrefs.GetFloat("Sensi");
     }
 
@@ -24,9 +24,9 @@ public class CameraBis : MonoBehaviour
         float horRotate = Input.GetAxis("Mouse Y") * sensitivity * inverted * Time.deltaTime;
 
         xRotation -= horRotate;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); //Bloque la rotation à 90° vers le bas et le haut
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f); //Lock up and down rotation to 90° in each direction
 
-        playerBody.Rotate(0f, vertRotate * inverted, 0f); //Tourne la capsule
-        transform.localRotation = Quaternion.Euler(xRotation,0f,0f);  //Tourne la caméra 
+        playerBody.Rotate(0f, vertRotate * inverted, 0f); //Rotate capsule
+        transform.localRotation = Quaternion.Euler(xRotation,0f,0f);  //Rotate camera 
     }
 }

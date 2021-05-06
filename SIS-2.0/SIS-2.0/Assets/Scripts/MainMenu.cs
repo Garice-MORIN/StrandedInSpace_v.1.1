@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
         effectSlider.value = 0.5f;
         musicLevel.text = "50 %";
         effectlevel.text = "50 %";
+        //Sets default parameters
         PlayerPrefs.SetFloat("Music", 0.5f);
         PlayerPrefs.SetFloat("Effects", 0.5f);
         PlayerPrefs.SetInt("Inverted", 1);
@@ -29,28 +30,33 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    //Quit button behaviour
     public void OnExitButton()
     {
         Application.Quit();
     }
 
+    //Start button behaviour
     public void OnStartButton()
     {
         networkManager.onlineScene = "FinalMap";
         SceneManager.LoadScene("FinalMap");
     }
 
+    //test map button behaviour
     public void TestMapButton()
     {
         networkManager.onlineScene = "TestMap";
         SceneManager.LoadScene("TestMap");
     }
 
+    //Credit button behaviour
     public void MenuToCredits()
     {
         SceneManager.LoadScene("Credits");
     }
 
+    //Volume slider behaviour
     public void OnVolumeValueChanged()
     {
         audioSource.volume = volumeSlider.value;
@@ -58,6 +64,7 @@ public class MainMenu : MonoBehaviour
         musicLevel.text = Mathf.FloorToInt(volumeSlider.value * 100) + " %";
     }
 
+    //Effect slider behaviour
     public void OnEffectValueChanged()
     {
         effectSource.volume = effectSlider.value;
@@ -65,13 +72,14 @@ public class MainMenu : MonoBehaviour
         effectlevel.text = Mathf.FloorToInt(effectSlider.value * 100) + " %";
     }
 
-    public void OnToggleChanged() //Coefficient qui permet d'inverser la souris
+    //Inverted mouse toggle behaviour
+    public void OnToggleChanged()
     {
         inverted = inverted == 1 ? -1 : 1;
         PlayerPrefs.SetInt("Inverted", inverted);
     }
 
-
+    //Sensitivity slider behaviour
     public void OnSensitivityChanged()
     {
         PlayerPrefs.SetFloat("Sensi", sensitivitySlider.value);

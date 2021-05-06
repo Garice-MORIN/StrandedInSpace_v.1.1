@@ -5,71 +5,76 @@ using Mirror;
 
 public class PlayerController : NetworkBehaviour
 {
-    public Camera myCam;
-    public AudioListener myAudioListener;
-    public GameObject myCanvas;
-    public AudioSource gunSource;
-    public LayerMask groundMask;
-    public LayerMask rayMask;
-    public Transform MeleeRangeCheck;
-    public float gunRange = 500f;
-    public GameObject towerPrefab;
-    public GameObject bulletPrefab;
-    public Transform bulletSpawn;
-    public ParticleSystem gunParticle;
+    //Player related variables
     public CharacterController controller;
     public Transform groundCheck;
     public Transform playerBody;
-    public Transform muzzle;
-    public int gunDamage  = 10;
+    public LayerMask groundMask;
+    public GameObject towerPrefab;
+    public Camera myCam;
+    public AudioListener myAudioListener;
+
+    bool isGrounded;
+    Vector3 velocity;
+    float gravity = -19.62f;
+    float jumpHeight = 2f;
+    
+
+    //Interface & Sound related variables
+    public GameObject myCanvas;
+    public AudioSource gunSource;
     public GameObject pauseMenu;
     public GameObject scoreBoard;
     private NetworkManager networkManager;
     public GameObject crosshair;
-    public AudioClip[] soundArray;
-    public Animator animator;
-    public GameObject holster;
+    public AudioClip[] soundArray;   //All sounds we can invoke in the game
+    
+
+    //Gun related variables
+    public Animator animator; //Reload animation currently used (depend on weapon)
     public GameObject weapon;
     public GameObject[] holsterArray;
-    public Transform holsterTransform;
-    public int maxMunitions; //Taille du chargeur de l'arme
-    public int munitions; //Munitions en réserve
-
+    public ParticleSystem gunParticle;
+    public LayerMask rayMask; //Layer the raycat registers when shooting a gun
+    public int maxMunitions; //Weapon's ammuntions clip's size
+    public int munitions; //Ammunition the player currently has
+    public float gunRange;
+    public Transform muzzle;
     public NetworkAnimator networkAnimator;
 
     [SyncVar(hook = "OnWeaponChanged")]
     public int activeWeapon = 0;
 
-
-    float currentSpeed = 5f;
-    float reloadTime;
-    float fireRate;
-    int nbMunitions; //Nombre de munitions dans le chargeur
-    int indexWeapon = 0;
-    bool isGrounded;
-    bool constructionMode = false;
+    bool constructionMode;
     bool isReloading;
     bool canShoot;
-    Vector3 velocity;
-    float gravity = -19.62f;
-    float jumpHeight = 2f;
+    float currentSpeed;
+    float reloadTime;
+    float fireRate;
+    int gunDamage;
+    int nbMunitions; //Ammunitions currently in the gun chamber
+    int indexWeapon;
+    
 
     private void Start()
     {
+        //Initialize all variables
         soundArray = new AudioClip[] {
             Resources.Load("EmptyGun") as AudioClip,
             Resources.Load("GunFire") as AudioClip,
             Resources.Load("Pick up") as AudioClip,
             Resources.Load("Reload") as AudioClip
         };
+        constructionMode = false;
+        currentSpeed = 5f;
         pauseMenu.SetActive(false);
         scoreBoard.SetActive(false);
         crosshair.SetActive(true);
         networkManager = NetworkManager.singleton;
-        weapon = holster.GetComponent<WeaponSwitching>().SelectWeapon(0);
+        weapon = holsterArray[0];
         munitions = 10;
-        reloadTime = 1f;
-        fireRate = 0.5f;
+        ChangeWeaponStats(0);
+        indexWeapon = 0;
         canShoot = true;
     }
 
@@ -92,11 +97,12 @@ public class PlayerController : NetworkBehaviour
         {
             ChangeCursorLockState();
         }
+        //Change ShootMode into ConstructionMode and vice-versa
         if (Input.GetButtonDown("TCM"))
         {
             constructionMode = !constructionMode;
         }
-
+        //Following instructions executed only if the player isn't in a menu
         if (Cursor.lockState == CursorLockMode.Locked)
         {
 
@@ -116,7 +122,7 @@ public class PlayerController : NetworkBehaviour
                 ChangeSpeed();
             }
 
-            //Reset gravity 
+            //Reset gravity to keep constant velocity
             if (isGrounded && velocity.y < 0)
             {
                 velocity.y = -2f;
@@ -137,7 +143,7 @@ public class PlayerController : NetworkBehaviour
             {
                 if (constructionMode)
                 {
-                    CmdBuild();
+                    CmdBuild(); //Build or upgrade a turret/trap
                 }
                 else
                 {
@@ -173,10 +179,10 @@ public class PlayerController : NetworkBehaviour
             {
                 CmdDestroy();
             }
-
+            
             if(Input.GetButtonDown("Reload"))
             {
-                if(munitions > 0 && nbMunitions < maxMunitions)
+                if(munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
                 {
                     StartCoroutine(Reload());
                     return;
@@ -185,17 +191,18 @@ public class PlayerController : NetworkBehaviour
 
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
+                //If user scroll up, change equipped weapon
                 indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
-                CmdChangeActiveWeapon(indexWeapon);
+                CmdChangeActiveWeapon(indexWeapon); 
                 ChangeWeaponStats(indexWeapon);
-                Debug.Log(indexWeapon + "    " + activeWeapon);
             }
            
 
         }
     }
 
-    public void OnWeaponChanged(int _old, int _new)
+    //Activate new equipped weapon and deactivate the previous one
+    public void OnWeaponChanged(int _old, int _new) 
     {
         if(_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
         {
@@ -207,12 +214,14 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    //Synchronize new weapon on server
     [Command]
     public void CmdChangeActiveWeapon(int newIndex)
     {
         activeWeapon = newIndex;
     }
 
+    //Update weapon characteristics to those of the new weapon
     public void ChangeWeaponStats(int index)
     {
         var weapon = holsterArray[index];
@@ -248,7 +257,7 @@ public class PlayerController : NetworkBehaviour
         if (Cursor.lockState == CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;   //Masque la souris quand le curseur est vérouillé
+            Cursor.visible = false;   //Masque la souris quand le curseur est vérouillé (Not working because of a Unity bug)
         }
         else
         {
@@ -272,8 +281,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-
-
+    //Reloading function
     IEnumerator Reload()
     {
         isReloading = true;
@@ -284,7 +292,7 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(reloadTime);
 
         nbMunitions = munitions > maxMunitions ? maxMunitions : munitions;
-        munitions -= nbMunitions;
+        munitions -= nbMunitions; //TODO: fix error
         animator.SetBool("isReloading", false);
         isReloading = false;
     }
@@ -298,8 +306,9 @@ public class PlayerController : NetworkBehaviour
 
         canShoot = true;
     }
-    // Client --> Server
 
+    // Client --> Server
+    //Try shooting a ray between gun muzzle and a point in front of the camera
     [Command]
     void CmdTryShoot(Vector3 origin, Vector3 direction, float range)
     {
@@ -326,6 +335,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    //Build a turret/trap
     [Command]
     void CmdBuild()
     {
@@ -336,6 +346,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    //Destroy a turret/trap
     [Command]
     void CmdDestroy()
     {
@@ -347,8 +358,8 @@ public class PlayerController : NetworkBehaviour
     }
 
     //Server --> Client
-    [ClientRpc]
     //Both next functions : Start playing gun particles
+    [ClientRpc]
     public void RpcStartParticles(){
         StartParticles();
     }
@@ -376,6 +387,7 @@ public class PlayerController : NetworkBehaviour
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
     }
 
+    //Get the point where player is looking at
     public GameObject getAimingObject()
     {
         Ray ray = new Ray(myCam.transform.position, myCam.transform.forward);
@@ -390,13 +402,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    public void OnClickButton()
-    {   
-        
-        SceneManager.LoadScene("MainMenu");
-        
-    }
-
+    //Bring back player to main menu
     public void OnMainMenu()
     {
         if (isClientOnly)
@@ -412,8 +418,3 @@ public class PlayerController : NetworkBehaviour
 
 }
 
-enum WeaponTypes
-{
-    Pistol,
-    AssaultRifle
-}

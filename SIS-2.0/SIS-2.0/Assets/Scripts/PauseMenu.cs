@@ -16,19 +16,6 @@ public class PauseMenu : MonoBehaviour
     public Slider effectSlider;
 
 
-    void Start()
-    { 
-        
-    }
-
-    public void _Debug()
-    {
-        Debug.Log("Hello");
-    }
-
-    //Revenir menu principal
-    
-
     //Ouvrir Settings
     public void OnSettingsMenu()
     {

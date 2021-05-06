@@ -49,22 +49,22 @@ public class EnemiesSpawner : NetworkBehaviour
 
         foreach (var enemy in queue.Dequeue().Split(','))
         {
-            enemyPrefab = Resources.Load(enemy) as GameObject;     //Charge le modèle correspondant au type d'ennemi
+            enemyPrefab = Resources.Load(enemy) as GameObject;     //Load corresponding enemy model
             
             var position = allSpawnPoints[i].transform.position;
             var orientation = Quaternion.Euler(0f, (float)UnityEngine.Random.Range(0, 360), 0f);
             var toSpawn = (GameObject)Instantiate(enemyPrefab, position, orientation);
 
             NetworkServer.Spawn(toSpawn);
-            i = (i+1)%4;
+            i = (i+1)%4; //Enable rotation of spawn point
             enemiesLeft++;
         }
-        //enemiesLeft = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
+    //Get all waves from a .txt file
     void CreateSpawnList()
     {
-        StreamReader sr = new StreamReader(Application.dataPath + '/' + filename);
+        StreamReader sr = new StreamReader(Application.dataPath + '/' + filename); //TODO: fix monsters not spawning
         string s;
         while ((s = sr.ReadLine()) != null)
         {
@@ -73,7 +73,7 @@ public class EnemiesSpawner : NetworkBehaviour
         sr.Close();
     }
 
-
+    //Update number of ennemies left on the map when one is killed
     void OnChangeEnemiesLeft(int oldEnemiesleft, int newEnemiesLeft)
     {
         if(newEnemiesLeft != 0)

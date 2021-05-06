@@ -4,6 +4,8 @@ public class Munitions : MonoBehaviour
 {
     public Transform munitions;
     public AudioSource audioSource;
+
+    //Pick up function
     private void OnTriggerEnter(Collider collider)
     {
         if(collider.tag != "Player")

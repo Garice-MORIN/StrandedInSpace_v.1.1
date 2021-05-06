@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 
+//DEPRECATED
+
 public class Music : MonoBehaviour
 {
     public AudioSource musicSource;
