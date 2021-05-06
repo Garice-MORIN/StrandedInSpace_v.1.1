@@ -23,6 +23,8 @@ public class PlayerController : NetworkBehaviour
     public Transform muzzle;
     public int gunDamage  = 10;
     public GameObject pauseMenu;
+    public GameObject settingsMenu;
+    public GameObject commandsMenu;
     public GameObject scoreBoard;
     private NetworkManager networkManager;
     public GameObject crosshair;
@@ -63,8 +65,10 @@ public class PlayerController : NetworkBehaviour
             Resources.Load("Reload") as AudioClip
         };
         pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        commandsMenu.SetActive(false);
         scoreBoard.SetActive(false);
-        crosshair.SetActive(true);
+        //crosshair.SetActive(true);
         networkManager = NetworkManager.singleton;
         weapon = holster.GetComponent<WeaponSwitching>().SelectWeapon(0);
         munitions = 10;
@@ -88,7 +92,7 @@ public class PlayerController : NetworkBehaviour
         controller.Move(velocity * Time.deltaTime);
         
         //Change the state of the cursor
-        if (Input.GetButtonDown("Cursor"))
+        if (Input.GetButtonDown("Cursor") && !pauseMenu.activeSelf && !settingsMenu.activeSelf && !commandsMenu.activeSelf)
         {
             ChangeCursorLockState();
         }
@@ -190,7 +194,13 @@ public class PlayerController : NetworkBehaviour
                 ChangeWeaponStats(indexWeapon);
                 Debug.Log(indexWeapon + "    " + activeWeapon);
             }
-           
+
+            /*____________________________SCOREBOARD_____________________________*/
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                scoreBoard.SetActive(!scoreBoard.activeSelf);
+            }
 
         }
     }
@@ -205,6 +215,11 @@ public class PlayerController : NetworkBehaviour
         {
             holsterArray[_new].SetActive(true);
         }
+    }
+
+    public NetworkManager GetNetworkManager()
+    {
+        return networkManager;
     }
 
     [Command]
@@ -256,7 +271,7 @@ public class PlayerController : NetworkBehaviour
             Cursor.visible = true;
         }
         pauseMenu.SetActive(!pauseMenu.activeSelf);
-        crosshair.SetActive(!crosshair.activeSelf);
+        //crosshair.SetActive(!crosshair.activeSelf);
     }
 
     //Change movement speed

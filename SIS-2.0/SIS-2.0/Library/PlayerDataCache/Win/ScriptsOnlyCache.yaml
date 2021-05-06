@@ -17,7 +17,6 @@ ScriptsOnlyBuild:
     - WeaponCharacteristics
     - WeaponSwitching
     Mirror.Components.dll:
-    - Mirror.NetworkAnimator
     - Mirror.NetworkTransform
     - Mirror.NetworkTransformChild
     Mirror.dll:
@@ -31,10 +30,9 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -79,21 +77,21 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11358}
+      Script: {instanceID: 11412}
     - Class: 114
-      Script: {instanceID: 11360}
+      Script: {instanceID: 11414}
     - Class: 114
-      Script: {instanceID: 11386}
+      Script: {instanceID: 11446}
     - Class: 114
-      Script: {instanceID: 12196}
+      Script: {instanceID: 12318}
     - Class: 114
-      Script: {instanceID: 12724}
+      Script: {instanceID: 12890}
     - Class: 114
-      Script: {instanceID: 13104}
+      Script: {instanceID: 13294}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 14154}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -142,29 +140,29 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11358}
+      Script: {instanceID: 11412}
     - Class: 114
-      Script: {instanceID: 11386}
+      Script: {instanceID: 11446}
     - Class: 114
-      Script: {instanceID: 11564}
+      Script: {instanceID: 11640}
     - Class: 114
-      Script: {instanceID: 11598}
+      Script: {instanceID: 11680}
     - Class: 114
-      Script: {instanceID: 12114}
+      Script: {instanceID: 12234}
     - Class: 114
-      Script: {instanceID: 12196}
+      Script: {instanceID: 12318}
     - Class: 114
-      Script: {instanceID: 12660}
+      Script: {instanceID: 12824}
     - Class: 114
-      Script: {instanceID: 13444}
+      Script: {instanceID: 13650}
     - Class: 114
-      Script: {instanceID: 13654}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 13818}
+      Script: {instanceID: 14046}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 14154}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -224,68 +222,68 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11354}
+      Script: {instanceID: 11408}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11358}
+      Script: {instanceID: 11412}
     - Class: 114
-      Script: {instanceID: 11360}
+      Script: {instanceID: 11414}
     - Class: 114
-      Script: {instanceID: 11386}
+      Script: {instanceID: 11446}
     - Class: 114
-      Script: {instanceID: 11462}
+      Script: {instanceID: 11530}
     - Class: 114
-      Script: {instanceID: 11564}
+      Script: {instanceID: 11640}
     - Class: 114
-      Script: {instanceID: 11594}
+      Script: {instanceID: 11676}
     - Class: 114
-      Script: {instanceID: 11808}
+      Script: {instanceID: 11910}
     - Class: 114
-      Script: {instanceID: 11986}
+      Script: {instanceID: 12096}
     - Class: 114
-      Script: {instanceID: 12080}
+      Script: {instanceID: 12198}
     - Class: 114
-      Script: {instanceID: 12114}
+      Script: {instanceID: 12234}
     - Class: 114
-      Script: {instanceID: 12180}
+      Script: {instanceID: 12300}
     - Class: 114
-      Script: {instanceID: 12196}
+      Script: {instanceID: 12318}
     - Class: 114
-      Script: {instanceID: 12406}
+      Script: {instanceID: 12542}
     - Class: 114
-      Script: {instanceID: 12544}
+      Script: {instanceID: 12698}
     - Class: 114
-      Script: {instanceID: 12724}
+      Script: {instanceID: 12890}
     - Class: 114
-      Script: {instanceID: 12782}
+      Script: {instanceID: 13026}
     - Class: 114
-      Script: {instanceID: 12852}
+      Script: {instanceID: 13236}
     - Class: 114
-      Script: {instanceID: 13052}
+      Script: {instanceID: 13254}
     - Class: 114
-      Script: {instanceID: 13070}
+      Script: {instanceID: 13600}
     - Class: 114
-      Script: {instanceID: 13396}
+      Script: {instanceID: 13650}
     - Class: 114
-      Script: {instanceID: 13444}
+      Script: {instanceID: 13834}
     - Class: 114
-      Script: {instanceID: 13620}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 13654}
+      Script: {instanceID: 14038}
     - Class: 114
-      Script: {instanceID: 13810}
+      Script: {instanceID: 14046}
     - Class: 114
-      Script: {instanceID: 13818}
+      Script: {instanceID: 14154}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 14198}
     - Class: 114
-      Script: {instanceID: 13960}
+      Script: {instanceID: 14226}
     - Class: 114
-      Script: {instanceID: 13984}
-    - Class: 114
-      Script: {instanceID: 14030}
+      Script: {instanceID: 14274}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -313,6 +311,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 1818360609
       Script: {instanceID: 0}
     Assets/Scenes/TestMap.unity:
     - Class: 1
@@ -348,35 +348,35 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11358}
+      Script: {instanceID: 11412}
     - Class: 114
-      Script: {instanceID: 11386}
+      Script: {instanceID: 11446}
     - Class: 114
-      Script: {instanceID: 11564}
+      Script: {instanceID: 11640}
     - Class: 114
-      Script: {instanceID: 11598}
+      Script: {instanceID: 11680}
     - Class: 114
-      Script: {instanceID: 12080}
+      Script: {instanceID: 12198}
     - Class: 114
-      Script: {instanceID: 12114}
+      Script: {instanceID: 12234}
     - Class: 114
-      Script: {instanceID: 12196}
+      Script: {instanceID: 12318}
     - Class: 114
-      Script: {instanceID: 12660}
+      Script: {instanceID: 12824}
     - Class: 114
-      Script: {instanceID: 13052}
+      Script: {instanceID: 13236}
     - Class: 114
-      Script: {instanceID: 13070}
+      Script: {instanceID: 13254}
     - Class: 114
-      Script: {instanceID: 13312}
+      Script: {instanceID: 13510}
     - Class: 114
-      Script: {instanceID: 13444}
+      Script: {instanceID: 13650}
     - Class: 114
-      Script: {instanceID: 13654}
+      Script: {instanceID: 13872}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 14154}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -428,6 +428,12 @@ ScriptsOnlyBuild:
     className: Text
   - hash:
       serializedVersion: 2
+      Hash: a1f19ad47d3094e235f21b74dfc423a8
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessLayer
+  - hash:
+      serializedVersion: 2
       Hash: 8617aadb248da95f2695ca5669494400
     assemblyName: Mirror.dll
     namespaceName: Mirror
@@ -438,6 +444,18 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: CanvasScaler
+  - hash:
+      serializedVersion: 2
+      Hash: 726fcf7961cbb4108aa5be5e55b8c8bf
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ColorGrading
+  - hash:
+      serializedVersion: 2
+      Hash: b13de7a0a457cb8e026d4237dc1b5797
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: LensDistortion
   - hash:
       serializedVersion: 2
       Hash: c42672c997f8be6b1aa86a927ebea785
@@ -476,6 +494,12 @@ ScriptsOnlyBuild:
     className: RandomColor
   - hash:
       serializedVersion: 2
+      Hash: 71f7f12b8d0f4fd73590db8bcb6d453c
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Bloom
+  - hash:
+      serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -486,6 +510,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: PlayerQuitHandler
+  - hash:
+      serializedVersion: 2
+      Hash: af93f9c42e90877a9ba31e37adfd900c
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: MotionBlur
   - hash:
       serializedVersion: 2
       Hash: 265cf1537361bce87401ba1fba27baf3
@@ -572,6 +602,12 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
+      Hash: f542c1afca5bb4022f91fdda19b8d622
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: DepthOfField
+  - hash:
+      serializedVersion: 2
       Hash: 234d407605354852c48e57df17c9a1c6
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -602,6 +638,12 @@ ScriptsOnlyBuild:
     className: ChatWindow
   - hash:
       serializedVersion: 2
+      Hash: 63d7b9b64a11859f416d72ba9a3c3fec
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ScreenSpaceReflections
+  - hash:
+      serializedVersion: 2
       Hash: f3a8ccc18ad656ac8993b34a1b30984f
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.NetworkRoom
@@ -626,6 +668,12 @@ ScriptsOnlyBuild:
     className: ApiConnector
   - hash:
       serializedVersion: 2
+      Hash: 38bcb4d3f9a1812fd650f92e87a4cf64
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessProfile
+  - hash:
+      serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -636,6 +684,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: PhysicsRaycaster
+  - hash:
+      serializedVersion: 2
+      Hash: e82c0521cdfe8cb6a168ef7208a98d4a
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Vignette
   - hash:
       serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
@@ -764,6 +818,12 @@ ScriptsOnlyBuild:
     className: ServerListManager
   - hash:
       serializedVersion: 2
+      Hash: 7e6ed836cbaa230e56d6a2bbae1b9bb5
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessEffectSettings
+  - hash:
+      serializedVersion: 2
       Hash: 5f170942ee57c7a568f5bcfc7521adea
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
@@ -830,6 +890,12 @@ ScriptsOnlyBuild:
     className: Tank
   - hash:
       serializedVersion: 2
+      Hash: 61b9d9b6f4b6a222dfea8b131b3d3227
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: ChromaticAberration
+  - hash:
+      serializedVersion: 2
       Hash: 9b01b1d80bd3ecf4eaca45e1a22d444e
     assemblyName: Mirror.Components.dll
     namespaceName: Mirror.Experimental
@@ -872,7 +938,7 @@ ScriptsOnlyBuild:
     className: MatchGUI
   - hash:
       serializedVersion: 2
-      Hash: 70edd04bcd8885e34bfe3cbb43362a41
+      Hash: 803cfb7108e9bb58aa73eeba7d187613
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -896,6 +962,12 @@ ScriptsOnlyBuild:
     className: BallManager
   - hash:
       serializedVersion: 2
+      Hash: d6fc8d3165070298511ec776ea575626
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessResources
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -906,6 +978,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.Pong
     className: Ball
+  - hash:
+      serializedVersion: 2
+      Hash: a53651ee3996fbba20dfe0fce02f0b23
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: AutoExposure
   - hash:
       serializedVersion: 2
       Hash: 36f24d1b0e21abb6bbb4226156aead3d
@@ -942,6 +1020,12 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.NetworkRoom
     className: PlayerController
+  - hash:
+      serializedVersion: 2
+      Hash: 50c443b12ccc0b475183318b5088bcc5
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessDebug
   - hash:
       serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
@@ -1196,7 +1280,7 @@ ScriptsOnlyBuild:
     className: ShootingTankBehaviour
   - hash:
       serializedVersion: 2
-      Hash: 035defd08548ac1fab3058ba64caeba4
+      Hash: e1a42daf3374af2cc2b3b6a6283ca02a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PauseMenu
@@ -1298,6 +1382,18 @@ ScriptsOnlyBuild:
     className: MemoryTransport
   - hash:
       serializedVersion: 2
+      Hash: d5630f96bd5a6a6eed7e1754c3fb8703
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: PostProcessVolume
+  - hash:
+      serializedVersion: 2
+      Hash: d0987ce3e9092dbe0fa30d73f333fffa
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: Grain
+  - hash:
+      serializedVersion: 2
       Hash: 8f15c253902ff4eef507927669b9dc80
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1326,6 +1422,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: PlayModeRunnerCallback
+  - hash:
+      serializedVersion: 2
+      Hash: ac6acd886c54c48c599ab5fed5781ea7
+    assemblyName: Unity.Postprocessing.Runtime.dll
+    namespaceName: UnityEngine.Rendering.PostProcessing
+    className: AmbientOcclusion
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1458,4 +1560,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Credits.unity
   - Assets/Scenes/FinalMap.unity
   - Assets/Scenes/TestMap.unity
-  playerPath: C:/Users/garic/Documents/GitHub/StrandedInSpace_v.1.1/SIS-2.0/SIS-2.0/StandAlone/SIS-2.0.exe
+  playerPath: C:/Users/navon/Desktop/Projet s2/Git/StrandedInSpace_v.1.1/SIS-2.0/SIS-2.0/StandAlone/SIS-2.0.exe

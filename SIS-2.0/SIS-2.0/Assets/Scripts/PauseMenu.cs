@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : NetworkBehaviour
 {
     public PlayerController playerController;
     public GameObject settingsMenu;
@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
     public AudioSource effectSource;
     public Slider audioSlider;
     public Slider effectSlider;
+    public Toggle azerty;
 
 
     void Start()
@@ -27,7 +28,18 @@ public class PauseMenu : MonoBehaviour
     }
 
     //Revenir menu principal
-    
+    public void OnMainMenu()
+    {
+        if (isClientOnly)
+        {
+            playerController.GetNetworkManager().StopClient();
+        }
+        else
+        {
+            playerController.GetNetworkManager().StopHost();
+        }
+        SceneManager.LoadScene("MainMenu");
+    }
 
     //Ouvrir Settings
     public void OnSettingsMenu()
@@ -47,6 +59,12 @@ public class PauseMenu : MonoBehaviour
     {
         settingsMenu.SetActive(false);
         commandMenu.SetActive(true);
+        if (azerty.isOn)
+            AzertyIsOn();
+        else
+            QwertyIsOn();
+
+
     }
 
     //Fermer commande
