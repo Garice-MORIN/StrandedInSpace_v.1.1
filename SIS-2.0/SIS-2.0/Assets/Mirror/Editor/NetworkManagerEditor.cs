@@ -9,15 +9,20 @@ namespace Mirror
     public class NetworkManagerEditor : Editor
     {
         SerializedProperty spawnListProperty;
+
         ReorderableList spawnList;
+
         protected NetworkManager networkManager;
 
         protected void Init()
         {
             if (spawnList == null)
             {
+
                 networkManager = target as NetworkManager;
+
                 spawnListProperty = serializedObject.FindProperty("spawnPrefabs");
+
                 spawnList = new ReorderableList(serializedObject, spawnListProperty)
                 {
                     drawHeaderCallback = DrawHeader,

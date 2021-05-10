@@ -428,13 +428,11 @@ MonoBehaviour:
   autoStartServerBuild: 1
   showDebugMessages: 0
   serverTickRate: 30
-  serverBatching: 0
-  serverBatchInterval: 0
   offlineScene: 
   onlineScene: 
   transport: {fileID: 1282001521}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
@@ -461,11 +459,10 @@ MonoBehaviour:
   Interval: 10
   FastResend: 2
   CongestionWindow: 0
-  SendWindowSize: 4096
-  ReceiveWindowSize: 4096
+  SendWindowSize: 128
+  ReceiveWindowSize: 128
   debugLog: 0
-  statisticsGUI: 0
-  statisticsLog: 0
+  debugGUI: 0
 --- !u!1 &1458789072
 GameObject:
   m_ObjectHideFlags: 0

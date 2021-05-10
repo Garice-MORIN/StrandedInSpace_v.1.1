@@ -16,7 +16,7 @@ namespace Mirror.RemoteCalls
         public Type invokeClass;
         public MirrorInvokeType invokeType;
         public CmdDelegate invokeFunction;
-        public bool cmdRequiresAuthority;
+        public bool cmdIgnoreAuthority;
 
         public bool AreEqual(Type invokeClass, MirrorInvokeType invokeType, CmdDelegate invokeFunction)
         {
@@ -28,7 +28,7 @@ namespace Mirror.RemoteCalls
 
     public struct CommandInfo
     {
-        public bool requiresAuthority;
+        public bool ignoreAuthority;
     }
 
     /// <summary>
@@ -36,6 +36,8 @@ namespace Mirror.RemoteCalls
     /// </summary>
     public static class RemoteCallHelper
     {
+        static readonly ILogger logger = LogFactory.GetLogger(typeof(RemoteCallHelper));
+
         static readonly Dictionary<int, Invoker> cmdHandlerDelegates = new Dictionary<int, Invoker>();
 
         /// <summary>
@@ -65,7 +67,7 @@ namespace Mirror.RemoteCalls
         /// <param name="func"></param>
         /// <param name="cmdIgnoreAuthority"></param>
         /// <returns>remote function hash</returns>
-        internal static int RegisterDelegate(Type invokeClass, string cmdName, MirrorInvokeType invokerType, CmdDelegate func, bool cmdRequiresAuthority = true)
+        internal static int RegisterDelegate(Type invokeClass, string cmdName, MirrorInvokeType invokerType, CmdDelegate func, bool cmdIgnoreAuthority = false)
         {
             // type+func so Inventory.RpcUse != Equipment.RpcUse
             int cmdHash = GetMethodHash(invokeClass, cmdName);
@@ -78,13 +80,16 @@ namespace Mirror.RemoteCalls
                 invokeType = invokerType,
                 invokeClass = invokeClass,
                 invokeFunction = func,
-                cmdRequiresAuthority = cmdRequiresAuthority,
+                cmdIgnoreAuthority = cmdIgnoreAuthority,
             };
 
             cmdHandlerDelegates[cmdHash] = invoker;
 
-            //string ingoreAuthorityMessage = invokerType == MirrorInvokeType.Command ? $" requiresAuthority:{cmdRequiresAuthority}" : "";
-            //Debug.Log($"RegisterDelegate hash: {cmdHash} invokerType: {invokerType} method: {func.GetMethodName()}{ingoreAuthorityMessage}");
+            if (logger.LogEnabled())
+            {
+                string ingoreAuthorityMessage = invokerType == MirrorInvokeType.Command ? $" IgnoreAuthority:{cmdIgnoreAuthority}" : "";
+                logger.Log($"RegisterDelegate hash: {cmdHash} invokerType: {invokerType} method: {func.GetMethodName()}{ingoreAuthorityMessage}");
+            }
 
             return cmdHash;
         }
@@ -101,15 +106,15 @@ namespace Mirror.RemoteCalls
                     return true;
                 }
 
-                Debug.LogError($"Function {oldInvoker.invokeClass}.{oldInvoker.invokeFunction.GetMethodName()} and {invokeClass}.{func.GetMethodName()} have the same hash.  Please rename one of them");
+                logger.LogError($"Function {oldInvoker.invokeClass}.{oldInvoker.invokeFunction.GetMethodName()} and {invokeClass}.{func.GetMethodName()} have the same hash.  Please rename one of them");
             }
 
             return false;
         }
 
-        public static void RegisterCommandDelegate(Type invokeClass, string cmdName, CmdDelegate func, bool requiresAuthority)
+        public static void RegisterCommandDelegate(Type invokeClass, string cmdName, CmdDelegate func, bool ignoreAuthority)
         {
-            RegisterDelegate(invokeClass, cmdName, MirrorInvokeType.Command, func, requiresAuthority);
+            RegisterDelegate(invokeClass, cmdName, MirrorInvokeType.Command, func, ignoreAuthority);
         }
 
         public static void RegisterRpcDelegate(Type invokeClass, string rpcName, CmdDelegate func)
@@ -135,7 +140,7 @@ namespace Mirror.RemoteCalls
             // debug message if not found, or null, or mismatched type
             // (no need to throw an error, an attacker might just be trying to
             //  call an cmd with an rpc's hash)
-            // Debug.Log("GetInvokerForHash hash:" + cmdHash + " not found");
+            if (logger.LogEnabled()) logger.Log("GetInvokerForHash hash:" + cmdHash + " not found");
 
             return false;
         }
@@ -158,7 +163,7 @@ namespace Mirror.RemoteCalls
             {
                 return new CommandInfo
                 {
-                    requiresAuthority = invoker.cmdRequiresAuthority
+                    ignoreAuthority = invoker.cmdIgnoreAuthority
                 };
             }
             return default;

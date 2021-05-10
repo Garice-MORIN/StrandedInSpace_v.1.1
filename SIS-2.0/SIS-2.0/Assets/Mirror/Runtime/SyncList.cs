@@ -68,7 +68,9 @@ namespace Mirror
         // so we need to skip them
         int changesAhead;
 
-        public SyncList() : this(EqualityComparer<T>.Default) {}
+        public SyncList() : this(EqualityComparer<T>.Default)
+        {
+        }
 
         public SyncList(IEqualityComparer<T> comparer)
         {
@@ -85,7 +87,7 @@ namespace Mirror
         public bool IsDirty => changes.Count > 0;
 
         // throw away all the changes
-        // this should be called after a successful sync
+        // this should be called after a successfull sync
         public void Flush() => changes.Clear();
 
         public void Reset()
@@ -423,7 +425,7 @@ namespace Mirror
 
             public void Reset() => index = -1;
             object IEnumerator.Current => Current;
-            public void Dispose() {}
+            public void Dispose() { }
         }
     }
 }

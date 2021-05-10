@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba13a34c86b4f34aab106d5d4843cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  variables: {fileID: 0}
   playerBody: {fileID: 170188676883244101}
 --- !u!1 &170188676883244103
 GameObject:
@@ -116,6 +115,7 @@ GameObject:
   - component: {fileID: 5752760688260127470}
   - component: {fileID: 7880699171596970845}
   - component: {fileID: 3073041167185578109}
+  - component: {fileID: 2179162136719156473}
   m_Layer: 9
   m_Name: NormalEnemy
   m_TagString: Enemy
@@ -299,6 +299,23 @@ MonoBehaviour:
   navMesh: {fileID: 7880699171596970845}
   damage: 20
   attackCooldown: 1
+  slowed: 0
+  baseSpeed: 0
+  slowDuration: 0
+  slowPower: 0
+--- !u!114 &2179162136719156473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170188676883244103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money: 12
 --- !u!1 &624283177714911131
 GameObject:
   m_ObjectHideFlags: 0

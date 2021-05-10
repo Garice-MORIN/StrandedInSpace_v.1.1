@@ -1,13 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Mirror.Examples.MultipleMatch
 {
-#pragma warning disable 618
     [RequireComponent(typeof(NetworkMatchChecker))]
-#pragma warning restore 618
     public class MatchController : NetworkBehaviour
     {
         internal readonly SyncDictionary<NetworkIdentity, MatchPlayerData> matchPlayerData = new SyncDictionary<NetworkIdentity, MatchPlayerData>();
@@ -94,7 +93,7 @@ namespace Mirror.Examples.MultipleMatch
             }
         }
 
-        [Command(requiresAuthority = false)]
+        [Command(ignoreAuthority = true)]
         public void CmdMakePlay(CellValue cellValue, NetworkConnectionToClient sender = null)
         {
             // If wrong player or cell already taken, ignore
@@ -192,7 +191,7 @@ namespace Mirror.Examples.MultipleMatch
             CmdPlayAgain();
         }
 
-        [Command(requiresAuthority = false)]
+        [Command(ignoreAuthority = true)]
         public void CmdPlayAgain(NetworkConnectionToClient sender = null)
         {
             if (!playAgain)
@@ -249,7 +248,7 @@ namespace Mirror.Examples.MultipleMatch
             CmdRequestExitGame();
         }
 
-        [Command(requiresAuthority = false)]
+        [Command(ignoreAuthority = true)]
         public void CmdRequestExitGame(NetworkConnectionToClient sender = null)
         {
             StartCoroutine(ServerEndMatch(sender, false));

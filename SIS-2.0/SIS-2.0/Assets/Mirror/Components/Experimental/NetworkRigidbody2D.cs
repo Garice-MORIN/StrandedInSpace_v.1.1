@@ -5,6 +5,8 @@ namespace Mirror.Experimental
     [AddComponentMenu("Network/Experimental/NetworkRigidbody2D")]
     public class NetworkRigidbody2D : NetworkBehaviour
     {
+        static readonly ILogger logger = LogFactory.GetLogger(typeof(NetworkRigidbody2D));
+
         [Header("Settings")]
         [SerializeField] internal Rigidbody2D target = null;
 
@@ -35,7 +37,7 @@ namespace Mirror.Experimental
         [SerializeField] float angularVelocitySensitivity = 0.1f;
 
         /// <summary>
-        /// Values sent on client with authority after they are sent to the server
+        /// Values sent on client with authoirty after they are sent to the server
         /// </summary>
         readonly ClientSyncState previousValue = new ClientSyncState();
 
@@ -192,7 +194,7 @@ namespace Mirror.Experimental
         {
             if (!hasAuthority)
             {
-                Debug.LogWarning("SendToServer called without authority");
+                logger.LogWarning("SendToServer called without authority");
                 return;
             }
 

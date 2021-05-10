@@ -5,18 +5,34 @@ namespace Mirror
 {
     // Deprecated 10/06/2020
     [Obsolete("Implement NetworkMessage instead. Use extension methods instead of Serialize/Deserialize, see https://github.com/vis2k/Mirror/pull/2317", true)]
-    public interface IMessageBase {}
+    public interface IMessageBase { }
 
     // Deprecated 10/06/2020
     [Obsolete("Implement NetworkMessage instead. Use extension methods instead of Serialize/Deserialize, see https://github.com/vis2k/Mirror/pull/2317", true)]
-    public class MessageBase : IMessageBase {}
+    public class MessageBase : IMessageBase { }
+
+    public interface NetworkMessage { }
 
     #region Public System Messages
-    public struct ReadyMessage : NetworkMessage {}
+    public struct ErrorMessage : NetworkMessage
+    {
+        public byte value;
 
-    public struct NotReadyMessage : NetworkMessage {}
+        public ErrorMessage(byte v)
+        {
+            value = v;
+        }
+    }
 
-    public struct AddPlayerMessage : NetworkMessage {}
+    public struct ReadyMessage : NetworkMessage { }
+
+    public struct NotReadyMessage : NetworkMessage { }
+
+    public struct AddPlayerMessage : NetworkMessage { }
+
+    public struct DisconnectMessage : NetworkMessage { }
+
+    public struct ConnectMessage : NetworkMessage { }
 
     public struct SceneMessage : NetworkMessage
     {
@@ -35,7 +51,7 @@ namespace Mirror
 
     #endregion
 
-    #region System Messages required for code gen path
+    #region System Messages requried for code gen path
     public struct CommandMessage : NetworkMessage
     {
         public uint netId;
@@ -100,9 +116,9 @@ namespace Mirror
         public ArraySegment<byte> payload;
     }
 
-    public struct ObjectSpawnStartedMessage : NetworkMessage {}
+    public struct ObjectSpawnStartedMessage : NetworkMessage { }
 
-    public struct ObjectSpawnFinishedMessage : NetworkMessage {}
+    public struct ObjectSpawnFinishedMessage : NetworkMessage { }
 
     public struct ObjectDestroyMessage : NetworkMessage
     {

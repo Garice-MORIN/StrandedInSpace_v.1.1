@@ -28,15 +28,15 @@ namespace Mirror.Weaver
             NetworkBehaviourProcessor.WriteClientActiveCheck(worker, md.Name, label, "TargetRPC");
 
             // setup for reader
-            worker.Emit(OpCodes.Ldarg_0);
-            worker.Emit(OpCodes.Castclass, td);
+            worker.Append(worker.Create(OpCodes.Ldarg_0));
+            worker.Append(worker.Create(OpCodes.Castclass, td));
 
             // NetworkConnection parameter is optional
             if (HasNetworkConnectionParameter(md))
             {
                 // if call has NetworkConnection write clients connection as first arg
                 //ClientScene.readyconnection
-                worker.Emit(OpCodes.Call, WeaverTypes.ReadyConnectionReference);
+                worker.Append(worker.Create(OpCodes.Call, WeaverTypes.ReadyConnectionReference));
             }
 
             // process reader parameters and skip first one if first one is NetworkConnection
@@ -44,8 +44,8 @@ namespace Mirror.Weaver
                 return null;
 
             // invoke actual command function
-            worker.Emit(OpCodes.Callvirt, rpcCallFunc);
-            worker.Emit(OpCodes.Ret);
+            worker.Append(worker.Create(OpCodes.Callvirt, rpcCallFunc));
+            worker.Append(worker.Create(OpCodes.Ret));
 
             NetworkBehaviourProcessor.AddInvokeParameters(rpc.Parameters);
             td.Methods.Add(rpc);
@@ -104,29 +104,29 @@ namespace Mirror.Weaver
 
             // invoke SendInternal and return
             // this
-            worker.Emit(OpCodes.Ldarg_0);
+            worker.Append(worker.Create(OpCodes.Ldarg_0));
             if (HasNetworkConnectionParameter(md))
             {
                 // connection
-                worker.Emit(OpCodes.Ldarg_1);
+                worker.Append(worker.Create(OpCodes.Ldarg_1));
             }
             else
             {
                 // null
-                worker.Emit(OpCodes.Ldnull);
+                worker.Append(worker.Create(OpCodes.Ldnull));
             }
-            worker.Emit(OpCodes.Ldtoken, td);
+            worker.Append(worker.Create(OpCodes.Ldtoken, td));
             // invokerClass
-            worker.Emit(OpCodes.Call, WeaverTypes.getTypeFromHandleReference);
-            worker.Emit(OpCodes.Ldstr, rpcName);
+            worker.Append(worker.Create(OpCodes.Call, WeaverTypes.getTypeFromHandleReference));
+            worker.Append(worker.Create(OpCodes.Ldstr, rpcName));
             // writer
-            worker.Emit(OpCodes.Ldloc_0);
-            worker.Emit(OpCodes.Ldc_I4, targetRpcAttr.GetField("channel", 0));
-            worker.Emit(OpCodes.Callvirt, WeaverTypes.sendTargetRpcInternal);
+            worker.Append(worker.Create(OpCodes.Ldloc_0));
+            worker.Append(worker.Create(OpCodes.Ldc_I4, targetRpcAttr.GetField("channel", 0)));
+            worker.Append(worker.Create(OpCodes.Callvirt, WeaverTypes.sendTargetRpcInternal));
 
             NetworkBehaviourProcessor.WriteRecycleWriter(worker);
 
-            worker.Emit(OpCodes.Ret);
+            worker.Append(worker.Create(OpCodes.Ret));
 
             return rpc;
         }

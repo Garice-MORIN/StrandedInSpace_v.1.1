@@ -5,6 +5,8 @@ namespace Mirror.Examples.MultipleMatch
 {
     public class RoomGUI : MonoBehaviour
     {
+        static readonly ILogger logger = LogFactory.GetLogger(typeof(RoomGUI));
+
         public GameObject playerList;
         public GameObject playerPrefab;
         public GameObject cancelButton;
@@ -14,7 +16,7 @@ namespace Mirror.Examples.MultipleMatch
 
         public void RefreshRoomPlayers(PlayerInfo[] playerInfos)
         {
-            // Debug.Log($"RefreshRoomPlayers: {playerInfos.Length} playerInfos");
+            if (logger.LogEnabled()) logger.Log($"RefreshRoomPlayers: {playerInfos.Length} playerInfos");
 
             foreach (Transform child in playerList.transform)
             {
