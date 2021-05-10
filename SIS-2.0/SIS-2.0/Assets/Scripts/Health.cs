@@ -19,11 +19,9 @@ public class Health : NetworkBehaviour
     private NetworkStartPosition[] spawnPoints;
     private bool doDrop;
 
-    private void Start()
-    {
+    private void Start(){
         health = maxHP;
-        if(isLocalPlayer)
-        {
+        if(isLocalPlayer){
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
         }
         //Initialize health bars
@@ -33,22 +31,23 @@ public class Health : NetworkBehaviour
     }
 
     //Give damage to entity
-    public void TakeDamage(int damage)
-    {   
-        if(!isServer)
-        {
+    public void TakeDamage(int damage){   
+        if(!isServer){
             return;
         }
         health -= damage;
 
-        if(health <= 0)
-        {
-            doDrop = gameObject.tag == "Enemy" ? true : false; //Check if entity drop ammunation on death
+        if(health <= 0){
+            doDrop = gameObject.tag == "Enemy" ? true : false; //Check if entity drop ammunition on death
             //TODO: Add a probability to drop ammunations
-            if(destroyOnDeath)
-            {
-                if(doDrop)
-                {
+            if(destroyOnDeath){
+                if(doDrop){
+                    //Give money to all players
+                    GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                    foreach(GameObject player in players){
+                        player.GetComponent<Money>().money += gameObject.GetComponent<Money>().money / players.Length;
+                        Debug.Log(player.GetComponent<Money>().money);
+                    }
                     //Spawn ammo crate
                     Vector3 position = gameObject.transform.position + new Vector3(0,-0.5f,0);
                     var orientation = Quaternion.Euler(0f, 0f, 0f);
@@ -58,13 +57,11 @@ public class Health : NetworkBehaviour
                 Destroy(gameObject);
                 FindObjectOfType<EnemiesSpawner>().enemiesLeft--;
             }
-            else
-            {
+            else{
                 health = maxHP;
                 RpcRespawn();
             }
         }
-
     }
     
     //Respawn player

@@ -14,6 +14,12 @@ namespace kcp2k
         public Action<int, ArraySegment<byte>> OnData;
         public Action<int> OnDisconnected;
 
+        // Mirror needs a way to stop kcp message processing while loop
+        // immediately after a scene change message. Mirror can't process any
+        // other messages during a scene change.
+        // (could be useful for others too)
+        public Func<bool> OnCheckEnabled = () => true;
+
         // configuration
         // NoDelay is recommended to reduce latency. This also scales better
         // without buffers getting full.
@@ -39,17 +45,11 @@ namespace kcp2k
 
         // state
         Socket socket;
-#if UNITY_SWITCH
-        // switch does not support ipv6
-        EndPoint newClientEP = new IPEndPoint(IPAddress.Any, 0);
-#else
         EndPoint newClientEP = new IPEndPoint(IPAddress.IPv6Any, 0);
-#endif
         // IMPORTANT: raw receive buffer always needs to be of 'MTU' size, even
         //            if MaxMessageSize is larger. kcp always sends in MTU
         //            segments and having a buffer smaller than MTU would
         //            silently drop excess data.
-        //            => we need the mtu to fit channel + message!
         readonly byte[] rawReceiveBuffer = new byte[Kcp.MTU_DEF];
 
         // connections <connectionId, connection> where connectionId is EndPoint.GetHashCode
@@ -87,25 +87,18 @@ namespace kcp2k
             }
 
             // listen
-#if UNITY_SWITCH
-            // Switch does not support ipv6
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            socket.Bind(new IPEndPoint(IPAddress.Any, port));
-#else
             socket = new Socket(AddressFamily.InterNetworkV6, SocketType.Dgram, ProtocolType.Udp);
             socket.DualMode = true;
             socket.Bind(new IPEndPoint(IPAddress.IPv6Any, port));
-#endif
         }
 
-        public void Send(int connectionId, ArraySegment<byte> segment, KcpChannel channel)
+        public void Send(int connectionId, ArraySegment<byte> segment)
         {
             if (connections.TryGetValue(connectionId, out KcpServerConnection connection))
             {
-                connection.SendData(segment, channel);
+                connection.Send(segment);
             }
         }
-
         public void Disconnect(int connectionId)
         {
             if (connections.TryGetValue(connectionId, out KcpServerConnection connection))
@@ -123,9 +116,8 @@ namespace kcp2k
             return "";
         }
 
-        // process incoming messages. should be called before updating the world.
         HashSet<int> connectionsToRemove = new HashSet<int>();
-        public void TickIncoming()
+        public void Tick()
         {
             while (socket != null && socket.Poll(0, SelectMode.SelectRead))
             {
@@ -211,12 +203,16 @@ namespace kcp2k
                                 OnConnected.Invoke(connectionId);
                             };
 
-                            // now input the message & process received ones
+                            // setup OnCheckEnabled to safely support Mirror
+                            // scene changes (see comments in Awake() above)
+                            connection.OnCheckEnabled = OnCheckEnabled;
+
+                            // now input the message & tick
                             // connected event was set up.
                             // tick will process the first message and adds the
                             // connection if it was the handshake.
                             connection.RawInput(rawReceiveBuffer, msgLength);
-                            connection.TickIncoming();
+                            connection.Tick();
 
                             // again, do not add to connections.
                             // if the first message wasn't the kcp handshake then
@@ -238,11 +234,10 @@ namespace kcp2k
                 catch (SocketException) {}
             }
 
-            // process inputs for all server connections
-            // (even if we didn't receive anything. need to tick ping etc.)
+            // tick all server connections
             foreach (KcpServerConnection connection in connections.Values)
             {
-                connection.TickIncoming();
+                connection.Tick();
             }
 
             // remove disconnected connections
@@ -255,43 +250,10 @@ namespace kcp2k
             connectionsToRemove.Clear();
         }
 
-        // process outgoing messages. should be called after updating the world.
-        public void TickOutgoing()
-        {
-            // flush all server connections
-            foreach (KcpServerConnection connection in connections.Values)
-            {
-                connection.TickOutgoing();
-            }
-        }
-
-        // process incoming and outgoing for convenience.
-        // => ideally call ProcessIncoming() before updating the world and
-        //    ProcessOutgoing() after updating the world for minimum latency
-        public void Tick()
-        {
-            TickIncoming();
-            TickOutgoing();
-        }
-
         public void Stop()
         {
             socket?.Close();
             socket = null;
-        }
-
-        // pause/unpause to safely support mirror scene handling and to
-        // immediately pause the receive while loop if needed.
-        public void Pause()
-        {
-            foreach (KcpServerConnection connection in connections.Values)
-                connection.Pause();
-        }
-
-        public void Unpause()
-        {
-            foreach (KcpServerConnection connection in connections.Values)
-                connection.Unpause();
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +7,13 @@ namespace Mirror
     /// Component that controls visibility of networked objects for players.
     /// <para>Any object with this component on it will not be visible to players more than a (configurable) distance away.</para>
     /// </summary>
-    [Obsolete(NetworkVisibilityObsoleteMessage.Message)]
     [AddComponentMenu("Network/NetworkProximityChecker")]
     [RequireComponent(typeof(NetworkIdentity))]
     [HelpURL("https://mirror-networking.com/docs/Articles/Components/NetworkProximityChecker.html")]
     public class NetworkProximityChecker : NetworkVisibility
     {
         /// <summary>
-        /// The maximum range that objects will be visible at.
+        /// The maximim range that objects will be visible at.
         /// </summary>
         [Tooltip("The maximum range that objects will be visible at.")]
         public int visRange = 10;
@@ -30,12 +28,9 @@ namespace Mirror
         /// Flag to force this object to be hidden for players.
         /// <para>If this object is a player object, it will not be hidden for that player.</para>
         /// </summary>
-        [Obsolete("Use NetworkIdentity.visible mode instead of forceHidden!")]
-        public bool forceHidden
-        {
-            get => netIdentity.visible == Visibility.ForceHidden;
-            set => netIdentity.visible = value ? Visibility.ForceHidden : Visibility.Default;
-        }
+        [Tooltip("Enable to force this object to be hidden from players.")]
+        public bool forceHidden;
+
 
         public override void OnStartServer()
         {

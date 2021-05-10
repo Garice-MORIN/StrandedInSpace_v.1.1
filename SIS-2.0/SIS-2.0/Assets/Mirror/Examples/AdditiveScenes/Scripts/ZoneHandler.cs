@@ -9,6 +9,8 @@ namespace Mirror.Examples.Additive
     // that entered the Zone to load the subscene assigned to the subscene property.
     public class ZoneHandler : MonoBehaviour
     {
+        static readonly ILogger logger = LogFactory.GetLogger(typeof(ZoneHandler));
+
         [Scene]
         [Tooltip("Assign the sub-scene to load for this zone")]
         public string subScene;
@@ -17,7 +19,7 @@ namespace Mirror.Examples.Additive
         {
             if (!NetworkServer.active) return;
 
-            // Debug.LogFormat(LogType.Log, "Loading {0}", subScene);
+            if (logger.LogEnabled()) logger.LogFormat(LogType.Log, "Loading {0}", subScene);
 
             NetworkIdentity networkIdentity = other.gameObject.GetComponent<NetworkIdentity>();
             NetworkServer.SendToClientOfPlayer(networkIdentity, new SceneMessage { sceneName = subScene, sceneOperation = SceneOperation.LoadAdditive });
@@ -27,7 +29,7 @@ namespace Mirror.Examples.Additive
         {
             if (!NetworkServer.active) return;
 
-            // Debug.LogFormat(LogType.Log, "Unloading {0}", subScene);
+            if (logger.LogEnabled()) logger.LogFormat(LogType.Log, "Unloading {0}", subScene);
 
             NetworkIdentity networkIdentity = other.gameObject.GetComponent<NetworkIdentity>();
             NetworkServer.SendToClientOfPlayer(networkIdentity, new SceneMessage { sceneName = subScene, sceneOperation = SceneOperation.UnloadAdditive });

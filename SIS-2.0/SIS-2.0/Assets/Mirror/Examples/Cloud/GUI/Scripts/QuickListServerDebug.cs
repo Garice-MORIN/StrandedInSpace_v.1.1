@@ -11,7 +11,7 @@ namespace Mirror.Cloud.Example
         ApiConnector connector;
         ServerCollectionJson? collection;
 
-        void Start()
+        private void Start()
         {
             NetworkManager manager = NetworkManager.singleton;
             connector = manager.GetComponent<ApiConnector>();
@@ -19,7 +19,7 @@ namespace Mirror.Cloud.Example
             connector.ListServer.ClientApi.onServerListUpdated += ClientApi_onServerListUpdated;
         }
 
-        void ClientApi_onServerListUpdated(ServerCollectionJson arg0)
+        private void ClientApi_onServerListUpdated(ServerCollectionJson arg0)
         {
             collection = arg0;
         }

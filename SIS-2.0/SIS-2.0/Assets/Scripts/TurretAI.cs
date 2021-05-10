@@ -120,7 +120,17 @@ public class TurretAI : NetworkBehaviour
             cooldown -= Time.deltaTime;
         }
     }
+
+
+
+
+
     void AttackFlamethrower(){}
+    
+
+
+
+
     
     void Slow(GameObject enemy){
         if(enemy != null){
@@ -129,34 +139,16 @@ public class TurretAI : NetworkBehaviour
             enemy.GetComponent<EnemyMovement>().slowed = true;
         }
     }
-    GameObject[] SlowAim(GameObject[] enemiesLeft){
-        int i = 0;
-        int maxEnemiesAtRange = 0;
-        GameObject[] enemiesPossible = new GameObject[enemiesLeft.Length];
-        while(i < enemiesLeft.Length){
-            Ray ray = new Ray(transform.position, enemiesLeft[i].transform.position - transform.position);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, range)){
-                if(hit.transform.gameObject == enemiesLeft[i]){
-                    enemiesPossible[maxEnemiesAtRange] = enemiesLeft[i];
-                    maxEnemiesAtRange += 1;
-                }
-            }
-            i += 1;
-        }
-        if(maxEnemiesAtRange != 0){
-            GameObject[] enemiesAimed = new GameObject[maxEnemiesAtRange];
-            for(int j = 0; j < maxEnemiesAtRange; j++){
-                enemiesAimed[j] = enemiesPossible[j];
-            }
-            return enemiesAimed;
-        }
-        return new GameObject[] {null};
+    RaycastHit[] SlowAim(){
+        return Physics.SphereCastAll(transform.position,range,transform.forward,0.01f);
     }
+
     void AttackSlow(){
         if(cooldown <= 0){
-            foreach(GameObject enemy in SlowAim(GameObject.FindGameObjectsWithTag("Enemy"))){
-                Slow(enemy);
+            foreach(RaycastHit rayHit in SlowAim()){
+                if(rayHit.transform.gameObject.tag == "Enemy"){
+                    Slow(rayHit.transform.gameObject);
+                }
             }
             cooldown = attackDelay;
         }

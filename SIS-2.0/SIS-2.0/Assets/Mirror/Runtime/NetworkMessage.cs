@@ -1,4 +1,1 @@
-namespace Mirror
-{
-    public interface NetworkMessage {}
-}
+// file removed 03/17/2020

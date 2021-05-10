@@ -10,13 +10,13 @@ namespace Mirror.Examples.MultipleAdditiveScenes
 
         public Rigidbody rigidbody3D;
 
-        void OnValidate()
+        private void OnValidate()
         {
             if (rigidbody3D == null)
                 rigidbody3D = GetComponent<Rigidbody>();
         }
 
-        void Start()
+        private void Start()
         {
             rigidbody3D.isKinematic = !isServer;
         }

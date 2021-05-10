@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 9172480865870855914}
   - component: {fileID: 7504748251946289719}
   - component: {fileID: 3828022650356877755}
+  - component: {fileID: 1220136199153754049}
   m_Layer: 9
   m_Name: HeavyEnemy
   m_TagString: Enemy
@@ -584,6 +585,23 @@ MonoBehaviour:
   navMesh: {fileID: 7504748251946289719}
   damage: 50
   attackCooldown: 1
+  slowed: 0
+  baseSpeed: 0
+  slowDuration: 0
+  slowPower: 0
+--- !u!114 &1220136199153754049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657620336170778691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money: 24
 --- !u!1 &3657620336743280704
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,7 +699,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba13a34c86b4f34aab106d5d4843cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  variables: {fileID: 0}
   playerBody: {fileID: 3657620336170778689}
 --- !u!1 &4050774405552022431
 GameObject:

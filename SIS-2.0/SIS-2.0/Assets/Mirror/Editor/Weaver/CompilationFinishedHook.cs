@@ -14,11 +14,15 @@ namespace Mirror.Weaver
         const string MirrorRuntimeAssemblyName = "Mirror";
         const string MirrorWeaverAssemblyName = "Mirror.Weaver";
 
+        // delegate for subscription to Weaver debug messages
+        public static Action<string> OnWeaverMessage;
         // delegate for subscription to Weaver warning messages
         public static Action<string> OnWeaverWarning;
         // delete for subscription to Weaver error messages
         public static Action<string> OnWeaverError;
 
+        // controls whether we weave any assemblies when CompilationPipeline delegates are invoked
+        public static bool WeaverEnabled { get; set; }
         // controls weather Weaver errors are reported direct to the Unity console (tests enable this)
         public static bool UnityLogEnabled = true;
 
@@ -26,14 +30,14 @@ namespace Mirror.Weaver
         static void HandleWarning(string msg)
         {
             if (UnityLogEnabled) Debug.LogWarning(msg);
-            OnWeaverWarning?.Invoke(msg);
+            if (OnWeaverWarning != null) OnWeaverWarning.Invoke(msg);
         }
 
         // error message handler that also calls OnErrorMethod delegate
         static void HandleError(string msg)
         {
             if (UnityLogEnabled) Debug.LogError(msg);
-            OnWeaverError?.Invoke(msg);
+            if (OnWeaverError != null) OnWeaverError.Invoke(msg);
         }
 
         [InitializeOnLoadMethod]
@@ -136,8 +140,8 @@ namespace Mirror.Weaver
             HashSet<string> dependencyPaths = GetDependecyPaths(assemblyPath);
             dependencyPaths.Add(Path.GetDirectoryName(mirrorRuntimeDll));
             dependencyPaths.Add(Path.GetDirectoryName(unityEngineCoreModuleDLL));
-            Log.Warning = HandleWarning;
-            Log.Error = HandleError;
+            Log.WarningMethod = HandleWarning;
+            Log.ErrorMethod = HandleError;
 
             if (!Weaver.WeaveAssembly(assemblyPath, dependencyPaths.ToArray()))
             {
@@ -156,12 +160,12 @@ namespace Mirror.Weaver
             };
             foreach (UnityAssembly unityAsm in CompilationPipeline.GetAssemblies())
             {
-                if (unityAsm.outputPath == assemblyPath)
+                if (unityAsm.outputPath != assemblyPath)
+                    continue;
+
+                foreach (string unityAsmRef in unityAsm.compiledAssemblyReferences)
                 {
-                    foreach (string unityAsmRef in unityAsm.compiledAssemblyReferences)
-                    {
-                        dependencyPaths.Add(Path.GetDirectoryName(unityAsmRef));
-                    }
+                    dependencyPaths.Add(Path.GetDirectoryName(unityAsmRef));
                 }
             }
 

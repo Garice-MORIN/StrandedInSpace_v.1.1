@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 1261322305057248908}
   - component: {fileID: 1863195092447118859}
   - component: {fileID: 5997499507051834776}
+  - component: {fileID: 7412776430906126572}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -542,7 +543,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 0
   serverOnly: 0
-  visible: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!114 &4242103549478655225
@@ -595,42 +595,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  controller: {fileID: -7805777872003939710}
+  groundCheck: {fileID: 1012812764884556048}
+  playerBody: {fileID: 4242103549478655201}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  towerPrefab: {fileID: 9000190440345884112, guid: e0fdc35a1e667454d967455d9fed5fa1,
+    type: 3}
   myCam: {fileID: 4242103549988627682}
   myAudioListener: {fileID: 4242103549988627683}
   myCanvas: {fileID: 6216988460756780634}
   gunSource: {fileID: 6794398522717391947}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  rayMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MeleeRangeCheck: {fileID: 1971079720903899}
-  gunRange: 500
-  towerPrefab: {fileID: 9000190440345884112, guid: e0fdc35a1e667454d967455d9fed5fa1,
-    type: 3}
-  bulletPrefab: {fileID: 8582630242344631816, guid: 13526dc160a496548ba9d4924ce049cd,
-    type: 3}
-  bulletSpawn: {fileID: 7291617991588632706}
-  gunParticle: {fileID: 6939774903760840452}
-  controller: {fileID: -7805777872003939710}
-  groundCheck: {fileID: 1012812764884556048}
-  playerBody: {fileID: 4242103549478655201}
-  muzzle: {fileID: 3738168471625472881}
-  gunDamage: 10
   pauseMenu: {fileID: 8184972497026359360}
   scoreBoard: {fileID: 7469208483943597839}
   crosshair: {fileID: 2984108657165032880}
   soundArray: []
   animator: {fileID: 2583387488365510198}
-  holster: {fileID: 8071314501286365665}
   weapon: {fileID: 1767056525795688865}
   holsterArray:
   - {fileID: 1767056525795688865}
   - {fileID: 3473670498883743220}
-  holsterTransform: {fileID: 2070219952241898209}
+  gunParticle: {fileID: 6939774903760840452}
+  rayMask:
+    serializedVersion: 2
+    m_Bits: 512
   maxMunitions: 10
   munitions: 0
+  gunRange: 500
+  muzzle: {fileID: 3738168471625472881}
   networkAnimator: {fileID: 0}
   activeWeapon: 0
 --- !u!114 &1863195092447118859
@@ -671,6 +664,19 @@ MonoBehaviour:
   HPBar: {fileID: 1804793695}
   background: {fileID: 2142666493}
   destroyOnDeath: 0
+--- !u!114 &7412776430906126572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4242103549478655203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money: 50
 --- !u!1 &4242103549478655212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,15 +1639,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d638d059c117c5348a2ff28986f8e96a, type: 3}
---- !u!1 &3473670498883743220 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d638d059c117c5348a2ff28986f8e96a,
-    type: 3}
-  m_PrefabInstance: {fileID: 4392589892538142885}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4287185255527905102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d638d059c117c5348a2ff28986f8e96a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4392589892538142885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3473670498883743220 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d638d059c117c5348a2ff28986f8e96a,
     type: 3}
   m_PrefabInstance: {fileID: 4392589892538142885}
   m_PrefabAsset: {fileID: 0}

@@ -139,39 +139,23 @@ public class PlayerController : NetworkBehaviour
 
             //Fire command
 
-            if (Input.GetButtonDown("Fire1"))
-            {
-                if (constructionMode)
-                {
+            if (Input.GetButtonDown("Fire1")){
+                if (constructionMode){
                     CmdBuild(); //Build or upgrade a turret/trap
                 }
-                else
-                {
-                    if(!isReloading)
-                    {
-                        if (nbMunitions > 0 && canShoot)
-                        {
+                else{
+                    if(!isReloading){
+                        if (nbMunitions > 0 && canShoot){
                             StartCoroutine(Shoot());
                             nbMunitions--;
                         }
-                        else
-                        {
-                            if (nbMunitions <= 0 && canShoot)
-                            {
+                        else{
+                            if (nbMunitions <= 0 && canShoot){
                                 gunSource.clip = soundArray[0];
                                 gunSource.Play();
                             }
-                            else
-                            {
-                                return;
-                            }
                         }
                     }
-                    else
-                    {
-                        return;
-                    }
-
                 }
             }
 
@@ -342,7 +326,7 @@ public class PlayerController : NetworkBehaviour
         GameObject aimed = getAimingObject();
         if (aimed != null && aimed.tag == "TurretSpawnPoints")
         {
-            aimed.GetComponent<TurretSpawning>().upgrade = true;
+            GetComponent<Money>().money = aimed.GetComponent<TurretSpawning>().TryUpgrade(GetComponent<Money>().money);
         }
     }
 
@@ -353,7 +337,7 @@ public class PlayerController : NetworkBehaviour
         GameObject aimed = getAimingObject();
         if (aimed != null && aimed.tag == "TurretSpawnPoints")
         {
-            aimed.GetComponent<TurretSpawning>().destroy = true;
+            GetComponent<Money>().money = aimed.GetComponent<TurretSpawning>().TryDestroy(GetComponent<Money>().money);
         }
     }
 
