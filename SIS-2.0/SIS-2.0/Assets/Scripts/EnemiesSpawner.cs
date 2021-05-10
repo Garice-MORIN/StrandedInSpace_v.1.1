@@ -64,7 +64,7 @@ public class EnemiesSpawner : NetworkBehaviour
     //Get all waves from a .txt file
     void CreateSpawnList()
     {
-        StreamReader sr = new StreamReader(Application.dataPath + '/' + filename); //TODO: fix monsters not spawning
+        StreamReader sr = new StreamReader("Assets/Spawns.txt"); //TODO: fix monsters not spawning
         string s;
         while ((s = sr.ReadLine()) != null)
         {
