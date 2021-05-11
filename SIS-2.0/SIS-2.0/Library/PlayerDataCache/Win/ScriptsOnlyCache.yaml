@@ -8,6 +8,7 @@ ScriptsOnlyBuild:
     - EnemyMovement
     - Health
     - MainMenu
+    - Money
     - Munitions
     - PauseMenu
     - PlayerController
@@ -16,6 +17,7 @@ ScriptsOnlyBuild:
     - WeaponCharacteristics
     - WeaponSwitching
     Mirror.Components.dll:
+    - Mirror.NetworkAnimator
     - Mirror.NetworkTransform
     - Mirror.NetworkTransformChild
     Mirror.dll:
@@ -84,7 +86,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13104}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 13924}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -151,11 +153,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13444}
     - Class: 114
-      Script: {instanceID: 13654}
+      Script: {instanceID: 13656}
     - Class: 114
-      Script: {instanceID: 13818}
+      Script: {instanceID: 13820}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 13924}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -248,6 +250,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12724}
     - Class: 114
+      Script: {instanceID: 12782}
+    - Class: 114
       Script: {instanceID: 12852}
     - Class: 114
       Script: {instanceID: 13052}
@@ -258,19 +262,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13444}
     - Class: 114
-      Script: {instanceID: 13654}
+      Script: {instanceID: 13640}
     - Class: 114
-      Script: {instanceID: 13810}
+      Script: {instanceID: 13656}
     - Class: 114
-      Script: {instanceID: 13818}
+      Script: {instanceID: 13812}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 13820}
     - Class: 114
-      Script: {instanceID: 13960}
+      Script: {instanceID: 13924}
     - Class: 114
-      Script: {instanceID: 13984}
+      Script: {instanceID: 13962}
     - Class: 114
-      Script: {instanceID: 14030}
+      Script: {instanceID: 13986}
+    - Class: 114
+      Script: {instanceID: 14032}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -359,9 +365,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13444}
     - Class: 114
-      Script: {instanceID: 13654}
+      Script: {instanceID: 13640}
     - Class: 114
-      Script: {instanceID: 13922}
+      Script: {instanceID: 13656}
+    - Class: 114
+      Script: {instanceID: 13924}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -1259,6 +1267,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_StyleSheet
+  - hash:
+      serializedVersion: 2
+      Hash: 31316a424f2a8611044b0e25dd6ac9ec
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Money
   - hash:
       serializedVersion: 2
       Hash: 2bca67b5b15bd74f4ed58264903bca65
