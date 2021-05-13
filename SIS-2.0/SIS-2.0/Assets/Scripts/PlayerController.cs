@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
 
@@ -26,8 +27,8 @@ public class PlayerController : NetworkBehaviour
     public GameObject settingsMenu;
     public GameObject commandsMenu;
     public GameObject scoreBoard;
+    public GameObject sureMenu;
     private NetworkManager networkManager;
-    public GameObject crosshair;
     public AudioClip[] soundArray;
     public Animator animator;
     public GameObject holster;
@@ -36,6 +37,8 @@ public class PlayerController : NetworkBehaviour
     public Transform holsterTransform;
     public int maxMunitions; //Taille du chargeur de l'arme
     public int munitions; //Munitions en réserve
+    public Text UImunitions;
+    public Text UIstock;
 
     public NetworkAnimator networkAnimator;
 
@@ -67,8 +70,9 @@ public class PlayerController : NetworkBehaviour
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
         commandsMenu.SetActive(false);
+        sureMenu.SetActive(false);
         scoreBoard.SetActive(false);
-        //crosshair.SetActive(true);
+        
         networkManager = NetworkManager.singleton;
         weapon = holster.GetComponent<WeaponSwitching>().SelectWeapon(0);
         munitions = 10;
@@ -90,9 +94,9 @@ public class PlayerController : NetworkBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, groundMask);  //Check if the player is on the ground (prevent infinite jumping)
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        
+
         //Change the state of the cursor
-        if (Input.GetButtonDown("Cursor") && !pauseMenu.activeSelf && !settingsMenu.activeSelf && !commandsMenu.activeSelf)
+        if (Input.GetButtonDown("Cursor") && !pauseMenu.activeSelf && !settingsMenu.activeSelf && !commandsMenu.activeSelf && !sureMenu.activeSelf)
         {
             ChangeCursorLockState();
         }
@@ -187,6 +191,7 @@ public class PlayerController : NetworkBehaviour
                 }
             }
 
+
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
@@ -194,6 +199,10 @@ public class PlayerController : NetworkBehaviour
                 ChangeWeaponStats(indexWeapon);
                 Debug.Log(indexWeapon + "    " + activeWeapon);
             }
+
+            // Affiche nb et stock de munitions de l'arme
+            UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
+            UIstock.text = $"Stock: {munitions}";
 
             /*____________________________SCOREBOARD_____________________________*/
 

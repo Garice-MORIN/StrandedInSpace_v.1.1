@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - EnemyMovement
     - Health
     - MainMenu
+    - MiniMap
     - Munitions
     - PauseMenu
     - PlayerController
@@ -27,12 +28,6 @@ ScriptsOnlyBuild:
     - kcp2k.KcpTransport
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -85,13 +80,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11446}
     - Class: 114
-      Script: {instanceID: 12318}
+      Script: {instanceID: 12320}
     - Class: 114
-      Script: {instanceID: 12890}
+      Script: {instanceID: 12892}
     - Class: 114
-      Script: {instanceID: 13294}
+      Script: {instanceID: 13296}
     - Class: 114
-      Script: {instanceID: 14154}
+      Script: {instanceID: 14156}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -150,19 +145,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11680}
     - Class: 114
-      Script: {instanceID: 12234}
+      Script: {instanceID: 12236}
     - Class: 114
-      Script: {instanceID: 12318}
+      Script: {instanceID: 12320}
     - Class: 114
-      Script: {instanceID: 12824}
+      Script: {instanceID: 12826}
     - Class: 114
-      Script: {instanceID: 13650}
+      Script: {instanceID: 13652}
     - Class: 114
-      Script: {instanceID: 13872}
+      Script: {instanceID: 13874}
     - Class: 114
-      Script: {instanceID: 14046}
+      Script: {instanceID: 14048}
     - Class: 114
-      Script: {instanceID: 14154}
+      Script: {instanceID: 14156}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -245,45 +240,47 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12096}
     - Class: 114
-      Script: {instanceID: 12198}
+      Script: {instanceID: 12152}
     - Class: 114
-      Script: {instanceID: 12234}
+      Script: {instanceID: 12200}
     - Class: 114
-      Script: {instanceID: 12300}
+      Script: {instanceID: 12236}
     - Class: 114
-      Script: {instanceID: 12318}
+      Script: {instanceID: 12302}
     - Class: 114
-      Script: {instanceID: 12542}
+      Script: {instanceID: 12320}
     - Class: 114
-      Script: {instanceID: 12698}
+      Script: {instanceID: 12544}
     - Class: 114
-      Script: {instanceID: 12890}
+      Script: {instanceID: 12700}
     - Class: 114
-      Script: {instanceID: 13026}
+      Script: {instanceID: 12892}
     - Class: 114
-      Script: {instanceID: 13236}
+      Script: {instanceID: 13028}
     - Class: 114
-      Script: {instanceID: 13254}
+      Script: {instanceID: 13238}
     - Class: 114
-      Script: {instanceID: 13600}
+      Script: {instanceID: 13256}
     - Class: 114
-      Script: {instanceID: 13650}
+      Script: {instanceID: 13602}
     - Class: 114
-      Script: {instanceID: 13834}
+      Script: {instanceID: 13652}
     - Class: 114
-      Script: {instanceID: 13872}
+      Script: {instanceID: 13836}
     - Class: 114
-      Script: {instanceID: 14038}
+      Script: {instanceID: 13874}
     - Class: 114
-      Script: {instanceID: 14046}
+      Script: {instanceID: 14040}
     - Class: 114
-      Script: {instanceID: 14154}
+      Script: {instanceID: 14048}
     - Class: 114
-      Script: {instanceID: 14198}
+      Script: {instanceID: 14156}
     - Class: 114
-      Script: {instanceID: 14226}
+      Script: {instanceID: 14200}
     - Class: 114
-      Script: {instanceID: 14274}
+      Script: {instanceID: 14228}
+    - Class: 114
+      Script: {instanceID: 14276}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -358,25 +355,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11680}
     - Class: 114
-      Script: {instanceID: 12198}
+      Script: {instanceID: 12200}
     - Class: 114
-      Script: {instanceID: 12234}
+      Script: {instanceID: 12236}
     - Class: 114
-      Script: {instanceID: 12318}
+      Script: {instanceID: 12320}
     - Class: 114
-      Script: {instanceID: 12824}
+      Script: {instanceID: 12826}
     - Class: 114
-      Script: {instanceID: 13236}
+      Script: {instanceID: 13238}
     - Class: 114
-      Script: {instanceID: 13254}
+      Script: {instanceID: 13256}
     - Class: 114
-      Script: {instanceID: 13510}
+      Script: {instanceID: 13512}
     - Class: 114
-      Script: {instanceID: 13650}
+      Script: {instanceID: 13652}
     - Class: 114
-      Script: {instanceID: 13872}
+      Script: {instanceID: 13874}
     - Class: 114
-      Script: {instanceID: 14154}
+      Script: {instanceID: 14156}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 135
@@ -746,6 +743,12 @@ ScriptsOnlyBuild:
     className: PlayerGUI
   - hash:
       serializedVersion: 2
+      Hash: 83e769eee07fc231384c812eedbb8224
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MiniMap
+  - hash:
+      serializedVersion: 2
       Hash: 192ca9716d03752ea1d90a78bc2daac9
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.Additive
@@ -938,7 +941,7 @@ ScriptsOnlyBuild:
     className: MatchGUI
   - hash:
       serializedVersion: 2
-      Hash: 803cfb7108e9bb58aa73eeba7d187613
+      Hash: b989c652dd5e7e7635b04189bd3c6fb6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -1280,7 +1283,7 @@ ScriptsOnlyBuild:
     className: ShootingTankBehaviour
   - hash:
       serializedVersion: 2
-      Hash: e1a42daf3374af2cc2b3b6a6283ca02a
+      Hash: 13d6e1f31b8219e4e8a195652f1748e4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PauseMenu
