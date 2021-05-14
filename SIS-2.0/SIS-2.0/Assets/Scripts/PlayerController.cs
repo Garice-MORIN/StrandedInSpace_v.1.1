@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
 
@@ -18,28 +19,37 @@ public class PlayerController : NetworkBehaviour
     Vector3 velocity;
     float gravity = -19.62f;
     float jumpHeight = 2f;
-    
+
 
     //Interface & Sound related variables
     public GameObject myCanvas;
     public AudioSource gunSource;
     public GameObject pauseMenu;
+    public GameObject settingsMenu;
+    public GameObject commandsMenu;
     public GameObject scoreBoard;
+    public GameObject sureMenu;
     private NetworkManager networkManager;
     public GameObject crosshair;
     public AudioClip[] soundArray;   //All sounds we can invoke in the game
-    
+
 
     //Gun related variables
     public Animator animator; //Reload animation currently used (depend on weapon)
-    public GameObject weapon;
-    public GameObject[] holsterArray;
     public ParticleSystem gunParticle;
     public LayerMask rayMask; //Layer the raycat registers when shooting a gun
     public int maxMunitions; //Weapon's ammuntions clip's size
     public int munitions; //Ammunition the player currently has
     public float gunRange;
     public Transform muzzle;
+    public Animator animator;
+    public GameObject holster;
+    public GameObject weapon;
+    public GameObject[] holsterArray;
+    public Transform holsterTransform;
+    public Text UImunitions;
+    public Text UIstock;
+
     public NetworkAnimator networkAnimator;
 
     [SyncVar(hook = "OnWeaponChanged")]
@@ -54,7 +64,7 @@ public class PlayerController : NetworkBehaviour
     int gunDamage;
     int nbMunitions; //Ammunitions currently in the gun chamber
     int indexWeapon;
-    
+
 
     private void Start()
     {
@@ -68,8 +78,11 @@ public class PlayerController : NetworkBehaviour
         constructionMode = false;
         currentSpeed = 5f;
         pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        commandsMenu.SetActive(false);
+        sureMenu.SetActive(false);
         scoreBoard.SetActive(false);
-        crosshair.SetActive(true);
+
         networkManager = NetworkManager.singleton;
         weapon = holsterArray[0];
         munitions = 10;
@@ -91,9 +104,9 @@ public class PlayerController : NetworkBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, groundMask);  //Check if the player is on the ground (prevent infinite jumping)
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        
+
         //Change the state of the cursor
-        if (Input.GetButtonDown("Cursor"))
+        if (Input.GetButtonDown("Cursor") && !pauseMenu.activeSelf && !settingsMenu.activeSelf && !commandsMenu.activeSelf && !sureMenu.activeSelf)
         {
             ChangeCursorLockState();
         }
@@ -163,7 +176,7 @@ public class PlayerController : NetworkBehaviour
             {
                 CmdDestroy();
             }
-            
+
             if(Input.GetButtonDown("Reload"))
             {
                 if(munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
@@ -173,20 +186,31 @@ public class PlayerController : NetworkBehaviour
                 }
             }
 
+
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 //If user scroll up, change equipped weapon
                 indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
-                CmdChangeActiveWeapon(indexWeapon); 
+                CmdChangeActiveWeapon(indexWeapon);
                 ChangeWeaponStats(indexWeapon);
             }
-           
+
+            // Affiche nb et stock de munitions de l'arme
+            UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
+            UIstock.text = $"Stock: {munitions}";
+
+            /*____________________________SCOREBOARD_____________________________*/
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                scoreBoard.SetActive(!scoreBoard.activeSelf);
+            }
 
         }
     }
 
     //Activate new equipped weapon and deactivate the previous one
-    public void OnWeaponChanged(int _old, int _new) 
+    public void OnWeaponChanged(int _old, int _new)
     {
         if(_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
         {
@@ -249,7 +273,7 @@ public class PlayerController : NetworkBehaviour
             Cursor.visible = true;
         }
         pauseMenu.SetActive(!pauseMenu.activeSelf);
-        crosshair.SetActive(!crosshair.activeSelf);
+        //crosshair.SetActive(!crosshair.activeSelf);
     }
 
     //Change movement speed
@@ -296,7 +320,7 @@ public class PlayerController : NetworkBehaviour
     [Command]
     void CmdTryShoot(Vector3 origin, Vector3 direction, float range)
     {
-        // Création d'un raycast 
+        // Création d'un raycast
         if (!gunParticle.isPlaying)
         {
             RpcStartParticles();
@@ -401,4 +425,3 @@ public class PlayerController : NetworkBehaviour
     }
 
 }
-

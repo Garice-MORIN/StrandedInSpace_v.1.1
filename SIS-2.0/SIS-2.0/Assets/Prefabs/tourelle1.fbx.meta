@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 35f12cf39b7b2b742b4646cbe7dd1a30
+guid: 38aafab72b1c8594d8a40573d8df61d5
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -8,33 +8,33 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
-    second: {fileID: 2100000, guid: 05cac20a97815bf4c872c316179c3ba7, type: 2}
+    second: {fileID: 2100000, guid: a7d9b0045ef74944482740ac69a1d848, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.002
-    second: {fileID: 2100000, guid: 292afdebdae30be44a128336428631b6, type: 2}
+    second: {fileID: 2100000, guid: bb9c5b864b62ba043a4e4db2f4edf612, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.003
-    second: {fileID: 2100000, guid: b0093a2b901d412408c592b665426532, type: 2}
+    second: {fileID: 2100000, guid: 98bd4a5ca382dcd40a444686c3e83901, type: 2}
   materials:
     materialImportMode: 1
-    materialName: 1
-    materialSearch: 0
-    materialLocation: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
-    animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
+    motionNodeName:
+    rigImportErrors:
+    rigImportWarnings:
+    animationImportErrors:
+    animationImportWarnings:
+    animationRetargetingWarnings:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -97,7 +97,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
@@ -107,6 +107,6 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   additionalBone: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:
