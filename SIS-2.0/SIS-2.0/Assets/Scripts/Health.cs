@@ -43,11 +43,7 @@ public class Health : NetworkBehaviour
             if(destroyOnDeath){
                 if(doDrop){
                     //Give money to all players
-                    GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                    foreach(GameObject player in players){
-                        player.GetComponent<Money>().money += gameObject.GetComponent<Money>().money / players.Length;
-                        Debug.Log(player.GetComponent<Money>().money);
-                    }
+                    gameObject.GetComponent<Money>().EnemyDropMoney();
                     //Spawn ammo crate
                     Vector3 position = gameObject.transform.position + new Vector3(0,-0.5f,0);
                     var orientation = Quaternion.Euler(0f, 0f, 0f);
