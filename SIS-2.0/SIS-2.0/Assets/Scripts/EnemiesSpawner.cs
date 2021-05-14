@@ -13,7 +13,6 @@ public class EnemiesSpawner : NetworkBehaviour
     public int enemiesLeft = 0;
 
     GameObject[] allSpawnPoints;
-    string filename = "Spawns.txt";
     Queue<string> queue = new Queue<string>();
 
     public override void OnStartServer()
@@ -64,7 +63,7 @@ public class EnemiesSpawner : NetworkBehaviour
     //Get all waves from a .txt file
     void CreateSpawnList()
     {
-        StreamReader sr = new StreamReader("Assets/Spawns.txt"); //TODO: fix monsters not spawning
+        StreamReader sr = new StreamReader(Application.dataPath + "/Spawns.txt"); 
         string s;
         while ((s = sr.ReadLine()) != null)
         {

@@ -42,7 +42,6 @@ public class PlayerController : NetworkBehaviour
     public int munitions; //Ammunition the player currently has
     public float gunRange;
     public Transform muzzle;
-    public Animator animator;
     public GameObject holster;
     public GameObject weapon;
     public GameObject[] holsterArray;
@@ -423,5 +422,7 @@ public class PlayerController : NetworkBehaviour
         }
         SceneManager.LoadScene("MainMenu");
     }
+
+    public NetworkManager GetNetworkManager() => networkManager;
 
 }
