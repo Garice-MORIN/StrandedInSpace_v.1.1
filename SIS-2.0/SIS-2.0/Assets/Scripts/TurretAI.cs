@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -121,11 +122,38 @@ public class TurretAI : NetworkBehaviour
         }
     }
 
+    void Burn(GameObject enemy){
+        
+    }
+
+    GameObject[] FlameThrowerAim(GameObject[] enemiesLeft){
+        GameObject target = BasicAim(enemiesLeft);
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, target.transform.position - transform.position, range).OrderBy(h=>h.distance).ToArray();
+        int i = 0;
+        while(i < hits.Length && hits[i].transform.gameObject.tag == "Enemy"){
+            i++;
+        }
+        GameObject[] targets = new GameObject[i];
+        for(int j = 0; j < i; j++){
+            targets[j] = hits[j].transform.gameObject;
+        }
+        return targets;
+    }
 
 
 
-
-    void AttackFlamethrower(){}
+    void AttackFlamethrower(){
+        if(cooldown <= 0){
+            foreach(GameObject enemy in FlameThrowerAim(GameObject.FindGameObjectsWithTag("Enemy"))){
+                Burn(enemy);
+            }
+            cooldown = attackDelay;
+        }
+        else{
+            cooldown -= Time.deltaTime;
+        }
+           
+    }
     
 
 
