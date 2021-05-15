@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
+using System.Net;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -39,7 +40,7 @@ public class PlayerController : NetworkBehaviour
     public ParticleSystem gunParticle;
     public LayerMask rayMask; //Layer the raycat registers when shooting a gun
     public int maxMunitions; //Weapon's ammuntions clip's size
-    
+
     [SyncVar(hook = "OnStockChanged")]
     public int munitions; //Ammunition the player currently has
 
@@ -51,6 +52,10 @@ public class PlayerController : NetworkBehaviour
     public Transform holsterTransform;
     public Text UImunitions;
     public Text UIstock;
+    public GameObject panel;
+    public Text panelText;
+    [SyncVar(hook = "IpPanel")]
+    public bool isGameLaunched;
 
     public NetworkAnimator networkAnimator;
 
@@ -95,7 +100,7 @@ public class PlayerController : NetworkBehaviour
 
     void Update()
     {
-        if(!isLocalPlayer)
+        if (!isLocalPlayer)
         {
             return;
         }
@@ -135,6 +140,7 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetButtonDown("Run") && isGrounded)
             {
                 ChangeSpeed();
+                isGameLaunched = !isGameLaunched;
             }
 
             //Reset gravity to keep constant velocity
@@ -144,7 +150,7 @@ public class PlayerController : NetworkBehaviour
             }
 
             //Jump command
-            if(Input.GetButtonDown("Jump") && isGrounded)
+            if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
@@ -154,18 +160,25 @@ public class PlayerController : NetworkBehaviour
 
             //Fire command
 
-            if (Input.GetButtonDown("Fire1")){
-                if (constructionMode){
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (constructionMode)
+                {
                     CmdBuild(); //Build or upgrade a turret/trap
                 }
-                else{
-                    if(!isReloading){
-                        if (nbMunitions > 0 && canShoot){
+                else
+                {
+                    if (!isReloading)
+                    {
+                        if (nbMunitions > 0 && canShoot)
+                        {
                             StartCoroutine(Shoot());
-                            nbMunitions--;                            
+                            nbMunitions--;
                         }
-                        else{
-                            if (nbMunitions <= 0 && canShoot){
+                        else
+                        {
+                            if (nbMunitions <= 0 && canShoot)
+                            {
                                 gunSource.clip = soundArray[0];
                                 gunSource.Play();
                             }
@@ -179,9 +192,9 @@ public class PlayerController : NetworkBehaviour
                 CmdDestroy();
             }
 
-            if(Input.GetButtonDown("Reload"))
+            if (Input.GetButtonDown("Reload"))
             {
-                if(munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
+                if (munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
                 {
                     StartCoroutine(Reload());
                     return;
@@ -189,7 +202,7 @@ public class PlayerController : NetworkBehaviour
             }
 
 
-            if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 //If user scroll up, change equipped weapon
                 indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
@@ -197,8 +210,8 @@ public class PlayerController : NetworkBehaviour
                 ChangeWeaponStats(indexWeapon);
             }
 
-            
-            
+
+
 
             /*____________________________SCOREBOARD_____________________________*/
 
@@ -220,10 +233,15 @@ public class PlayerController : NetworkBehaviour
         UIstock.text = $"Stock: {munitions}";
     }
 
+    public void IpPanel(bool _old, bool _new)
+    {
+        panel.SetActive(!_new);
+    }
+
     //Activate new equipped weapon and deactivate the previous one
     public void OnWeaponChanged(int _old, int _new)
     {
-        if(_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
+        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
         {
             holsterArray[_old].SetActive(false);
         }
@@ -257,7 +275,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            if(munitions >= maxMunitions - nbMunitions)
+            if (munitions >= maxMunitions - nbMunitions)
             {
                 nbMunitions = maxMunitions;
                 munitions -= maxMunitions - nbMunitions;
@@ -271,7 +289,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     //Change lock state of cursor
-   public void ChangeCursorLockState()
+    public void ChangeCursorLockState()
     {
         if (Cursor.lockState == CursorLockMode.None)
         {
@@ -289,7 +307,7 @@ public class PlayerController : NetworkBehaviour
     //Change movement speed
     void ChangeSpeed()
     {
-        if(currentSpeed == 5f)
+        if (currentSpeed == 5f)
         {
             currentSpeed = 8f;
         }
@@ -301,9 +319,9 @@ public class PlayerController : NetworkBehaviour
 
     void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
     {
-        if(isClipEmpty)
+        if (isClipEmpty)
         {
-            if(canFullLoad)
+            if (canFullLoad)
             {
                 nbMunitions = maxMunitions;
                 munitions -= maxMunitions;
@@ -316,14 +334,14 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            if(canFullLoad)
+            if (canFullLoad)
             {
                 munitions -= maxMunitions - nbMunitions;
                 nbMunitions = maxMunitions;
             }
             else
             {
-                if(maxMunitions-nbMunitions >= munitions)
+                if (maxMunitions - nbMunitions >= munitions)
                 {
                     nbMunitions += munitions;
                     munitions = 0;
@@ -372,7 +390,7 @@ public class PlayerController : NetworkBehaviour
         {
             RpcStartParticles();
         }
-        if(gunSource.isPlaying)
+        if (gunSource.isPlaying)
         {
             gunSource.Stop();
         }
@@ -381,9 +399,9 @@ public class PlayerController : NetworkBehaviour
         gunSource.Play();
         Ray ray = new Ray(origin, direction);
         RaycastHit hit;
-        if (Physics.Raycast(ray,out hit,range,rayMask))
+        if (Physics.Raycast(ray, out hit, range, rayMask))
         {
-            if(hit.collider.tag == "Enemy")
+            if (hit.collider.tag == "Enemy")
             {
                 hit.collider.GetComponent<Health>().TakeDamage(gunDamage);
             }
@@ -415,19 +433,23 @@ public class PlayerController : NetworkBehaviour
     //Server --> Client
     //Both next functions : Start playing gun particles
     [ClientRpc]
-    public void RpcStartParticles(){
+    public void RpcStartParticles()
+    {
         StartParticles();
     }
 
-    public void StartParticles(){
+    public void StartParticles()
+    {
         gunParticle.Play();
     }
 
     //Enable camera and audioListener on connection of the player
-    public override void OnStartLocalPlayer(){
+    public override void OnStartLocalPlayer()
+    {
 
         GetComponent<MeshRenderer>().material.color = Color.blue;
-        if(!myCam.enabled || !myAudioListener.enabled || !myCanvas){
+        if (!myCam.enabled || !myAudioListener.enabled || !myCanvas)
+        {
             myCanvas.gameObject.SetActive(true);
             myCam.enabled = true;
             myAudioListener.enabled = true;
@@ -439,8 +461,10 @@ public class PlayerController : NetworkBehaviour
         ChangeWeaponStats(0);
         nbMunitions = maxMunitions;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        /*UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
-        UIstock.text = $"Stock: {munitions}";*/
+        if (isServer)
+        {
+            panelText.text = LocalIPAddress();
+        }
     }
 
     //Get the point where player is looking at
@@ -474,4 +498,12 @@ public class PlayerController : NetworkBehaviour
 
     public NetworkManager GetNetworkManager() => networkManager;
 
+    public static string LocalIPAddress()
+    {
+        IPHostEntry host;
+        host = Dns.GetHostEntry(Dns.GetHostName());
+        
+        return host.AddressList[host.AddressList.Length-1].ToString();
+
+    }
 }
