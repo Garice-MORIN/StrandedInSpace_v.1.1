@@ -39,7 +39,10 @@ public class PlayerController : NetworkBehaviour
     public ParticleSystem gunParticle;
     public LayerMask rayMask; //Layer the raycat registers when shooting a gun
     public int maxMunitions; //Weapon's ammuntions clip's size
+    
+    [SyncVar(hook = "OnStockChanged")]
     public int munitions; //Ammunition the player currently has
+
     public float gunRange;
     public Transform muzzle;
     public GameObject holster;
@@ -61,6 +64,7 @@ public class PlayerController : NetworkBehaviour
     float reloadTime;
     float fireRate;
     int gunDamage;
+    [SyncVar(hook = "OnAmmoChanged")]
     int nbMunitions; //Ammunitions currently in the gun chamber
     int indexWeapon;
 
@@ -83,9 +87,8 @@ public class PlayerController : NetworkBehaviour
         scoreBoard.SetActive(false);
 
         networkManager = NetworkManager.singleton;
-        weapon = holsterArray[0];
-        munitions = 10;
-        ChangeWeaponStats(0);
+        /*weapon = holsterArray[0];
+        ChangeWeaponStats(0);*/
         indexWeapon = 0;
         canShoot = true;
     }
@@ -159,7 +162,7 @@ public class PlayerController : NetworkBehaviour
                     if(!isReloading){
                         if (nbMunitions > 0 && canShoot){
                             StartCoroutine(Shoot());
-                            nbMunitions--;
+                            nbMunitions--;                            
                         }
                         else{
                             if (nbMunitions <= 0 && canShoot){
@@ -194,9 +197,8 @@ public class PlayerController : NetworkBehaviour
                 ChangeWeaponStats(indexWeapon);
             }
 
-            // Affiche nb et stock de munitions de l'arme
-            UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
-            UIstock.text = $"Stock: {munitions}";
+            
+            
 
             /*____________________________SCOREBOARD_____________________________*/
 
@@ -206,6 +208,16 @@ public class PlayerController : NetworkBehaviour
             }
 
         }
+    }
+
+    public void OnAmmoChanged(int _old, int _new)
+    {
+        UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
+    }
+
+    public void OnStockChanged(int _old, int _new)
+    {
+        UIstock.text = $"Stock: {munitions}";
     }
 
     //Activate new equipped weapon and deactivate the previous one
@@ -272,7 +284,6 @@ public class PlayerController : NetworkBehaviour
             Cursor.visible = true;
         }
         pauseMenu.SetActive(!pauseMenu.activeSelf);
-        //crosshair.SetActive(!crosshair.activeSelf);
     }
 
     //Change movement speed
@@ -288,6 +299,44 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
+    {
+        if(isClipEmpty)
+        {
+            if(canFullLoad)
+            {
+                nbMunitions = maxMunitions;
+                munitions -= maxMunitions;
+            }
+            else
+            {
+                nbMunitions = munitions;
+                munitions = 0;
+            }
+        }
+        else
+        {
+            if(canFullLoad)
+            {
+                munitions -= maxMunitions - nbMunitions;
+                nbMunitions = maxMunitions;
+            }
+            else
+            {
+                if(maxMunitions-nbMunitions >= munitions)
+                {
+                    nbMunitions += munitions;
+                    munitions = 0;
+                }
+                else
+                {
+                    munitions -= maxMunitions - nbMunitions;
+                    nbMunitions = maxMunitions;
+                }
+            }
+        }
+    }
+
     //Reloading function
     IEnumerator Reload()
     {
@@ -298,8 +347,7 @@ public class PlayerController : NetworkBehaviour
 
         yield return new WaitForSeconds(reloadTime);
 
-        nbMunitions = munitions > maxMunitions ? maxMunitions : munitions;
-        munitions -= nbMunitions; //TODO: fix error
+        UpdateMunitions(nbMunitions == 0, munitions >= maxMunitions);
         animator.SetBool("isReloading", false);
         isReloading = false;
     }
@@ -385,13 +433,14 @@ public class PlayerController : NetworkBehaviour
             myAudioListener.enabled = true;
         }
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
-        nbMunitions = maxMunitions;
         munitions = 20;
         isReloading = false;
         var weapon = holsterArray[0];
-        holsterArray[0].SetActive(true);
-        holsterArray[1].SetActive(false);
+        ChangeWeaponStats(0);
+        nbMunitions = maxMunitions;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
+        /*UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
+        UIstock.text = $"Stock: {munitions}";*/
     }
 
     //Get the point where player is looking at
