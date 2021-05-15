@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     public Text musicLevel;
     public Text effectlevel;
     public NetworkManager networkManager;
+    public InputField inputField;
 
     private void Start()
     {
@@ -83,5 +84,11 @@ public class MainMenu : MonoBehaviour
     public void OnSensitivityChanged()
     {
         PlayerPrefs.SetFloat("Sensi", sensitivitySlider.value);
+    }
+
+    public void ChangeIpAdress()
+    {
+        networkManager.networkAddress = inputField.text;
+        Debug.Log(networkManager.networkAddress);
     }
 }

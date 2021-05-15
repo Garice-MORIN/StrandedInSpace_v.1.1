@@ -40,6 +40,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.InputField
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
@@ -259,6 +260,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12860}
     - Class: 114
+      Script: {instanceID: 12976}
+    - Class: 114
       Script: {instanceID: 13048}
     - Class: 114
       Script: {instanceID: 13066}
@@ -330,6 +333,8 @@ ScriptsOnlyBuild:
     - Class: 43
       Script: {instanceID: 0}
     - Class: 48
+      Script: {instanceID: 0}
+    - Class: 64
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
@@ -736,7 +741,7 @@ ScriptsOnlyBuild:
     className: Music
   - hash:
       serializedVersion: 2
-      Hash: 64e7d2757a1416b624e114e89604e5b2
+      Hash: ecfa9d2c19cbc5ad401c5aed81c6642c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainMenu
@@ -1262,4 +1267,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Credits.unity
   - Assets/Scenes/FinalMap.unity
   - Assets/Scenes/TestMap.unity
-  playerPath: D:/Projet S2 EPITA/StrandedInSpace_v.1.1/SIS-2.0/SIS-2.0/SIS-2.0.exe
+  playerPath: D:/Projet S2 EPITA/StrandedInSpace_v.1.1/SIS-2.0/SIS-2.0/StandAlone/SIS-2.0.exe
