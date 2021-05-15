@@ -126,6 +126,16 @@ public class PlayerController : NetworkBehaviour
         if (Cursor.lockState == CursorLockMode.Locked)
         {
 
+            if(Input.GetButtonDown("StartGame"))
+            {
+                if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted)
+                {
+                    FindObjectOfType<EnemiesSpawner>().isStarted = !FindObjectOfType<EnemiesSpawner>().isStarted;
+                    FindObjectOfType<EnemiesSpawner>().StartGame();
+                    panel.SetActive(false);
+                }
+            }
+
             /*____________________________MOUSE CAMERA________________________________*/
 
             myCam.GetComponent<CameraBis>().UpdateCamera();  //Update camera and capsule rotation
@@ -140,7 +150,6 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetButtonDown("Run") && isGrounded)
             {
                 ChangeSpeed();
-                isGameLaunched = !isGameLaunched;
             }
 
             //Reset gravity to keep constant velocity
@@ -209,8 +218,6 @@ public class PlayerController : NetworkBehaviour
                 CmdChangeActiveWeapon(indexWeapon);
                 ChangeWeaponStats(indexWeapon);
             }
-
-
 
 
             /*____________________________SCOREBOARD_____________________________*/
@@ -463,6 +470,7 @@ public class PlayerController : NetworkBehaviour
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
         if (isServer)
         {
+            panel.SetActive(true);
             panelText.text = LocalIPAddress();
         }
     }
@@ -503,7 +511,7 @@ public class PlayerController : NetworkBehaviour
         IPHostEntry host;
         host = Dns.GetHostEntry(Dns.GetHostName());
         
-        return host.AddressList[host.AddressList.Length-1].ToString();
+        return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";
 
     }
 }

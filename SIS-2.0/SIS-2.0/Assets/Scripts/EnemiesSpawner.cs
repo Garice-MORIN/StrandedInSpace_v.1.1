@@ -8,6 +8,7 @@ public class EnemiesSpawner : NetworkBehaviour
 {
     GameObject enemyPrefab;
     public LayerMask mask;
+    public bool isStarted = false;
 
     [SyncVar(hook = "OnChangeEnemiesLeft")]
     public int enemiesLeft = 0;
@@ -15,7 +16,7 @@ public class EnemiesSpawner : NetworkBehaviour
     GameObject[] allSpawnPoints;
     Queue<string> queue = new Queue<string>();
 
-    public override void OnStartServer()
+    public void StartGame()
     {
         CreateSpawnList();
 
