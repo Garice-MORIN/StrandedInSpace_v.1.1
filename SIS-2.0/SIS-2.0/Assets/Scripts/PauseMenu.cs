@@ -19,9 +19,6 @@ public class PauseMenu : NetworkBehaviour
     private bool mainMenu;
 
 
-
-
-
     //Revenir menu principal
     public void OnMainMenu()
     {
@@ -30,7 +27,7 @@ public class PauseMenu : NetworkBehaviour
         sureMenu.SetActive(true);
 
     }
-
+    //------------------------------------A retirer---------------------------------------------//
     //Ouvrir Settings
     public void OnSettingsMenu()
     {
@@ -61,6 +58,8 @@ public class PauseMenu : NetworkBehaviour
         commandMenu.SetActive(false);
         settingsMenu.SetActive(true);
     }
+
+    //-------------------------------------------------------------------------------------//
 
     public void AzertyIsOn()
     {

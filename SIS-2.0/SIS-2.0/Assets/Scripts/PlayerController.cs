@@ -92,8 +92,6 @@ public class PlayerController : NetworkBehaviour
         scoreBoard.SetActive(false);
 
         networkManager = NetworkManager.singleton;
-        /*weapon = holsterArray[0];
-        ChangeWeaponStats(0);*/
         indexWeapon = 0;
         canShoot = true;
     }
@@ -149,7 +147,7 @@ public class PlayerController : NetworkBehaviour
             //Run command
             if (Input.GetButtonDown("Run") && isGrounded)
             {
-                ChangeSpeed();
+                currentSpeed = currentSpeed == 5f ? 8f : 5f;
             }
 
             //Reset gravity to keep constant velocity
@@ -219,6 +217,14 @@ public class PlayerController : NetworkBehaviour
                 ChangeWeaponStats(indexWeapon);
             }
 
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                //If user scroll up, change equipped weapon
+                indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
+                CmdChangeActiveWeapon(indexWeapon);
+                ChangeWeaponStats(indexWeapon);
+            }
+
 
             /*____________________________SCOREBOARD_____________________________*/
 
@@ -275,7 +281,8 @@ public class PlayerController : NetworkBehaviour
         fireRate = weapon.GetComponent<WeaponCharacteristics>().fireRate;
         animator = weapon.GetComponent<WeaponCharacteristics>().animator;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        if (nbMunitions >= maxMunitions)
+        nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
+        /*if (nbMunitions >= maxMunitions)
         {
             nbMunitions -= maxMunitions;
             munitions += nbMunitions - maxMunitions;
@@ -292,7 +299,7 @@ public class PlayerController : NetworkBehaviour
                 nbMunitions += munitions;
                 munitions = 0;
             }
-        }
+        }*/
     }
 
     //Change lock state of cursor
@@ -311,18 +318,6 @@ public class PlayerController : NetworkBehaviour
         pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
 
-    //Change movement speed
-    void ChangeSpeed()
-    {
-        if (currentSpeed == 5f)
-        {
-            currentSpeed = 8f;
-        }
-        else
-        {
-            currentSpeed = 5f;
-        }
-    }
 
     void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
     {
@@ -512,6 +507,15 @@ public class PlayerController : NetworkBehaviour
         host = Dns.GetHostEntry(Dns.GetHostName());
         
         return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";
-
     }
+
+    /*public string GenerateString(int size)
+    {
+        string code = "";
+        for(int i = 0;i<5;i++)
+        {
+            code += (char)Mathf.CeilToInt(Random.Range(64.9f, 90));
+        }
+        return code;
+    }*/
 }

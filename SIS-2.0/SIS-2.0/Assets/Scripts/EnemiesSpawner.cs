@@ -19,7 +19,6 @@ public class EnemiesSpawner : NetworkBehaviour
     public void StartGame()
     {
         CreateSpawnList();
-
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         LoadEnemies();
         

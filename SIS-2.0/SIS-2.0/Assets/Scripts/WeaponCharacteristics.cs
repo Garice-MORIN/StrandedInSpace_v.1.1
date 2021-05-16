@@ -9,4 +9,6 @@ public class WeaponCharacteristics : MonoBehaviour
     public float reloadSpeed;
     public int damage;
     public float fireRate;
+    public int currentAmmo;
+
 }

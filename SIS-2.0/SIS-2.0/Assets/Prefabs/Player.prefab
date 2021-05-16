@@ -389,6 +389,7 @@ MonoBehaviour:
   reloadSpeed: 1
   damage: 25
   fireRate: 0.4
+  currentAmmo: 0
 --- !u!1 &2271558725390061974
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +594,7 @@ MonoBehaviour:
   reloadSpeed: 2
   damage: 10
   fireRate: 0.1
+  currentAmmo: 0
 --- !u!1 &4242103549478655203
 GameObject:
   m_ObjectHideFlags: 0
