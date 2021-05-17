@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
@@ -16,6 +14,7 @@ public class PauseMenu : NetworkBehaviour
     public Slider audioSlider;
     public Slider effectSlider;
     public Toggle azerty;
+    public NetworkConnection networkConnection;
     private bool mainMenu;
 
 
@@ -90,6 +89,8 @@ public class PauseMenu : NetworkBehaviour
             else
             {
                 playerController.GetNetworkManager().StopHost();
+                NetworkServer.DestroyPlayerForConnection(networkConnection);
+                NetworkServer.Shutdown();
             }
             SceneManager.LoadScene("MainMenu");
         }

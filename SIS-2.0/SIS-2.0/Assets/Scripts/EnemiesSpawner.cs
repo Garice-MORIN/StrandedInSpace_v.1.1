@@ -33,6 +33,14 @@ public class EnemiesSpawner : NetworkBehaviour
             {
                 LoadEnemies();
             }
+            catch (InvalidOperationException)
+            {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                foreach(var player in players)
+                {
+                    player.GetComponent<PlayerController>().OnEndGame(true);
+                }
+            }
             catch (Exception)
             {
                 Debug.Log("The entity you're trying to spawn does not exist");

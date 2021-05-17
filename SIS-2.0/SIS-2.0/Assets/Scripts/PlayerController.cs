@@ -16,6 +16,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject towerPrefab;
     public Camera myCam;
     public AudioListener myAudioListener;
+    public Variables end;
 
     bool isGrounded;
     Vector3 velocity;
@@ -500,13 +501,15 @@ public class PlayerController : NetworkBehaviour
         return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";
     }
 
-    /*public string GenerateString(int size)
+
+    public void OnEndGame(bool victory)
     {
-        string code = "";
-        for(int i = 0;i<5;i++)
-        {
-            code += (char)Mathf.CeilToInt(Random.Range(64.9f, 90));
-        }
-        return code;
-    }*/
+        end.win = victory;
+        networkManager.offlineScene = "TestMap";
+        if (isServer)
+            networkManager.StopHost();
+        else
+            networkManager.StopClient();
+
+    }
 }

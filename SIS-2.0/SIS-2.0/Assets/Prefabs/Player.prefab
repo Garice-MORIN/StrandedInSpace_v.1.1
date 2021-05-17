@@ -390,6 +390,7 @@ MonoBehaviour:
   damage: 10
   fireRate: 0.4
   currentAmmo: 0
+  isPulse: 0
 --- !u!1 &2271558725390061974
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +596,7 @@ MonoBehaviour:
   damage: 10
   fireRate: 0.1
   currentAmmo: 0
+  isPulse: 0
 --- !u!1 &4242103549478655203
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +785,7 @@ MonoBehaviour:
     type: 3}
   myCam: {fileID: 4242103549988627682}
   myAudioListener: {fileID: 4242103549988627683}
+  end: {fileID: 11400000, guid: cae3a7dcac755a74491aa5ec4727b21d, type: 2}
   myCanvas: {fileID: 7078293398212962893}
   gunSource: {fileID: 6794398522717391947}
   pauseMenu: {fileID: 5038073714852006999}
@@ -1381,7 +1384,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9145703420242795720}
-  m_LocalRotation: {x: 0.7042483, y: -0.025285095, z: 0.0003746748, w: 0.70950323}
+  m_LocalRotation: {x: 0.70425224, y: -0.02526787, z: 0.00039061904, w: 0.70949996}
   m_LocalPosition: {x: 4.04, y: 4.69, z: 0.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
