@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -282,24 +283,6 @@ public class PlayerController : NetworkBehaviour
         animator = weapon.GetComponent<WeaponCharacteristics>().animator;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
         nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
-        /*if (nbMunitions >= maxMunitions)
-        {
-            nbMunitions -= maxMunitions;
-            munitions += nbMunitions - maxMunitions;
-        }
-        else
-        {
-            if (munitions >= maxMunitions - nbMunitions)
-            {
-                nbMunitions = maxMunitions;
-                munitions -= maxMunitions - nbMunitions;
-            }
-            else
-            {
-                nbMunitions += munitions;
-                munitions = 0;
-            }
-        }*/
     }
 
     //Change lock state of cursor
@@ -368,6 +351,8 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(reloadTime);
 
         UpdateMunitions(nbMunitions == 0, munitions >= maxMunitions);
+        var weapon = holsterArray[indexWeapon];
+        weapon.GetComponent<WeaponCharacteristics>().UpdateAmmo(true, nbMunitions);
         animator.SetBool("isReloading", false);
         isReloading = false;
     }
@@ -376,6 +361,8 @@ public class PlayerController : NetworkBehaviour
     {
         canShoot = false;
         CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
+        var weapon = holsterArray[indexWeapon];
+        weapon.GetComponent<WeaponCharacteristics>().UpdateAmmo();
 
         yield return new WaitForSecondsRealtime(fireRate);
 
@@ -463,6 +450,10 @@ public class PlayerController : NetworkBehaviour
         ChangeWeaponStats(0);
         nbMunitions = maxMunitions;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
+        foreach(var gun in holsterArray)
+        {
+            gun.GetComponent<WeaponCharacteristics>().currentAmmo = gun.GetComponent<WeaponCharacteristics>().munitions;
+        }
         if (isServer)
         {
             panel.SetActive(true);
