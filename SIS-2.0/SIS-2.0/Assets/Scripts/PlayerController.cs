@@ -33,6 +33,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject scoreBoard;
     public GameObject sureMenu;
     private NetworkManager networkManager;
+    public NetworkConnection networkConnection;
     public GameObject crosshair;
     public AudioClip[] soundArray;   //All sounds we can invoke in the game
 
@@ -505,9 +506,14 @@ public class PlayerController : NetworkBehaviour
     public void OnEndGame(bool victory)
     {
         end.win = victory;
-        networkManager.offlineScene = "TestMap";
+        networkManager.offlineScene = "WinScene";
         if (isServer)
+        {
             networkManager.StopHost();
+            NetworkServer.Shutdown();
+            
+            
+        }
         else
             networkManager.StopClient();
 

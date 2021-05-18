@@ -91,3 +91,6 @@ public class EnemiesSpawner : NetworkBehaviour
     }
 
 }
+
+/* SmallEnemy,HeavyEnemy,HeavyEnemy,NormalEnemy,SmallEnemy,NormalEnemy,SmallEnemy
+NormalEnemy,SmallEnemy,HeavyEnemy,NormalEnemy*/

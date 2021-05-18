@@ -387,7 +387,7 @@ MonoBehaviour:
   animator: {fileID: 2583387488365510198}
   munitions: 10
   reloadSpeed: 1
-  damage: 10
+  damage: 1000
   fireRate: 0.4
   currentAmmo: 0
   isPulse: 0
@@ -1444,7 +1444,7 @@ RotationConstraint:
   m_GameObject: {fileID: 9145703420242795720}
   m_Enabled: 1
   m_Weight: 1
-  m_RotationAtRest: {x: 87.93702, y: -79.12779, z: -77.04816}
+  m_RotationAtRest: {x: 87.93977, y: -79.128136, z: -77.04863}
   m_RotationOffset: {x: 0, y: 0, z: 0}
   m_AffectRotationX: 1
   m_AffectRotationY: 1
