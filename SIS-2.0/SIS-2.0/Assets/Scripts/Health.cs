@@ -19,7 +19,10 @@ public class Health : NetworkBehaviour
     private NetworkStartPosition[] spawnPoints;
     private bool doDrop;
 
+    public EnemyKill check;
+
     private void Start(){
+        check = FindObjectOfType<EnemyKill>();
         health = maxHP;
         if(isLocalPlayer){
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
@@ -50,6 +53,7 @@ public class Health : NetworkBehaviour
                 }
                 if(tag == "Enemy")
                 {
+                    check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
                     gameObject.GetComponent<Money>().EnemyDropMoney();
                 }
                 if(doDrop){

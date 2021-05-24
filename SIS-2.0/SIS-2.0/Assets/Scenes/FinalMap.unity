@@ -584,6 +584,7 @@ GameObject:
   - component: {fileID: 455981133}
   - component: {fileID: 455981132}
   - component: {fileID: 455981131}
+  - component: {fileID: 455981134}
   m_Layer: 0
   m_Name: Check
   m_TagString: Untagged
@@ -610,6 +611,7 @@ MonoBehaviour:
   HPBar: {fileID: 455981133}
   background: {fileID: 455981133}
   destroyOnDeath: 0
+  check: {fileID: 455981134}
 --- !u!114 &455981132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,6 +648,19 @@ RectTransform:
   m_AnchoredPosition: {x: 12.59, y: -6.21}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &455981134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455981130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7ccf0c414706b41a6060a774b0e460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killedEnemies: 
 --- !u!1 &501011203
 GameObject:
   m_ObjectHideFlags: 0

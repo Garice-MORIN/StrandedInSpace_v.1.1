@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,7 @@ public class PlayerController : NetworkBehaviour
     public Camera myCam;
     public Camera miniMapCamera;
     public AudioListener myAudioListener;
+    public List<Type> killedEnemies;
     public static int score;
     public static int deltaMoney;
     public static bool win;
