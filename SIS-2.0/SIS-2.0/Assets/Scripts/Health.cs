@@ -38,12 +38,22 @@ public class Health : NetworkBehaviour
         health -= damage;
 
         if(health <= 0){
-            doDrop = gameObject.tag == "Enemy" ? true : false; //Check if entity drop ammunition on death
-            //TODO: Add a probability to drop ammunations
+            doDrop = gameObject.tag == "Enemy" && Random.Range(0.0f,1.0f) < 0.6f; //Check if entity drop ammunition on death
             if(destroyOnDeath){
+                if(tag == "Tower")
+                {
+                    GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                    foreach (var player in players)
+                    {
+                        player.GetComponent<PlayerController>().OnEndGame(false);
+                    }
+                }
+                if(tag == "Enemy")
+                {
+                    gameObject.GetComponent<Money>().EnemyDropMoney();
+                }
                 if(doDrop){
                     //Give money to all players
-                    gameObject.GetComponent<Money>().EnemyDropMoney();
                     //Spawn ammo crate
                     Vector3 position = gameObject.transform.position + new Vector3(0,-0.5f,0);
                     var orientation = Quaternion.Euler(0f, 0f, 0f);

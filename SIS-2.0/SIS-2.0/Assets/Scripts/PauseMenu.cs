@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
@@ -16,11 +14,14 @@ public class PauseMenu : NetworkBehaviour
     public Slider audioSlider;
     public Slider effectSlider;
     public Toggle azerty;
+    public NetworkConnection networkConnection;
     private bool mainMenu;
 
-
-
-
+    private void OnEnable()
+    {
+        effectSlider.value = PlayerPrefs.GetFloat("Effects");
+        audioSlider.value = PlayerPrefs.GetFloat("Music");
+    }
 
     //Revenir menu principal
     public void OnMainMenu()
@@ -30,37 +31,7 @@ public class PauseMenu : NetworkBehaviour
         sureMenu.SetActive(true);
 
     }
-
-    //Ouvrir Settings
-    public void OnSettingsMenu()
-    {
-        playerController.pauseMenu.SetActive(false);
-        settingsMenu.SetActive(true);
-    }
-    //Quitter Settings
-    public void OnSettingsBack()
-    {
-        playerController.pauseMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-    }
-
-    //Ouvrir commands dans settings
-    public void OnCommand()
-    {
-        settingsMenu.SetActive(false);
-        commandMenu.SetActive(true);
-        if (azerty.isOn)
-            AzertyIsOn();
-        else
-            QwertyIsOn();
-    }
-
-    //Fermer commande
-    public void OnCommandBack()
-    {
-        commandMenu.SetActive(false);
-        settingsMenu.SetActive(true);
-    }
+    
 
     public void AzertyIsOn()
     {
@@ -91,6 +62,8 @@ public class PauseMenu : NetworkBehaviour
             else
             {
                 playerController.GetNetworkManager().StopHost();
+                NetworkServer.DestroyPlayerForConnection(networkConnection);
+                NetworkServer.Shutdown();
             }
             SceneManager.LoadScene("MainMenu");
         }

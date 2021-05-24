@@ -3,9 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
+using System.Net;
 
 public class PlayerController : NetworkBehaviour
 {
+    int startingMoney;
+    [SyncVar(hook = "OnMoneyChanged")] public int money;
+
     //Player related variables
     public CharacterController controller;
     public Transform groundCheck;
@@ -13,25 +17,39 @@ public class PlayerController : NetworkBehaviour
     public LayerMask groundMask;
     public GameObject towerPrefab;
     public Camera myCam;
+    public Camera miniMapCamera;
     public AudioListener myAudioListener;
+    public static int score;
+    public static int deltaMoney;
+    public static bool win;
+    public bool _isServer;
 
-    bool isGrounded;
+    public bool isGrounded;
     Vector3 velocity;
     float gravity = -19.62f;
     float jumpHeight = 2f;
 
 
+    [SyncVar(hook = "OnStateChanged")] bool pauseMenuActive;
+
+
     //Interface & Sound related variables
     public GameObject myCanvas;
     public AudioSource gunSource;
+    
+    
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public GameObject commandsMenu;
     public GameObject scoreBoard;
     public GameObject sureMenu;
     private NetworkManager networkManager;
+    public NetworkConnection networkConnection;
     public GameObject crosshair;
     public AudioClip[] soundArray;   //All sounds we can invoke in the game
+       //All musics in the game
+    public Animator transition;
+    public Text UIMoney;
 
 
     //Gun related variables
@@ -39,7 +57,7 @@ public class PlayerController : NetworkBehaviour
     public ParticleSystem gunParticle;
     public LayerMask rayMask; //Layer the raycat registers when shooting a gun
     public int maxMunitions; //Weapon's ammuntions clip's size
-    
+
     [SyncVar(hook = "OnStockChanged")]
     public int munitions; //Ammunition the player currently has
 
@@ -51,6 +69,10 @@ public class PlayerController : NetworkBehaviour
     public Transform holsterTransform;
     public Text UImunitions;
     public Text UIstock;
+    public GameObject panel;
+    public Text panelText;
+    [SyncVar(hook = "IpPanel")]
+    public bool isGameLaunched;
 
     public NetworkAnimator networkAnimator;
 
@@ -81,21 +103,21 @@ public class PlayerController : NetworkBehaviour
         constructionMode = false;
         currentSpeed = 5f;
         pauseMenu.SetActive(false);
+        pauseMenuActive = false;
         settingsMenu.SetActive(false);
         commandsMenu.SetActive(false);
         sureMenu.SetActive(false);
         scoreBoard.SetActive(false);
-
         networkManager = NetworkManager.singleton;
-        /*weapon = holsterArray[0];
-        ChangeWeaponStats(0);*/
         indexWeapon = 0;
         canShoot = true;
+        isGameLaunched = false;
+        networkManager.offlineScene = "MainMenu";
     }
 
     void Update()
     {
-        if(!isLocalPlayer)
+        if (!isLocalPlayer)
         {
             return;
         }
@@ -108,7 +130,7 @@ public class PlayerController : NetworkBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //Change the state of the cursor
-        if (Input.GetButtonDown("Cursor") && !pauseMenu.activeSelf && !settingsMenu.activeSelf && !commandsMenu.activeSelf && !sureMenu.activeSelf)
+        if (Input.GetButtonDown("Cursor") && !settingsMenu.activeSelf && !commandsMenu.activeSelf && !sureMenu.activeSelf)
         {
             ChangeCursorLockState();
         }
@@ -120,6 +142,15 @@ public class PlayerController : NetworkBehaviour
         //Following instructions executed only if the player isn't in a menu
         if (Cursor.lockState == CursorLockMode.Locked)
         {
+
+            if(Input.GetButtonDown("StartGame"))
+            {
+                if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted)
+                {
+                    FindObjectOfType<EnemiesSpawner>().StartGame();
+                    panel.SetActive(false);
+                }
+            }
 
             /*____________________________MOUSE CAMERA________________________________*/
 
@@ -134,7 +165,7 @@ public class PlayerController : NetworkBehaviour
             //Run command
             if (Input.GetButtonDown("Run") && isGrounded)
             {
-                ChangeSpeed();
+                currentSpeed = currentSpeed == 5f ? 8f : 5f;
             }
 
             //Reset gravity to keep constant velocity
@@ -144,7 +175,7 @@ public class PlayerController : NetworkBehaviour
             }
 
             //Jump command
-            if(Input.GetButtonDown("Jump") && isGrounded)
+            if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
@@ -154,18 +185,25 @@ public class PlayerController : NetworkBehaviour
 
             //Fire command
 
-            if (Input.GetButtonDown("Fire1")){
-                if (constructionMode){
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (constructionMode)
+                {
                     CmdBuild(); //Build or upgrade a turret/trap
                 }
-                else{
-                    if(!isReloading){
-                        if (nbMunitions > 0 && canShoot){
+                else
+                {
+                    if (!isReloading)
+                    {
+                        if (nbMunitions > 0 && canShoot)
+                        {
                             StartCoroutine(Shoot());
-                            nbMunitions--;                            
+                            nbMunitions--;
                         }
-                        else{
-                            if (nbMunitions <= 0 && canShoot){
+                        else
+                        {
+                            if (nbMunitions <= 0 && canShoot)
+                            {
                                 gunSource.clip = soundArray[0];
                                 gunSource.Play();
                             }
@@ -179,9 +217,9 @@ public class PlayerController : NetworkBehaviour
                 CmdDestroy();
             }
 
-            if(Input.GetButtonDown("Reload"))
+            if (Input.GetButtonDown("Reload"))
             {
-                if(munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
+                if (munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
                 {
                     StartCoroutine(Reload());
                     return;
@@ -189,7 +227,7 @@ public class PlayerController : NetworkBehaviour
             }
 
 
-            if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 //If user scroll up, change equipped weapon
                 indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
@@ -197,8 +235,14 @@ public class PlayerController : NetworkBehaviour
                 ChangeWeaponStats(indexWeapon);
             }
 
-            
-            
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                //If user scroll up, change equipped weapon
+                indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
+                CmdChangeActiveWeapon(indexWeapon);
+                ChangeWeaponStats(indexWeapon);
+            }
+
 
             /*____________________________SCOREBOARD_____________________________*/
 
@@ -220,10 +264,35 @@ public class PlayerController : NetworkBehaviour
         UIstock.text = $"Stock: {munitions}";
     }
 
+    public void OnMoneyChanged(int _old, int _new)
+    {
+        UIMoney.text = $"{money}";
+    }
+
+    public void OnStateChanged(bool _old, bool _new)
+    {
+        if(!_old)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+            
+    }
+
+    public void IpPanel(bool _old, bool _new)
+    {
+        panel.SetActive(!_new);
+    }
+
     //Activate new equipped weapon and deactivate the previous one
     public void OnWeaponChanged(int _old, int _new)
     {
-        if(_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
+        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
         {
             holsterArray[_old].SetActive(false);
         }
@@ -250,33 +319,16 @@ public class PlayerController : NetworkBehaviour
         fireRate = weapon.GetComponent<WeaponCharacteristics>().fireRate;
         animator = weapon.GetComponent<WeaponCharacteristics>().animator;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        if (nbMunitions >= maxMunitions)
-        {
-            nbMunitions -= maxMunitions;
-            munitions += nbMunitions - maxMunitions;
-        }
-        else
-        {
-            if(munitions >= maxMunitions - nbMunitions)
-            {
-                nbMunitions = maxMunitions;
-                munitions -= maxMunitions - nbMunitions;
-            }
-            else
-            {
-                nbMunitions += munitions;
-                munitions = 0;
-            }
-        }
+        nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
 
     //Change lock state of cursor
-   public void ChangeCursorLockState()
+    public void ChangeCursorLockState()
     {
         if (Cursor.lockState == CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;   //Masque la souris quand le curseur est vérouillé (Not working because of a Unity bug)
+            Cursor.visible = false;   
         }
         else
         {
@@ -284,26 +336,15 @@ public class PlayerController : NetworkBehaviour
             Cursor.visible = true;
         }
         pauseMenu.SetActive(!pauseMenu.activeSelf);
+        pauseMenuActive = !pauseMenuActive;
     }
 
-    //Change movement speed
-    void ChangeSpeed()
-    {
-        if(currentSpeed == 5f)
-        {
-            currentSpeed = 8f;
-        }
-        else
-        {
-            currentSpeed = 5f;
-        }
-    }
 
     void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
     {
-        if(isClipEmpty)
+        if (isClipEmpty)
         {
-            if(canFullLoad)
+            if (canFullLoad)
             {
                 nbMunitions = maxMunitions;
                 munitions -= maxMunitions;
@@ -316,14 +357,14 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            if(canFullLoad)
+            if (canFullLoad)
             {
                 munitions -= maxMunitions - nbMunitions;
                 nbMunitions = maxMunitions;
             }
             else
             {
-                if(maxMunitions-nbMunitions >= munitions)
+                if (maxMunitions - nbMunitions >= munitions)
                 {
                     nbMunitions += munitions;
                     munitions = 0;
@@ -348,6 +389,8 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(reloadTime);
 
         UpdateMunitions(nbMunitions == 0, munitions >= maxMunitions);
+        var weapon = holsterArray[indexWeapon];
+        weapon.GetComponent<WeaponCharacteristics>().UpdateAmmo(true, nbMunitions);
         animator.SetBool("isReloading", false);
         isReloading = false;
     }
@@ -356,6 +399,8 @@ public class PlayerController : NetworkBehaviour
     {
         canShoot = false;
         CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
+        var weapon = holsterArray[indexWeapon];
+        weapon.GetComponent<WeaponCharacteristics>().UpdateAmmo();
 
         yield return new WaitForSecondsRealtime(fireRate);
 
@@ -372,7 +417,7 @@ public class PlayerController : NetworkBehaviour
         {
             RpcStartParticles();
         }
-        if(gunSource.isPlaying)
+        if (gunSource.isPlaying)
         {
             gunSource.Stop();
         }
@@ -381,9 +426,9 @@ public class PlayerController : NetworkBehaviour
         gunSource.Play();
         Ray ray = new Ray(origin, direction);
         RaycastHit hit;
-        if (Physics.Raycast(ray,out hit,range,rayMask))
+        if (Physics.Raycast(ray, out hit, range, rayMask))
         {
-            if(hit.collider.tag == "Enemy")
+            if (hit.collider.tag == "Enemy")
             {
                 hit.collider.GetComponent<Health>().TakeDamage(gunDamage);
             }
@@ -415,23 +460,30 @@ public class PlayerController : NetworkBehaviour
     //Server --> Client
     //Both next functions : Start playing gun particles
     [ClientRpc]
-    public void RpcStartParticles(){
+    public void RpcStartParticles()
+    {
         StartParticles();
     }
 
-    public void StartParticles(){
+    public void StartParticles()
+    {
         gunParticle.Play();
     }
 
     //Enable camera and audioListener on connection of the player
-    public override void OnStartLocalPlayer(){
+    public override void OnStartLocalPlayer()
+    {
 
         GetComponent<MeshRenderer>().material.color = Color.blue;
-        if(!myCam.enabled || !myAudioListener.enabled || !myCanvas){
+        if (!myCam.enabled || !myAudioListener.enabled || !myCanvas || !miniMapCamera.enabled)
+        {
             myCanvas.gameObject.SetActive(true);
             myCam.enabled = true;
             myAudioListener.enabled = true;
+            miniMapCamera.enabled = true;
         }
+        _isServer = isServer;
+        score = 0;
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
         munitions = 20;
         isReloading = false;
@@ -439,8 +491,17 @@ public class PlayerController : NetworkBehaviour
         ChangeWeaponStats(0);
         nbMunitions = maxMunitions;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        /*UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
-        UIstock.text = $"Stock: {munitions}";*/
+        foreach(var gun in holsterArray)
+        {
+            gun.GetComponent<WeaponCharacteristics>().currentAmmo = gun.GetComponent<WeaponCharacteristics>().munitions;
+        }
+        if (isServer)
+        {
+            panel.SetActive(true);
+            panelText.text = LocalIPAddress();
+        }
+        startingMoney = GetComponent<Money>().money;
+        money = startingMoney;
     }
 
     //Get the point where player is looking at
@@ -458,7 +519,6 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    //Bring back player to main menu
     public void OnMainMenu()
     {
         if (isClientOnly)
@@ -469,9 +529,33 @@ public class PlayerController : NetworkBehaviour
         {
             networkManager.StopHost();
         }
-        SceneManager.LoadScene("MainMenu");
     }
 
     public NetworkManager GetNetworkManager() => networkManager;
 
+    public static string LocalIPAddress()
+    {
+        IPHostEntry host;
+        host = Dns.GetHostEntry(Dns.GetHostName());
+        
+        return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";
+    }
+
+
+    public void OnEndGame(bool victory)
+    {
+        win = victory;
+        Cursor.lockState = CursorLockMode.None;
+        deltaMoney = money - startingMoney;
+        networkManager.offlineScene = "WinScene";
+        if (!isClientOnly)
+        {
+            networkManager.StopHost();
+            NetworkServer.Shutdown();
+        }
+        else
+        {
+            networkManager.StopClient();
+        }
+    }
 }

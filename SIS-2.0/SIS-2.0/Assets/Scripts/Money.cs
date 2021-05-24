@@ -12,7 +12,7 @@ public class Money : MonoBehaviour
         public void EnemyDropMoney(){
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 foreach(GameObject player in players){
-                        player.GetComponent<Money>().money += money / players.Length;
+                        player.GetComponent<PlayerController>().money += money / players.Length;
                 }
         }
 }

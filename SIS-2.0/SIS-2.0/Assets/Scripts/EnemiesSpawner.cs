@@ -8,17 +8,21 @@ public class EnemiesSpawner : NetworkBehaviour
 {
     GameObject enemyPrefab;
     public LayerMask mask;
+    public bool isStarted = false;
 
+    public static int waveNumber = 1;
     [SyncVar(hook = "OnChangeEnemiesLeft")]
     public int enemiesLeft = 0;
 
     GameObject[] allSpawnPoints;
     Queue<string> queue = new Queue<string>();
+    //[SyncVar(hook = "Endgame")]
+    //bool transition = false;
 
-    public override void OnStartServer()
+    public void StartGame()
     {
         CreateSpawnList();
-
+        isStarted = true;
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         LoadEnemies();
         
@@ -32,6 +36,11 @@ public class EnemiesSpawner : NetworkBehaviour
             try
             {
                 LoadEnemies();
+                waveNumber++;
+            }
+            catch (InvalidOperationException)
+            {
+                StartCoroutine("Sleep");
             }
             catch (Exception)
             {
@@ -40,6 +49,23 @@ public class EnemiesSpawner : NetworkBehaviour
             }
             
         }
+    }
+
+    public void Endgame(bool _old, bool _new)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject host = null;
+        foreach (var player in players)
+        {
+            if (!player.GetComponent<PlayerController>()._isServer)
+            {
+                player.GetComponent<PlayerController>().GetNetworkManager().offlineScene = "WinScene";
+                player.GetComponent<PlayerController>().OnEndGame(true);
+            }
+            else
+                host = player;
+        }
+        host.GetComponent<PlayerController>().OnEndGame(true);
     }
 
     public void LoadEnemies()
@@ -82,4 +108,13 @@ public class EnemiesSpawner : NetworkBehaviour
         TrySpawningNextWave();
     }
 
+    System.Collections.IEnumerator Sleep()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        //transition = true;
+    }
+
 }
+
+/* SmallEnemy,HeavyEnemy,HeavyEnemy,NormalEnemy,SmallEnemy,NormalEnemy,SmallEnemy
+NormalEnemy,SmallEnemy,HeavyEnemy,NormalEnemy*/
