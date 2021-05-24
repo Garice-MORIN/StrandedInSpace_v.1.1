@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class EnemiesSpawner : NetworkBehaviour
 {
+    DateTime startTime;
+    DateTime endTime;
+    public DateTime startWaveTwo;
     GameObject enemyPrefab;
     public LayerMask mask;
     public bool isStarted = false;
@@ -16,11 +19,17 @@ public class EnemiesSpawner : NetworkBehaviour
 
     GameObject[] allSpawnPoints;
     Queue<string> queue = new Queue<string>();
-    //[SyncVar(hook = "Endgame")]
-    //bool transition = false;
+    [SyncVar(hook = "Endgame")]
+    bool endgame = false;
+
+    private void Start()
+    {
+        startWaveTwo = new DateTime();
+    }
 
     public void StartGame()
     {
+        startTime = DateTime.Now;
         CreateSpawnList();
         isStarted = true;
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
@@ -70,6 +79,9 @@ public class EnemiesSpawner : NetworkBehaviour
 
     public void LoadEnemies()
     {
+        if (waveNumber == 2)
+            startWaveTwo = DateTime.Now;
+
         int i = 0;
 
         foreach (var enemy in queue.Dequeue().Split(','))
@@ -110,8 +122,9 @@ public class EnemiesSpawner : NetworkBehaviour
 
     System.Collections.IEnumerator Sleep()
     {
+        endTime = DateTime.Now;
         yield return new WaitForSecondsRealtime(1);
-        //transition = true;
+        endgame = true;
     }
 
 }

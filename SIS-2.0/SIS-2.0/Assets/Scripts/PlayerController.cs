@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
 using System.Net;
+using System;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerController : NetworkBehaviour
     [SyncVar(hook = "OnMoneyChanged")] public int money;
 
     //Player related variables
+    private DateTime startGame;
     public CharacterController controller;
     public Transform groundCheck;
     public Transform playerBody;
@@ -25,6 +27,7 @@ public class PlayerController : NetworkBehaviour
     public static int deltaMoney;
     public static bool win;
     public bool _isServer;
+    public bool canWinPoints;
 
     public bool isGrounded;
     Vector3 velocity;
@@ -150,6 +153,7 @@ public class PlayerController : NetworkBehaviour
                 if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted)
                 {
                     FindObjectOfType<EnemiesSpawner>().StartGame();
+                    GetStartingTime();
                     panel.SetActive(false);
                 }
             }
@@ -289,6 +293,15 @@ public class PlayerController : NetworkBehaviour
     public void IpPanel(bool _old, bool _new)
     {
         panel.SetActive(!_new);
+    }
+
+    public void GetStartingTime()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach(var player in players)
+        {
+            player.GetComponent<PlayerController>().startGame = DateTime.UtcNow;
+        }
     }
 
     //Activate new equipped weapon and deactivate the previous one
@@ -504,6 +517,12 @@ public class PlayerController : NetworkBehaviour
         }
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
+        if (FindObjectOfType<EnemiesSpawner>().isStarted)
+        {
+            startGame = DateTime.UtcNow;
+        }
+        else
+            startGame = new DateTime();
     }
 
     //Get the point where player is looking at
@@ -547,11 +566,14 @@ public class PlayerController : NetworkBehaviour
     public void OnEndGame(bool victory)
     {
         win = victory;
+        DateTime startWaveTwo = FindObjectOfType<EnemiesSpawner>().startWaveTwo;
+        canWinPoints = DateTime.Now - startGame >= DateTime.Now - startWaveTwo;
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = money - startingMoney;
         networkManager.offlineScene = "WinScene";
         if (!isClientOnly)
         {
+            Debug.Log(canWinPoints);
             networkManager.StopHost();
             NetworkServer.Shutdown();
         }
