@@ -837,11 +837,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 4352
   enemyPosition: {fileID: 6931518593030710512}
   navMesh: {fileID: 4969366338107377879}
   damage: 10
-  attackCooldown: 1
+  cooldownTime: 2.5
+  canAttack: 0
   slowed: 0
   baseSpeed: 0
   slowDuration: 0

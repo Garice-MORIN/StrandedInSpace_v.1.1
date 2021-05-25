@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -7,9 +8,10 @@ public class EnemyMovement : MonoBehaviour
     public Transform enemyPosition;
     public NavMeshAgent navMesh;
     public int damage;
+    public float cooldownTime;
     Collider[] colliders;
     Transform goal;
-    public float attackCooldown;
+    public bool canAttack;
     public bool slowed;
     public float baseSpeed;
     public float slowDuration;
@@ -19,31 +21,32 @@ public class EnemyMovement : MonoBehaviour
         goal = GameObject.FindGameObjectWithTag("Tower").transform; //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
+        canAttack = true;
     }
 
     public void Update()
     {
+        
         //Attack tower if enemy is close enough 
-        CheckAttack();
+        if(canAttack)
+        {
+            StartCoroutine(TryAttack());
+            canAttack = true;
+        }
+        
         CheckSlow();
     }
 
-    //TODO: Optimize this function
-    void CheckAttack(){
-        if(attackCooldown <= 0){
-            AttackTower();
-            attackCooldown = 1;
-        }
-        else{
-            attackCooldown -= Time.deltaTime;
-        }
-    }
-
-    void AttackTower(){
+    IEnumerator TryAttack()
+    {
+        canAttack = false;
         colliders = Physics.OverlapSphere(enemyPosition.position, 2.0f, mask);
-        foreach(var obj in colliders){
+        foreach (var obj in colliders)
+        {
             obj.GetComponent<Health>().TakeDamage(damage);
         }
+        yield return new WaitForSecondsRealtime(cooldownTime);
+        
     }
 
     //Check if enemy had been slowed and if it should be unslowed

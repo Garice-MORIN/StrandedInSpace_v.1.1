@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ScoreBoard : MonoBehaviour
 {
     GameObject[] playerList;
-    public Text[] texts;
+    public RowBehaviour[] rowList;
 
     
     private void OnEnable()
@@ -12,8 +12,8 @@ public class ScoreBoard : MonoBehaviour
         playerList = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < playerList.Length; i++)
         {
-            texts[i].color = Color.white;
-            texts[i].text = $"Player 1:                     {playerList[i].GetComponent<PlayerController>().money}                             nb";
+            PlayerController playerController = playerList[i].GetComponent<PlayerController>();
+            rowList[i].WriteData(playerController.name, playerController.money, playerController.death);
         }
     }
 }

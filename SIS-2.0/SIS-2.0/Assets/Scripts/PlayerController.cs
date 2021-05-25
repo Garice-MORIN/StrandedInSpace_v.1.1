@@ -11,6 +11,8 @@ public class PlayerController : NetworkBehaviour
 {
     int startingMoney;
     [SyncVar(hook = "OnMoneyChanged")] public int money;
+    public string name;
+    public int death;
 
     //Player related variables
     private DateTime startGame;
@@ -498,6 +500,7 @@ public class PlayerController : NetworkBehaviour
             miniMapCamera.enabled = true;
         }
         _isServer = isServer;
+        name = RandomString();
         score = 0;
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
         munitions = 20;
@@ -581,5 +584,15 @@ public class PlayerController : NetworkBehaviour
         {
             networkManager.StopClient();
         }
+    }
+
+    string RandomString()
+    {
+        string s = "";
+        for(int i = 0; i < 6; i++)
+        {
+            s += (char)UnityEngine.Random.Range(65, 91);
+        }
+        return s;
     }
 }

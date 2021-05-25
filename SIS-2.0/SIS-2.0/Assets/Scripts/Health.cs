@@ -38,7 +38,9 @@ public class Health : NetworkBehaviour
         if(!isServer){
             return;
         }
+
         health -= damage;
+        Debug.Log(health);
 
         if(health <= 0){
             doDrop = gameObject.tag == "Enemy" && Random.Range(0.0f,1.0f) < 0.6f; //Check if entity drop ammunition on death
@@ -69,6 +71,7 @@ public class Health : NetworkBehaviour
             }
             else{
                 health = maxHP;
+                gameObject.GetComponent<PlayerController>().death += 1;
                 RpcRespawn();
             }
         }
