@@ -15,10 +15,9 @@ public class Health : NetworkBehaviour
     public RectTransform background;
 
     public bool destroyOnDeath;
-
+    private bool dead = false;
     private NetworkStartPosition[] spawnPoints;
     private bool doDrop;
-
     public EnemyKill check;
 
     private void Start(){
@@ -31,6 +30,15 @@ public class Health : NetworkBehaviour
         background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
         HPBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
         HPBar.localPosition = new Vector3(maxHP/2, 0, 0);
+    }
+
+    public IEnumerator GetBurned(int burnDamage, int nbTick){
+        for(int i = 0; i < nbTick; i++){
+            yield return new WaitForSeconds(0.5f);
+            if(!dead){
+                TakeDamage(burnDamage);
+            }
+        }
     }
 
     //Give damage to entity
@@ -53,7 +61,8 @@ public class Health : NetworkBehaviour
                 }
                 if(tag == "Enemy")
                 {
-                    check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
+                    dead = true;
+                    //check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
                     gameObject.GetComponent<Money>().EnemyDropMoney();
                 }
                 if(doDrop){

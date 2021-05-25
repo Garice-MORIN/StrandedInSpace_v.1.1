@@ -20,8 +20,7 @@ public class TurretAI : NetworkBehaviour
     public int targetsPerAttack;
     public float slowDuration;
     public float slowPower;
-    public LayerMask mask;
-    
+    public float burnDuration;
     void Start(){
         cooldown = attackDelay;
     }
@@ -123,24 +122,28 @@ public class TurretAI : NetworkBehaviour
     }
 
     void Burn(GameObject enemy){
-        
+        if(enemy != null){
+            StartCoroutine(enemy.GetComponent<Health>().GetBurned(damage, (int)(burnDuration/0.5f)));
+        }
     }
 
     GameObject[] FlameThrowerAim(GameObject[] enemiesLeft){
         GameObject target = BasicAim(enemiesLeft);
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, target.transform.position - transform.position, range).OrderBy(h=>h.distance).ToArray();
-        int i = 0;
-        while(i < hits.Length && hits[i].transform.gameObject.tag == "Enemy"){
-            i++;
+        RaycastHit[] hits;
+        if(target != null){
+            hits = Physics.RaycastAll(transform.position, target.transform.position - transform.position, range).OrderBy(h=>h.distance).ToArray();
+            int i = 0;
+            while(i < hits.Length && hits[i].transform.gameObject.tag == "Enemy"){
+                i++;
+            }
+            GameObject[] targets = new GameObject[i];
+            for(int j = 0; j < i; j++){
+                targets[j] = hits[j].transform.gameObject;
+            }
+            return targets;
         }
-        GameObject[] targets = new GameObject[i];
-        for(int j = 0; j < i; j++){
-            targets[j] = hits[j].transform.gameObject;
-        }
-        return targets;
+        return new GameObject[] {null};
     }
-
-
 
     void AttackFlamethrower(){
         if(cooldown <= 0){
@@ -152,13 +155,7 @@ public class TurretAI : NetworkBehaviour
         else{
             cooldown -= Time.deltaTime;
         }
-           
     }
-    
-
-
-
-
     
     void Slow(GameObject enemy){
         if(enemy != null){

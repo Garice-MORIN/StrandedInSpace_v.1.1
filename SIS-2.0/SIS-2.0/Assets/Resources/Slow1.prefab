@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 580053753130792975}
   - component: {fileID: 5009563260165736124}
   - component: {fileID: 1567120659763120713}
+  - component: {fileID: -1266302817037408351}
   m_Layer: 12
   m_Name: Slow1
   m_TagString: Tower
@@ -113,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 0
   serverOnly: 0
+  visible: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!114 &580053753130792975
@@ -133,6 +135,9 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  syncScale: 1
 --- !u!114 &5009563260165736124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +157,7 @@ MonoBehaviour:
   HPBar: {fileID: 3662052544461773737}
   background: {fileID: 3662052544660705803}
   destroyOnDeath: 1
+  check: {fileID: 0}
 --- !u!114 &1567120659763120713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +179,21 @@ MonoBehaviour:
   damage: 0
   targetsPerAttack: -1
   slowDuration: 2.5
-  slowPower: 0.5
+  slowPower: 0.9
+  burnDuration: 0
+--- !u!114 &-1266302817037408351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580053753130792981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money: 25
 --- !u!1 &3662052544461773736
 GameObject:
   m_ObjectHideFlags: 0

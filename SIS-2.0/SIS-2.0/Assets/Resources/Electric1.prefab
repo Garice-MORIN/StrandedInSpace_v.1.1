@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 2700655146675342299}
   - component: {fileID: 7562651407456859496}
   - component: {fileID: 4092052095502350749}
+  - component: {fileID: 2679124820453968240}
   m_Layer: 12
   m_Name: Electric1
   m_TagString: Tower
@@ -374,6 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 0
   serverOnly: 0
+  visible: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!114 &2700655146675342299
@@ -394,6 +396,9 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  syncScale: 1
 --- !u!114 &7562651407456859496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +418,7 @@ MonoBehaviour:
   HPBar: {fileID: 2280049839253334141}
   background: {fileID: 2280049839587008991}
   destroyOnDeath: 1
+  check: {fileID: 0}
 --- !u!114 &4092052095502350749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +435,23 @@ MonoBehaviour:
   syncInterval: 0.1
   typeOfTower: 1
   range: 10
-  attackDelay: 1.5
+  attackDelay: 3
   cooldown: 0
   damage: 10
   targetsPerAttack: 3
+  slowDuration: 0
+  slowPower: 0
+  burnDuration: 0
+--- !u!114 &2679124820453968240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2700655146675342273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money: 25
