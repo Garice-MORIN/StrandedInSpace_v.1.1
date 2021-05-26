@@ -575,6 +575,7 @@ MonoBehaviour:
   inverted: 1
   musicLevel: {fileID: 0}
   effectlevel: {fileID: 0}
+  manager: {fileID: 0}
   networkManager: {fileID: 0}
   inputField: {fileID: 0}
 --- !u!1 &34968667
@@ -7798,6 +7799,7 @@ MonoBehaviour:
   inverted: 1
   musicLevel: {fileID: 1575771290}
   effectlevel: {fileID: 2046325093}
+  manager: {fileID: 550045059}
   networkManager: {fileID: 550045062}
   inputField: {fileID: 1402205920}
 --- !u!1 &1668980938

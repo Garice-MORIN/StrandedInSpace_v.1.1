@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class ScoreBoard : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class ScoreBoard : MonoBehaviour
         for (int i = 0; i < playerList.Length; i++)
         {
             PlayerController playerController = playerList[i].GetComponent<PlayerController>();
-            rowList[i].WriteData(playerController.name, playerController.money, playerController.death);
+            rowList[i].WriteData(playerController._name, playerController.money, playerController.death);
         }
     }
 }

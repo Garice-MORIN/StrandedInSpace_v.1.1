@@ -14,11 +14,13 @@ public class MainMenu : MonoBehaviour
     public int inverted = 1;
     public Text musicLevel;
     public Text effectlevel;
+    public GameObject manager;
     public NetworkManager networkManager;
     public InputField inputField;
 
     private void Start()
     {
+        
         volumeSlider.value = 0.5f;
         effectSlider.value = 0.5f;
         musicLevel.text = "50 %";
@@ -54,6 +56,7 @@ public class MainMenu : MonoBehaviour
     //Credit button behaviour
     public void MenuToCredits()
     {
+        Destroy(manager);
         SceneManager.LoadScene("Credits");
     }
 

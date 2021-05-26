@@ -9,12 +9,12 @@ using System.Linq;
 
 public class Connection : MonoBehaviour
 {
-    string db = "server=localhost;userid=id16853390_root;password=KIujyh84000!; database=id16853390_players	";
+    //string db = "server=localhost;userid=id16853390_root;password=KIujyh84000!; database=id16853390_players	";
     public InputField login;
     public InputField password;
     private string _login;
     private string _password;
-    private bool show = false;
+    //private bool show = false;
 
     public void On_Click()
     {

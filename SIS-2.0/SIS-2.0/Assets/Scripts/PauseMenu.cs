@@ -17,6 +17,11 @@ public class PauseMenu : NetworkBehaviour
     public NetworkConnection networkConnection;
     private bool mainMenu;
 
+    private void Start()
+    {
+        audioSource = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
+    }
+
     private void OnEnable()
     {
         effectSlider.value = PlayerPrefs.GetFloat("Effects");
