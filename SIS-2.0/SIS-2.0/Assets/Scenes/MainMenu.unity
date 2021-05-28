@@ -2463,6 +2463,7 @@ GameObject:
   - component: {fileID: 550045062}
   - component: {fileID: 550045061}
   - component: {fileID: 550045060}
+  - component: {fileID: 550045064}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -2546,6 +2547,15 @@ MonoBehaviour:
   - {fileID: 8913524930736230560, guid: f62f3cd8b5845b649847482303805b77, type: 3}
   - {fileID: 3472940866351633763, guid: 8135ea9ea6ad275479bec721dd4326a2, type: 3}
   - {fileID: 5308503868554301355, guid: 86ea8ea0b0fa9f34ab9a1256824ab8af, type: 3}
+  - {fileID: 2700655146675342273, guid: a21470feb58da0c4baf8a61f81ee0ba7, type: 3}
+  - {fileID: 317242647604779562, guid: 9c28c7958667ef84aa225b7e6db72e87, type: 3}
+  - {fileID: 870694385208682129, guid: 43a536556b9aa7d41a4cde70939dd37b, type: 3}
+  - {fileID: 3079467246826046790, guid: ad98732ed0602ac4481a4d46924264cd, type: 3}
+  - {fileID: 1145270010336915219, guid: 78ed2fdf349e05348b6ad86314b81864, type: 3}
+  - {fileID: 3326563126832366362, guid: b4c3d03bfba51d24db4b9baa856312e9, type: 3}
+  - {fileID: 580053753130792981, guid: 9d23961e1818f9b4eafb9dba9b8f9909, type: 3}
+  - {fileID: 3483445692207654899, guid: 5d2fa000d6616c849b994a450ac168c5, type: 3}
+  - {fileID: 7166293937886678057, guid: 50895925cf5c25441b2692d8d2e45229, type: 3}
 --- !u!4 &550045063
 Transform:
   m_ObjectHideFlags: 0
@@ -2560,6 +2570,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &550045064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550045059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26216406aa50a3d42a44341c2845cf9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &569621761
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,8 +38,6 @@ public class PlayerController : NetworkBehaviour
     //Interface & Sound related variables
     public GameObject myCanvas;
     public AudioSource gunSource;
-    
-    
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public GameObject commandsMenu;
@@ -52,7 +50,6 @@ public class PlayerController : NetworkBehaviour
        //All musics in the game
     public Animator transition;
     public Text UIMoney;
-
 
     //Gun related variables
     public Animator animator; //Reload animation currently used (depend on weapon)
@@ -75,12 +72,10 @@ public class PlayerController : NetworkBehaviour
     public Text panelText;
     [SyncVar(hook = "IpPanel")]
     public bool isGameLaunched;
-
     public NetworkAnimator networkAnimator;
-
     [SyncVar(hook = "OnWeaponChanged")]
     public int activeWeapon = 0;
-
+    public NetworkManager GetNetworkManager() => networkManager;
     bool constructionMode;
     bool isReloading;
     bool canShoot;
@@ -91,8 +86,7 @@ public class PlayerController : NetworkBehaviour
     [SyncVar(hook = "OnAmmoChanged")]
     int nbMunitions; //Ammunitions currently in the gun chamber
     int indexWeapon;
-
-
+    int indexPlacement;
     private void Start()
     {
         //Initialize all variables
@@ -231,18 +225,31 @@ public class PlayerController : NetworkBehaviour
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                //If user scroll up, change equipped weapon
-                indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
-                CmdChangeActiveWeapon(indexWeapon);
-                ChangeWeaponStats(indexWeapon);
+                //If user scroll up
+                if(constructionMode){
+                    indexPlacement = indexPlacement == 3 ? 0 : indexPlacement + 1;
+                }
+                else{
+                    //Change equipped weapon
+                    indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
+                    CmdChangeActiveWeapon(indexWeapon);
+                    ChangeWeaponStats(indexWeapon);
+                }
+                
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                //If user scroll up, change equipped weapon
-                indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
-                CmdChangeActiveWeapon(indexWeapon);
-                ChangeWeaponStats(indexWeapon);
+                //If user scroll down
+                if(constructionMode){
+                    indexPlacement = indexPlacement == 0 ? 3 : indexPlacement - 1;
+                }
+                else{
+                    //Change equipped weapon
+                    indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
+                    CmdChangeActiveWeapon(indexWeapon);
+                    ChangeWeaponStats(indexWeapon);
+                }
             }
 
 
@@ -253,24 +260,24 @@ public class PlayerController : NetworkBehaviour
                 scoreBoard.SetActive(!scoreBoard.activeSelf);
             }
 
+            /*___________________________HUDforConstruction______________________*/
+            //if(constructionMode && getAimingObject().tag == "TurretSpawnPoints"){
+                //SpawnerHUD(indexPlacement);
+            //}
         }
     }
-
     public void OnAmmoChanged(int _old, int _new)
     {
         UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
     }
-
     public void OnStockChanged(int _old, int _new)
     {
         UIstock.text = $"Stock: {munitions}";
     }
-
     public void OnMoneyChanged(int _old, int _new)
     {
         UIMoney.text = $"{money}";
     }
-
     public void OnStateChanged(bool _old, bool _new)
     {
         if(!_old)
@@ -285,12 +292,10 @@ public class PlayerController : NetworkBehaviour
         }
             
     }
-
     public void IpPanel(bool _old, bool _new)
     {
         panel.SetActive(!_new);
     }
-
     //Activate new equipped weapon and deactivate the previous one
     public void OnWeaponChanged(int _old, int _new)
     {
@@ -303,14 +308,12 @@ public class PlayerController : NetworkBehaviour
             holsterArray[_new].SetActive(true);
         }
     }
-
     //Synchronize new weapon on server
     [Command]
     public void CmdChangeActiveWeapon(int newIndex)
     {
         activeWeapon = newIndex;
     }
-
     //Update weapon characteristics to those of the new weapon
     public void ChangeWeaponStats(int index)
     {
@@ -323,7 +326,6 @@ public class PlayerController : NetworkBehaviour
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
         nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
-
     //Change lock state of cursor
     public void ChangeCursorLockState()
     {
@@ -340,8 +342,6 @@ public class PlayerController : NetworkBehaviour
         pauseMenu.SetActive(!pauseMenu.activeSelf);
         pauseMenuActive = !pauseMenuActive;
     }
-
-
     void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
     {
         if (isClipEmpty)
@@ -379,7 +379,6 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
-
     //Reloading function
     IEnumerator Reload()
     {
@@ -396,7 +395,6 @@ public class PlayerController : NetworkBehaviour
         animator.SetBool("isReloading", false);
         isReloading = false;
     }
-
     IEnumerator Shoot()
     {
         canShoot = false;
@@ -436,7 +434,6 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
-
     //Build a turret/trap
     [Command]
     void CmdBuild()
@@ -444,7 +441,7 @@ public class PlayerController : NetworkBehaviour
         GameObject aimed = getAimingObject();
         if (aimed != null && aimed.tag == "TurretSpawnPoints")
         {
-            GetComponent<Money>().money = aimed.GetComponent<TurretSpawning>().TryUpgrade(GetComponent<Money>().money);
+            money -= aimed.GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
         }
     }
 
@@ -455,10 +452,9 @@ public class PlayerController : NetworkBehaviour
         GameObject aimed = getAimingObject();
         if (aimed != null && aimed.tag == "TurretSpawnPoints")
         {
-            GetComponent<Money>().money = aimed.GetComponent<TurretSpawning>().TryDestroy(GetComponent<Money>().money);
+            money += aimed.GetComponent<TurretSpawning>().TryDestroy(money);
         }
     }
-
     //Server --> Client
     //Both next functions : Start playing gun particles
     [ClientRpc]
@@ -466,16 +462,13 @@ public class PlayerController : NetworkBehaviour
     {
         StartParticles();
     }
-
     public void StartParticles()
     {
         gunParticle.Play();
     }
-
     //Enable camera and audioListener on connection of the player
     public override void OnStartLocalPlayer()
     {
-
         GetComponent<MeshRenderer>().material.color = Color.blue;
         if (!myCam.enabled || !myAudioListener.enabled || !myCanvas || !miniMapCamera.enabled)
         {
@@ -505,7 +498,6 @@ public class PlayerController : NetworkBehaviour
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
     }
-
     //Get the point where player is looking at
     public GameObject getAimingObject()
     {
@@ -520,7 +512,6 @@ public class PlayerController : NetworkBehaviour
             return null;
         }
     }
-
     public void OnMainMenu()
     {
         if (isClientOnly)
@@ -532,9 +523,6 @@ public class PlayerController : NetworkBehaviour
             networkManager.StopHost();
         }
     }
-
-    public NetworkManager GetNetworkManager() => networkManager;
-
     public static string LocalIPAddress()
     {
         IPHostEntry host;
@@ -542,8 +530,6 @@ public class PlayerController : NetworkBehaviour
         
         return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";
     }
-
-
     public void OnEndGame(bool victory)
     {
         win = victory;
