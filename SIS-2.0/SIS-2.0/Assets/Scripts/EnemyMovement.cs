@@ -18,7 +18,7 @@ public class EnemyMovement : MonoBehaviour
     public float slowPower;
     void Start()
     {
-        goal = GameObject.FindGameObjectWithTag("Tower").transform; //Assign AI's goal
+        goal = GameObject.FindGameObjectWithTag("Core").transform; //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
         canAttack = true;
@@ -45,7 +45,7 @@ public class EnemyMovement : MonoBehaviour
         {
             obj.GetComponent<Health>().TakeDamage(damage);
         }
-        yield return new WaitForSecondsRealtime(cooldownTime);
+        yield return new WaitForSeconds(cooldownTime);
         
     }
 

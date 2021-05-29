@@ -841,7 +841,7 @@ MonoBehaviour:
   enemyPosition: {fileID: 6931518593030710512}
   navMesh: {fileID: 4969366338107377879}
   damage: 10
-  cooldownTime: 2.5
+  cooldownTime: 5
   canAttack: 0
   slowed: 0
   baseSpeed: 0

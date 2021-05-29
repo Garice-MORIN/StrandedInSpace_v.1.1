@@ -19,8 +19,8 @@ public class EnemiesSpawner : NetworkBehaviour
 
     GameObject[] allSpawnPoints;
     Queue<string> queue = new Queue<string>();
-    [SyncVar(hook = "Endgame")]
-    bool endgame = false;
+    //[SyncVar(hook = "Endgame")]
+    //bool endgame = false;
 
     private void Start()
     {
@@ -120,12 +120,12 @@ public class EnemiesSpawner : NetworkBehaviour
         TrySpawningNextWave();
     }
 
-    System.Collections.IEnumerator Sleep()
+    /*System.Collections.IEnumerator Sleep()
     {
         endTime = DateTime.Now;
         yield return new WaitForSecondsRealtime(1);
         endgame = true;
-    }
+    }*/
 
 }
 

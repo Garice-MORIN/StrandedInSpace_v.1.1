@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using Mirror;
 
 public class Health : NetworkBehaviour
@@ -40,12 +37,11 @@ public class Health : NetworkBehaviour
         }
 
         health -= damage;
-        Debug.Log(health);
 
         if(health <= 0){
             doDrop = gameObject.tag == "Enemy" && Random.Range(0.0f,1.0f) < 0.6f; //Check if entity drop ammunition on death
             if(destroyOnDeath){
-                if(tag == "Tower")
+                if(tag == "Core")
                 {
                     GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                     foreach (var player in players)

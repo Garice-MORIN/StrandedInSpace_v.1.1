@@ -810,9 +810,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0f39bdd822da46910ee24c4afa781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: {fileID: 2853525112524554129}
-  money: {fileID: 919009063347156444}
-  death: {fileID: 3579678000278223837}
+  Name: {fileID: 0}
+  Money: {fileID: 0}
+  Death: {fileID: 0}
 --- !u!1 &2575621437443816634
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,9 +890,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0f39bdd822da46910ee24c4afa781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: {fileID: 3347014848712362178}
-  money: {fileID: 2586589370881720552}
-  death: {fileID: 1535130062323870527}
+  Name: {fileID: 0}
+  Money: {fileID: 0}
+  Death: {fileID: 0}
 --- !u!1 &2596436063473735895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,9 +1204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0f39bdd822da46910ee24c4afa781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: {fileID: 4775440269982297557}
-  money: {fileID: 1760456705698014488}
-  death: {fileID: 6597098804043187547}
+  Name: {fileID: 0}
+  Money: {fileID: 0}
+  Death: {fileID: 0}
 --- !u!1 &3317176125263841895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,7 +1874,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   money: 0
-  name: 
+  _name: 
   death: 0
   controller: {fileID: -7805777872003939710}
   groundCheck: {fileID: 1012812764884556048}
@@ -1906,7 +1906,7 @@ MonoBehaviour:
   gunParticle: {fileID: 6939774903760840452}
   rayMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 33280
   maxMunitions: 10
   munitions: 100
   gunRange: 500
@@ -1978,7 +1978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 100
+  money: 2000
 --- !u!114 &103616168511524659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2422,9 +2422,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0f39bdd822da46910ee24c4afa781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: {fileID: 5197408553326033384}
-  money: {fileID: 8476278148511233343}
-  death: {fileID: 2554286603871813209}
+  Name: {fileID: 0}
+  Money: {fileID: 0}
+  Death: {fileID: 0}
 --- !u!1 &5516511441725982050
 GameObject:
   m_ObjectHideFlags: 0

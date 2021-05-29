@@ -34,7 +34,7 @@ public class PlayerController : NetworkBehaviour
     public bool isGrounded;
     Vector3 velocity;
     float gravity = -19.62f;
-    float jumpHeight = 2f;
+    float jumpHeight = 1.5f;
 
 
     [SyncVar(hook = "OnStateChanged")] bool pauseMenuActive;
@@ -393,6 +393,8 @@ public class PlayerController : NetworkBehaviour
             if (hit.collider.tag == "Enemy") {
                 hit.collider.GetComponent<Health>().TakeDamage(gunDamage);
             }
+            else if (hit.collider.tag == "TurretSpawnPoints")
+                Debug.Log("Raycast hit");
         }
     }
 

@@ -11,6 +11,10 @@ TagManager:
   - Anchor
   - Music
   - Spawner
+  - TurretSpawnPoints
+  - TrapSpawnPoint
+  - Core
+  - BarricadeSpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -27,7 +31,7 @@ TagManager:
   - Tower
   - Wall
   - Munition
-  - 
+  - Spawn
   - 
   - 
   - 
