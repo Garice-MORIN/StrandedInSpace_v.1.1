@@ -58,7 +58,6 @@ public class PlayerController : NetworkBehaviour
     public Animator transition;
     public Text UIMoney;
 
-
     //Gun related variables
     public Animator animator; //Reload animation currently used (depend on weapon)
     public ParticleSystem gunParticle;
@@ -80,12 +79,10 @@ public class PlayerController : NetworkBehaviour
     public Text panelText;
     [SyncVar(hook = "IpPanel")]
     public bool isGameLaunched;
-
     public NetworkAnimator networkAnimator;
-
     [SyncVar(hook = "OnWeaponChanged")]
     public int activeWeapon = 0;
-
+    public NetworkManager GetNetworkManager() => networkManager;
     bool constructionMode;
     bool isReloading;
     bool canShoot;
@@ -96,9 +93,9 @@ public class PlayerController : NetworkBehaviour
     [SyncVar(hook = "OnAmmoChanged")]
     int nbMunitions; //Ammunitions currently in the gun chamber
     int indexWeapon;
-
-
-    private void Start() {
+    int indexPlacement;
+    private void Start()
+    {
         //Initialize all variables
         soundArray = new AudioClip[] {
             Resources.Load("EmptyGun") as AudioClip,
@@ -215,18 +212,33 @@ public class PlayerController : NetworkBehaviour
             }
 
 
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f) {
-                //If user scroll up, change equipped weapon
-                indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
-                CmdChangeActiveWeapon(indexWeapon);
-                ChangeWeaponStats(indexWeapon);
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
+                //If user scroll up
+                if(constructionMode){
+                    indexPlacement = indexPlacement == 3 ? 0 : indexPlacement + 1;
+                }
+                else{
+                    //Change equipped weapon
+                    indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
+                    CmdChangeActiveWeapon(indexWeapon);
+                    ChangeWeaponStats(indexWeapon);
+                }
+
             }
 
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f) {
-                //If user scroll up, change equipped weapon
-                indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
-                CmdChangeActiveWeapon(indexWeapon);
-                ChangeWeaponStats(indexWeapon);
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                //If user scroll down
+                if(constructionMode){
+                    indexPlacement = indexPlacement == 0 ? 3 : indexPlacement - 1;
+                }
+                else{
+                    //Change equipped weapon
+                    indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
+                    CmdChangeActiveWeapon(indexWeapon);
+                    ChangeWeaponStats(indexWeapon);
+                }
             }
 
 
@@ -236,23 +248,28 @@ public class PlayerController : NetworkBehaviour
                 scoreBoard.SetActive(!scoreBoard.activeSelf);
             }
 
+            /*___________________________HUDforConstruction______________________*/
+            //if(constructionMode && getAimingObject().tag == "TurretSpawnPoints"){
+                //SpawnerHUD(indexPlacement);
+            //}
         }
     }
-
-    public void OnAmmoChanged(int _old, int _new) {
+    public void OnAmmoChanged(int _old, int _new)
+    {
         UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
     }
-
-    public void OnStockChanged(int _old, int _new) {
+    public void OnStockChanged(int _old, int _new)
+    {
         UIstock.text = $"Stock: {munitions}";
     }
-
-    public void OnMoneyChanged(int _old, int _new) {
+    public void OnMoneyChanged(int _old, int _new)
+    {
         UIMoney.text = $"{money}";
     }
-
-    public void OnStateChanged(bool _old, bool _new) {
-        if (!_old) {
+    public void OnStateChanged(bool _old, bool _new)
+    {
+        if(!_old)
+        {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -283,13 +300,11 @@ public class PlayerController : NetworkBehaviour
             holsterArray[_new].SetActive(true);
         }
     }
-
     //Synchronize new weapon on server
     [Command]
     public void CmdChangeActiveWeapon(int newIndex) {
         activeWeapon = newIndex;
     }
-
     //Update weapon characteristics to those of the new weapon
     public void ChangeWeaponStats(int index) {
         var weapon = holsterArray[index];
@@ -301,7 +316,6 @@ public class PlayerController : NetworkBehaviour
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
         nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
-
     //Change lock state of cursor
     public void ChangeCursorLockState() {
         if (Cursor.lockState == CursorLockMode.None) {
@@ -315,11 +329,12 @@ public class PlayerController : NetworkBehaviour
         pauseMenu.SetActive(!pauseMenu.activeSelf);
         pauseMenuActive = !pauseMenuActive;
     }
-
-
-    void UpdateMunitions(bool isClipEmpty, bool canFullLoad) {
-        if (isClipEmpty) {
-            if (canFullLoad) {
+    void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
+    {
+        if (isClipEmpty)
+        {
+            if (canFullLoad)
+            {
                 nbMunitions = maxMunitions;
                 munitions -= maxMunitions;
             }
@@ -345,7 +360,6 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
-
     //Reloading function
     IEnumerator Reload() {
         isReloading = true;
@@ -361,8 +375,8 @@ public class PlayerController : NetworkBehaviour
         animator.SetBool("isReloading", false);
         isReloading = false;
     }
-
-    IEnumerator Shoot() {
+    IEnumerator Shoot()
+    {
         canShoot = false;
         CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
         var weapon = holsterArray[indexWeapon];
@@ -397,13 +411,13 @@ public class PlayerController : NetworkBehaviour
                 Debug.Log("Raycast hit");
         }
     }
-
     //Build a turret/trap
     [Command]
     void CmdBuild() {
         GameObject aimed = getAimingObject();
-        if (aimed != null && aimed.tag == "TurretSpawnPoints") {
-            GetComponent<Money>().money = aimed.GetComponent<TurretSpawning>().TryUpgrade(GetComponent<Money>().money);
+        if (aimed != null && aimed.tag == "TurretSpawnPoints")
+        {
+            money -= aimed.GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
         }
     }
 
@@ -414,10 +428,9 @@ public class PlayerController : NetworkBehaviour
         GameObject aimed = getAimingObject();
         if (aimed != null && aimed.tag == "TurretSpawnPoints")
         {
-            GetComponent<Money>().money = aimed.GetComponent<TurretSpawning>().TryDestroy(GetComponent<Money>().money);
+            money += aimed.GetComponent<TurretSpawning>().TryDestroy(money);
         }
     }
-
     //Server --> Client
     //Both next functions : Start playing gun particles
     [ClientRpc]
@@ -425,16 +438,13 @@ public class PlayerController : NetworkBehaviour
     {
         StartParticles();
     }
-
     public void StartParticles()
     {
         gunParticle.Play();
     }
-
     //Enable camera and audioListener on connection of the player
     public override void OnStartLocalPlayer()
     {
-
         GetComponent<MeshRenderer>().material.color = Color.blue;
         if (!myCam.enabled || !myAudioListener.enabled || !myCanvas || !miniMapCamera.enabled)
         {
@@ -471,7 +481,6 @@ public class PlayerController : NetworkBehaviour
         else
             startGame = new DateTime();
     }
-
     //Get the point where player is looking at
     public GameObject getAimingObject()
     {
@@ -486,7 +495,6 @@ public class PlayerController : NetworkBehaviour
             return null;
         }
     }
-
     public void OnMainMenu()
     {
         if (isClientOnly)
@@ -498,18 +506,13 @@ public class PlayerController : NetworkBehaviour
             networkManager.StopHost();
         }
     }
-
-    public NetworkManager GetNetworkManager() => networkManager;
-
     public static string LocalIPAddress()
     {
         IPHostEntry host;
         host = Dns.GetHostEntry(Dns.GetHostName());
-        
+
         return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";
     }
-
-
     public void OnEndGame(bool victory)
     {
         win = victory;
