@@ -1,4 +1,0 @@
-SmallEnemy,SmallEnemy
-SmallEnemy,SmallEnemy
-SmallEnemy,SmallEnemy
-NormalEnemy

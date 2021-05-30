@@ -480,6 +480,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
             startGame = new DateTime();
+        
     }
     //Get the point where player is looking at
     public GameObject getAimingObject()
