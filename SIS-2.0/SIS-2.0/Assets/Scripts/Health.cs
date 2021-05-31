@@ -41,7 +41,6 @@ public class Health : NetworkBehaviour
         health -= damage;
 
         if(health <= 0){
-            doDrop = gameObject.tag == "Enemy" && Random.Range(0.0f,1.0f) < 0.6f; //Check if entity drop ammunition on death
             if(destroyOnDeath){
                 if(tag == "Tower")
                 {
@@ -53,6 +52,7 @@ public class Health : NetworkBehaviour
                 }
                 if(tag == "Enemy")
                 {
+                    doDrop = Random.Range(0.0f, 1.0f) < 0.6f; //Check if entity drop ammunition on death
                     check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
                     gameObject.GetComponent<Money>().EnemyDropMoney();
                 }

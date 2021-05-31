@@ -41,7 +41,7 @@ Cmd: compileComputeKernel
 Cmd: preprocessCompute
   insize=1908 outsize=1914 ok=1
 Cmd: compileComputeKernel
-  api=4 insize=1914 outsize=561 ok=1
+  api=4 insize=1914 outsize=1385 ok=1
 Cmd: preprocess
   insize=3671 outsize=223 ok=1
 Cmd: preprocessCompute

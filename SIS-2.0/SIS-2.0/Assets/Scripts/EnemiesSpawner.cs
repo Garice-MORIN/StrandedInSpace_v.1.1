@@ -10,7 +10,7 @@ public class EnemiesSpawner : NetworkBehaviour
     public LayerMask mask;
     public bool isStarted = false;
 
-    public static int waveNumber = 1;
+    public static int waveNumber = 0;
     [SyncVar(hook = "OnChangeEnemiesLeft")]
     public int enemiesLeft = 0;
 
@@ -25,7 +25,7 @@ public class EnemiesSpawner : NetworkBehaviour
         isStarted = true;
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         LoadEnemies();
-        
+        waveNumber++;
     }
 
     //Spawn next wave if there is at least one left

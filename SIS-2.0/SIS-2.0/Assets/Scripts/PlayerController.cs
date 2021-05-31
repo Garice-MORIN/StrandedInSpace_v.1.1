@@ -13,6 +13,7 @@ public class PlayerController : NetworkBehaviour
 
     //Player related variables
     public CharacterController controller;
+    public EnemyKill kills;
     public Transform groundCheck;
     public Transform playerBody;
     public LayerMask groundMask;
@@ -24,12 +25,14 @@ public class PlayerController : NetworkBehaviour
     public static int score;
     public static int deltaMoney;
     public static bool win;
+    public int death;
     public bool _isServer;
 
     public bool isGrounded;
     Vector3 velocity;
     float gravity = -19.62f;
     float jumpHeight = 2f;
+    int points;
 
 
     [SyncVar(hook = "OnStateChanged")] bool pauseMenuActive;
@@ -49,7 +52,6 @@ public class PlayerController : NetworkBehaviour
     public NetworkConnection networkConnection;
     public GameObject crosshair;
     public AudioClip[] soundArray;   //All sounds we can invoke in the game
-       //All musics in the game
     public Animator transition;
     public Text UIMoney;
 
@@ -320,7 +322,7 @@ public class PlayerController : NetworkBehaviour
         maxMunitions = weapon.GetComponent<WeaponCharacteristics>().munitions;
         fireRate = weapon.GetComponent<WeaponCharacteristics>().fireRate;
         animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
+        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator; //TODO: remove this
         nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
 
@@ -547,6 +549,7 @@ public class PlayerController : NetworkBehaviour
     public void OnEndGame(bool victory)
     {
         win = victory;
+        points = CountPoints(kills.killedEnemies);
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = money - startingMoney;
         networkManager.offlineScene = "WinScene";
@@ -560,4 +563,29 @@ public class PlayerController : NetworkBehaviour
             networkManager.StopClient();
         }
     }
+
+    public int CountPoints(List<Type> list) {
+        float total = 0;
+        foreach(var enemyType in list) {
+            switch(enemyType) {
+                case Type.FLYING:
+                    total += 15;
+                    break;
+                case Type.NORMAL:
+                    total += 30;
+                    break;
+                case Type.HEAVY:
+                    total += 50;
+                    break;
+                default:
+                    total += 100;
+                    break;
+			}
+		}
+        total /= death/2; 
+        total += money / 100;
+        total *= (1 + (EnemiesSpawner.waveNumber-1 / 5)*0.5f);
+
+        return Mathf.CeilToInt(total);
+	}
 }
