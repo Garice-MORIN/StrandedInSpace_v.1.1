@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Database : MonoBehaviour
 {
-    public MainMenu mainMenu;
+    //public MainMenu mainMenu;
     void Start()
     {
         

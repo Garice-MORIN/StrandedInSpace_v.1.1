@@ -12,9 +12,21 @@ namespace Mirror.Discovery
     [AddComponentMenu("Network/NetworkDiscovery")]
     public class NetworkDiscovery : NetworkDiscoveryBase<ServerRequest, ServerResponse>
     {
+        string RandomString() {
+            string s = "";
+            for (int i = 0; i < 6; i++) {
+                s += (char)UnityEngine.Random.Range(65, 91);
+            }
+            return s;
+        }
+
         #region Server
 
         public long ServerId { get; private set; }
+
+        public string name { get; private set; }
+
+        public string adress { get; private set; }
 
         [Tooltip("Transport to be advertised during discovery")]
         public Transport transport;
@@ -26,11 +38,15 @@ namespace Mirror.Discovery
         {
             ServerId = RandomLong();
 
+            name = RandomString();
+
             // active transport gets initialized in awake
             // so make sure we set it here in Start()  (after awakes)
             // Or just let the user assign it in the inspector
             if (transport == null)
                 transport = Transport.activeTransport;
+
+            adress = transport.ServerUri().Host;
 
             base.Start();
         }
@@ -52,6 +68,7 @@ namespace Mirror.Discovery
             // in there,  This way the client can ask for
             // specific game mode or something
 
+
             try
             {
                 // this is an example reply message,  return your own
@@ -59,6 +76,8 @@ namespace Mirror.Discovery
                 return new ServerResponse
                 {
                     serverId = ServerId,
+                    name = name,
+                    adress = adress.GetHashCode().ToString(),
                     uri = transport.ServerUri()
                 };
             }

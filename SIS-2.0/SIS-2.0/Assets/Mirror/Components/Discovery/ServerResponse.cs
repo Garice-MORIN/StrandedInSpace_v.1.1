@@ -12,7 +12,11 @@ namespace Mirror.Discovery
 
         public Uri uri;
 
+        public string adress;
+
         // Prevent duplicate server appearance when a connection can be made via LAN on multiple NICs
         public long serverId;
+
+        public string name;
     }
 }

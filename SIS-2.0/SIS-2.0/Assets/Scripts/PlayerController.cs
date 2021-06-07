@@ -509,10 +509,15 @@ public class PlayerController : NetworkBehaviour
     }
     public static string LocalIPAddress()
     {
-        IPHostEntry host;
+        /*IPHostEntry host;
+        IPEndPoint iP = new IPEndPoint(0,0) ;
+        Debug.Log(iP.Address);
         host = Dns.GetHostEntry(Dns.GetHostName());
 
-        return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";
+        return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";*/
+        var discovery = FindObjectOfType<Mirror.Discovery.NetworkDiscovery>();
+
+        return discovery.adress.GetHashCode().ToString();
     }
     public void OnEndGame(bool victory)
     {
