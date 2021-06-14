@@ -77,7 +77,7 @@ namespace Mirror.Discovery
                 {
                     serverId = ServerId,
                     name = name,
-                    adress = adress.GetHashCode().ToString(),
+                    adress = Math.Abs(adress.GetHashCode()).ToString(),
                     uri = transport.ServerUri()
                 };
             }

@@ -15,6 +15,7 @@ TagManager:
   - TrapSpawnPoint
   - Core
   - BarricadeSpawnPoint
+  - Door
   layers:
   - Default
   - TransparentFX

@@ -810,9 +810,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0f39bdd822da46910ee24c4afa781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: {fileID: 0}
-  Money: {fileID: 0}
-  Death: {fileID: 0}
+  Name: {fileID: 2853525112524554129}
+  Money: {fileID: 919009063347156444}
+  Death: {fileID: 3579678000278223837}
 --- !u!1 &2575621437443816634
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,9 +890,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0f39bdd822da46910ee24c4afa781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: {fileID: 0}
-  Money: {fileID: 0}
-  Death: {fileID: 0}
+  Name: {fileID: 3347014848712362178}
+  Money: {fileID: 2586589370881720552}
+  Death: {fileID: 1535130062323870527}
 --- !u!1 &2596436063473735895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,9 +1204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0f39bdd822da46910ee24c4afa781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: {fileID: 0}
-  Money: {fileID: 0}
-  Death: {fileID: 0}
+  Name: {fileID: 4775440269982297557}
+  Money: {fileID: 1760456705698014488}
+  Death: {fileID: 6597098804043187547}
 --- !u!1 &3317176125263841895
 GameObject:
   m_ObjectHideFlags: 0
@@ -2422,9 +2422,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d0f39bdd822da46910ee24c4afa781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: {fileID: 0}
-  Money: {fileID: 0}
-  Death: {fileID: 0}
+  Name: {fileID: 5197408553326033384}
+  Money: {fileID: 8476278148511233343}
+  Death: {fileID: 2554286603871813209}
 --- !u!1 &5516511441725982050
 GameObject:
   m_ObjectHideFlags: 0

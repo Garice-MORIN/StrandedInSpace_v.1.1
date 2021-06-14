@@ -6,18 +6,21 @@ using System.Collections.Generic;
 
 public class EnemiesSpawner : NetworkBehaviour
 {
+    const int maxWave = 20;
     DateTime startTime;
     DateTime endTime;
     public DateTime startWaveTwo;
     GameObject enemyPrefab;
     public LayerMask mask;
     public bool isStarted = false;
+    private Door doorScript;
 
     public static int waveNumber = 1;
     [SyncVar(hook = "OnChangeEnemiesLeft")]
     public int enemiesLeft = 0;
 
     GameObject[] allSpawnPoints;
+    bool canSpawnNextWave;
     Queue<string> queue = new Queue<string>();
     //[SyncVar(hook = "Endgame")]
     //bool endgame = false;
@@ -29,10 +32,12 @@ public class EnemiesSpawner : NetworkBehaviour
 
     public void StartGame()
     {
+        canSpawnNextWave = true;
         startTime = DateTime.Now;
         CreateSpawnList();
         isStarted = true;
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
+        doorScript = GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
         LoadEnemies();
         
     }
@@ -42,21 +47,13 @@ public class EnemiesSpawner : NetworkBehaviour
     {
         if(enemiesLeft == 0)
         {
-            try
-            {
-                LoadEnemies();
-                waveNumber++;
+			try {
+                StartCoroutine("DoorAnimation");
             }
-            catch (InvalidOperationException)
-            {
-                StartCoroutine("Sleep");
-            }
-            catch (Exception)
-            {
-                Debug.Log("The entity you're trying to spawn does not exist");
-                return;
-            }
-            
+			catch (Exception e){
+                Debug.Log("Exception trying to spawn next wave : " + e.ToString());
+			}
+                                   
         }
     }
 
@@ -120,14 +117,24 @@ public class EnemiesSpawner : NetworkBehaviour
         TrySpawningNextWave();
     }
 
-    /*System.Collections.IEnumerator Sleep()
-    {
-        endTime = DateTime.Now;
-        yield return new WaitForSecondsRealtime(1);
-        endgame = true;
-    }*/
+    System.Collections.IEnumerator DoorAnimation() {
+        doorScript.OpenDoor();
+        yield return new WaitForSecondsRealtime(10);
+        doorScript.CloseDoor();
+        if (waveNumber < maxWave) {
+            LoadEnemies();
+            waveNumber++;
+        }
+        else {
+            StartCoroutine("EndOfGame");
+        }
+    }
+
+    System.Collections.IEnumerator EndOfGame() {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        yield return new WaitForSecondsRealtime(10);
+        foreach (var player in players)
+            player.GetComponent<PlayerController>().OnEndGame(true);
+    }
 
 }
-
-/* SmallEnemy,HeavyEnemy,HeavyEnemy,NormalEnemy,SmallEnemy,NormalEnemy,SmallEnemy
-NormalEnemy,SmallEnemy,HeavyEnemy,NormalEnemy*/

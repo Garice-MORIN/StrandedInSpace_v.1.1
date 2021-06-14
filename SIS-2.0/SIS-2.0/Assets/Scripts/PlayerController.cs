@@ -21,6 +21,8 @@ public class PlayerController : NetworkBehaviour
     public Transform playerBody;
     public LayerMask groundMask;
     public GameObject towerPrefab;
+    private GameObject door;
+    private Door doorScript;
     public Camera myCam;
     public Camera miniMapCamera;
     public AudioListener myAudioListener;
@@ -116,6 +118,7 @@ public class PlayerController : NetworkBehaviour
         canShoot = true;
         isGameLaunched = false;
         networkManager.offlineScene = "MainMenu";
+        doorScript = door.GetComponent<Door>();
     }
 
     void Update() {
@@ -143,6 +146,7 @@ public class PlayerController : NetworkBehaviour
 
             if (Input.GetButtonDown("StartGame")) {
                 if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted) {
+                    doorScript.OpenDoor();
                     FindObjectOfType<EnemiesSpawner>().StartGame();
                     GetStartingTime();
                     panel.SetActive(false);
@@ -246,6 +250,7 @@ public class PlayerController : NetworkBehaviour
 
             if (Input.GetKeyDown(KeyCode.Tab)) {
                 scoreBoard.SetActive(!scoreBoard.activeSelf);
+                Debug.Log(_name);
             }
 
             /*___________________________HUDforConstruction______________________*/
@@ -454,7 +459,7 @@ public class PlayerController : NetworkBehaviour
             miniMapCamera.enabled = true;
         }
         _isServer = isServer;
-        name = RandomString();
+        _name = RandomString();
         score = 0;
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
         munitions = 20;
@@ -480,6 +485,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
             startGame = new DateTime();
+        door = GameObject.FindGameObjectWithTag("Door");
         
     }
     //Get the point where player is looking at
@@ -509,15 +515,10 @@ public class PlayerController : NetworkBehaviour
     }
     public static string LocalIPAddress()
     {
-        /*IPHostEntry host;
-        IPEndPoint iP = new IPEndPoint(0,0) ;
-        Debug.Log(iP.Address);
-        host = Dns.GetHostEntry(Dns.GetHostName());
-
-        return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";*/
         var discovery = FindObjectOfType<Mirror.Discovery.NetworkDiscovery>();
+        int tmp = discovery.adress.GetHashCode();
 
-        return discovery.adress.GetHashCode().ToString();
+        return Math.Abs(tmp).ToString();
     }
     public void OnEndGame(bool victory)
     {
@@ -539,13 +540,12 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    string RandomString()
-    {
+    public string RandomString() {
         string s = "";
-        for(int i = 0; i < 6; i++)
-        {
-            s += (char)UnityEngine.Random.Range(65, 91);
+        for(int i = 0; i < 6; i++) {
+            s += (char)(UnityEngine.Random.Range(65,91));
         }
         return s;
-    }
+	}
+
 }
