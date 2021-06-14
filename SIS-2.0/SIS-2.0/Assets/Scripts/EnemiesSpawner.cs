@@ -15,7 +15,7 @@ public class EnemiesSpawner : NetworkBehaviour
     public bool isStarted = false;
     private Door doorScript;
 
-    public static int waveNumber = 1;
+    public static int waveNumber = 0;
     [SyncVar(hook = "OnChangeEnemiesLeft")]
     public int enemiesLeft = 0;
 
@@ -39,7 +39,7 @@ public class EnemiesSpawner : NetworkBehaviour
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         doorScript = GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
         LoadEnemies();
-        
+        waveNumber++;
     }
 
     //Spawn next wave if there is at least one left

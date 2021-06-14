@@ -40,7 +40,7 @@ public class Health : NetworkBehaviour
     }
 
     //Give damage to entity
-    public void TakeDamage(int damage){   
+    public void TakeDamage(int damage){
         if(!isServer){
             return;
         }
@@ -48,7 +48,6 @@ public class Health : NetworkBehaviour
         health -= damage;
 
         if(health <= 0){
-            doDrop = gameObject.tag == "Enemy" && Random.Range(0.0f,1.0f) < 0.6f; //Check if entity drop ammunition on death
             if(destroyOnDeath){
                 if(tag == "Core")
                 {
@@ -62,6 +61,8 @@ public class Health : NetworkBehaviour
                 {
                     dead = true;
                     //check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
+                    doDrop = Random.Range(0.0f, 1.0f) < 0.6f; //Check if entity drop ammunition on death
+                    check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
                     gameObject.GetComponent<Money>().EnemyDropMoney();
                 }
                 if(doDrop){
@@ -82,7 +83,7 @@ public class Health : NetworkBehaviour
             }
         }
     }
-    
+
     //Respawn player
     [ClientRpc]
     public void RpcRespawn()

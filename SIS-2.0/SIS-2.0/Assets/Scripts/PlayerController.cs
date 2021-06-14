@@ -17,6 +17,7 @@ public class PlayerController : NetworkBehaviour
     //Player related variables
     private DateTime startGame;
     public CharacterController controller;
+    public EnemyKill kills;
     public Transform groundCheck;
     public Transform playerBody;
     public LayerMask groundMask;
@@ -30,15 +31,20 @@ public class PlayerController : NetworkBehaviour
     public static int score;
     public static int deltaMoney;
     public static bool win;
+    public int death;
     public bool _isServer;
     public bool canWinPoints;
 
     public bool isGrounded;
     Vector3 velocity;
     float gravity = -19.62f;
-    float jumpHeight = 1.5f;
-    [SyncVar(hook = "OnStateChanged")] 
-    bool pauseMenuActive;
+    float jumpHeight = 2f;
+    int points;
+
+
+    [SyncVar(hook = "OnStateChanged")] bool pauseMenuActive;
+
+
     //Interface & Sound related variables
     public GameObject myCanvas;
     public AudioSource gunSource;
@@ -53,7 +59,6 @@ public class PlayerController : NetworkBehaviour
     public NetworkConnection networkConnection;
     public GameObject crosshair;
     public AudioClip[] soundArray;   //All sounds we can invoke in the game
-                                     //All musics in the game
     public Animator transition;
     public Text UIMoney;
     //Gun related variables
@@ -278,9 +283,9 @@ public class PlayerController : NetworkBehaviour
 
     public void GetStartingTime() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (var player in players) 
+        foreach (var player in players)
             player.GetComponent<PlayerController>().startGame = DateTime.UtcNow;
-        
+
     }
 
                     //Activate new equipped weapon and deactivate the previous one
@@ -305,7 +310,7 @@ public class PlayerController : NetworkBehaviour
         maxMunitions = weapon.GetComponent<WeaponCharacteristics>().munitions;
         fireRate = weapon.GetComponent<WeaponCharacteristics>().fireRate;
         animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
+        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator; //TODO: remove this
         nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
     //Change lock state of cursor
@@ -507,6 +512,7 @@ public class PlayerController : NetworkBehaviour
         win = victory;
         DateTime startWaveTwo = FindObjectOfType<EnemiesSpawner>().startWaveTwo;
         canWinPoints = DateTime.Now - startGame >= DateTime.Now - startWaveTwo;
+        points = CountPoints(kills.killedEnemies);
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = money - startingMoney;
         networkManager.offlineScene = "WinScene";
@@ -530,4 +536,29 @@ public class PlayerController : NetworkBehaviour
         }
         return s;
     }
+
+    public int CountPoints(List<Type> list) {
+        float total = 0;
+        foreach(var enemyType in list) {
+            switch(enemyType) {
+                case Type.FLYING:
+                    total += 15;
+                    break;
+                case Type.NORMAL:
+                    total += 30;
+                    break;
+                case Type.HEAVY:
+                    total += 50;
+                    break;
+                default:
+                    total += 100;
+                    break;
+			}
+		}
+        total /= death/2;
+        total += money / 100;
+        total *= (1 + (EnemiesSpawner.waveNumber-1 / 5)*0.5f);
+
+        return Mathf.CeilToInt(total);
+	}
 }
