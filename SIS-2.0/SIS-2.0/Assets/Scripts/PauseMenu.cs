@@ -36,7 +36,9 @@ public class PauseMenu : NetworkBehaviour
         sureMenu.SetActive(true);
 
     }
-    
+
+
+    //-------------------------------------------------------------------------------------//
 
     public void AzertyIsOn()
     {

@@ -53,7 +53,7 @@ public class EnemiesSpawner : NetworkBehaviour
 			catch (Exception e){
                 Debug.Log("Exception trying to spawn next wave : " + e.ToString());
 			}
-                                   
+
         }
     }
 
@@ -84,7 +84,7 @@ public class EnemiesSpawner : NetworkBehaviour
         foreach (var enemy in queue.Dequeue().Split(','))
         {
             enemyPrefab = Resources.Load(enemy) as GameObject;     //Load corresponding enemy model
-            
+
             var position = allSpawnPoints[i].transform.position;
             var orientation = Quaternion.Euler(0f, (float)UnityEngine.Random.Range(0, 360), 0f);
             var toSpawn = (GameObject)Instantiate(enemyPrefab, position, orientation);
@@ -98,7 +98,7 @@ public class EnemiesSpawner : NetworkBehaviour
     //Get all waves from a .txt file
     void CreateSpawnList()
     {
-        StreamReader sr = new StreamReader(Application.dataPath + "/Spawns.txt"); 
+        StreamReader sr = new StreamReader(Application.dataPath + "/Spawns.txt");
         string s;
         while ((s = sr.ReadLine()) != null)
         {

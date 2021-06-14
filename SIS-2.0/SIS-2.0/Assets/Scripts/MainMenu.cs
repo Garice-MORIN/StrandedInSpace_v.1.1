@@ -3,6 +3,33 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Mirror;
+
+public class MainMenu : MonoBehaviour
+{
+    public AudioSource audioSource;
+    public AudioSource effectSource;
+    public Slider volumeSlider;
+    public Slider effectSlider;
+    public GameObject anchor;
+    public Slider sensitivitySlider;
+    public int inverted = 1;
+    public Text musicLevel;
+    public Text effectlevel;
+    public NetworkManager networkManager;
+    public InputField inputField;
+
+    private void Start()
+    {
+        volumeSlider.value = 0.5f;
+        effectSlider.value = 0.5f;
+        musicLevel.text = "50 %";
+        effectlevel.text = "50 %";
+        //Sets default parameters
+        PlayerPrefs.SetFloat("Music", 0.5f);
+        PlayerPrefs.SetFloat("Effects", 0.5f);
+        PlayerPrefs.SetInt("Inverted", 1);
+        PlayerPrefs.SetFloat("Sensi", 1125);
 
 
 namespace Mirror.Discovery {
@@ -100,5 +127,11 @@ namespace Mirror.Discovery {
             Debug.Log(networkManager.networkAddress);
         }
 
+    }
+
+    public void ChangeIpAdress()
+    {
+        networkManager.networkAddress = inputField.text;
+        Debug.Log(networkManager.networkAddress);
     }
 }
