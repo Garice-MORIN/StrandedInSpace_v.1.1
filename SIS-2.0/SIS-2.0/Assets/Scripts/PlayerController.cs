@@ -31,7 +31,6 @@ public class PlayerController : NetworkBehaviour
     public static int score;
     public static int deltaMoney;
     public static bool win;
-    public int death;
     public bool _isServer;
     public bool canWinPoints;
 
