@@ -3,22 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - SpawnPoints
-  - Enemy
-  - Goal
-  - Tower
-  - Anchor
-  - Music
-  - Spawner
-<<<<<<< Updated upstream
-=======
-  - TurretSpawnPoints
-  - Core
-  - BarricadeSpawnPoint
-  - TrapSpawnPoint
-  - Trap
->>>>>>> Stashed changes
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -28,20 +13,15 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Enemy
-  - Bullet
-  - Ground
-  - Tower
-  - Wall
-  - Munition
-<<<<<<< Updated upstream
   - 
   - 
-=======
-  - Spawn
-  - Trap
->>>>>>> Stashed changes
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

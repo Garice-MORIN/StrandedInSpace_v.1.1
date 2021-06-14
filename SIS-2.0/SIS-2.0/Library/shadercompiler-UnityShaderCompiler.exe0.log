@@ -1,8 +1,5 @@
 Base path: 'C:/Program Files/Unity/Hub/Editor/2019.4.26f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2019.4.26f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
 Cmd: compileSnippet
   api=4 type=0 insize=1582 outsize=690 kw= pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1
 Cmd: compileSnippet
@@ -16,7 +13,7 @@ Cmd: preprocess
 Cmd: preprocessCompute
   insize=18315 outsize=18337 ok=1
 Cmd: compileComputeKernel
-  api=4 insize=18337 outsize=8653 ok=1
+  api=4 insize=18337 outsize=8518 ok=1
 Cmd: compileComputeKernel
   api=4 insize=18337 outsize=10507 ok=1
 Cmd: preprocessCompute
@@ -34,7 +31,7 @@ Cmd: preprocess
 Cmd: preprocessCompute
   insize=1556 outsize=1562 ok=1
 Cmd: compileComputeKernel
-  api=4 insize=1562 outsize=603 ok=1
+  api=4 insize=1562 outsize=1455 ok=1
 Cmd: preprocess
   insize=2348 outsize=632 ok=1
 Cmd: preprocessCompute
@@ -50,7 +47,7 @@ Cmd: preprocess
 Cmd: preprocessCompute
   insize=3184 outsize=3190 ok=1
 Cmd: compileComputeKernel
-  api=4 insize=3190 outsize=47803 ok=1
+  api=4 insize=3190 outsize=48128 ok=1
 Cmd: preprocessCompute
   insize=10925 outsize=10935 ok=1
 Cmd: compileComputeKernel
@@ -243,7 +240,4 @@ Cmd: compileSnippet
   api=4 type=0 insize=16577 outsize=5666 kw=_SUNDISK_SIMPLE pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1
 Cmd: compileSnippet
   api=4 type=1 insize=16577 outsize=902 kw=_SUNDISK_SIMPLE pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR ok=1
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 Cmd: shutdown
