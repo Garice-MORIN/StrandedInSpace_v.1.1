@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7891220547208986853}
   - component: {fileID: 7478422777322040621}
   - component: {fileID: 3924054893946688993}
-  - component: {fileID: 1348429578039104496}
   m_Layer: 15
   m_Name: Cube (100)
   m_TagString: TurretSpawnPoints
@@ -127,22 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &1348429578039104496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354245695432589384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &940671646442511812
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +141,6 @@ GameObject:
   - component: {fileID: 1441755595993301299}
   - component: {fileID: 6235429729419946042}
   - component: {fileID: 7050108947718893793}
-  - component: {fileID: 5855272339742439067}
   m_Layer: 15
   m_Name: Cube (88)
   m_TagString: TurretSpawnPoints
@@ -270,22 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &5855272339742439067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 940671646442511812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &978607944725857971
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +268,6 @@ GameObject:
   - component: {fileID: 3205435834331348872}
   - component: {fileID: 8191137148320692506}
   - component: {fileID: 8346888962038605380}
-  - component: {fileID: 2221812694950706678}
   m_Layer: 15
   m_Name: Cube (101)
   m_TagString: TurretSpawnPoints
@@ -413,22 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &2221812694950706678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 978607944725857971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &1032736253242694214
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +395,6 @@ GameObject:
   - component: {fileID: 2609209083714987150}
   - component: {fileID: 5116202363905489694}
   - component: {fileID: 6263478374839686372}
-  - component: {fileID: 7064808603139526077}
   m_Layer: 15
   m_Name: Cube (92)
   m_TagString: TurretSpawnPoints
@@ -556,22 +507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &7064808603139526077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032736253242694214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &1284344152412583169
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,7 +522,6 @@ GameObject:
   - component: {fileID: 5947611173535142300}
   - component: {fileID: 7408496245119640276}
   - component: {fileID: 4319314900179594850}
-  - component: {fileID: 7506777034257516953}
   m_Layer: 15
   m_Name: Cube (86)
   m_TagString: TurretSpawnPoints
@@ -699,22 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &7506777034257516953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1284344152412583169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &1416917589767244804
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +649,6 @@ GameObject:
   - component: {fileID: 2743417047907191400}
   - component: {fileID: 2199822502340859390}
   - component: {fileID: 2358535002708538042}
-  - component: {fileID: 5712726791004111612}
   m_Layer: 15
   m_Name: Cube (85)
   m_TagString: TurretSpawnPoints
@@ -842,22 +761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &5712726791004111612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416917589767244804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &1491316083426881095
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +776,6 @@ GameObject:
   - component: {fileID: 3286926368214224173}
   - component: {fileID: 5751607313597867064}
   - component: {fileID: 2253726838200041790}
-  - component: {fileID: 1890958768026047584}
   m_Layer: 15
   m_Name: Cube (102)
   m_TagString: TurretSpawnPoints
@@ -985,22 +888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &1890958768026047584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1491316083426881095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &1577276395084182493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +903,6 @@ GameObject:
   - component: {fileID: 5649885805181678494}
   - component: {fileID: 3683861361988380549}
   - component: {fileID: 5922709316161487713}
-  - component: {fileID: 2373982793942040115}
   m_Layer: 15
   m_Name: Cube (89)
   m_TagString: TurretSpawnPoints
@@ -1128,22 +1015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &2373982793942040115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577276395084182493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &1841508000222917906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,7 +1030,6 @@ GameObject:
   - component: {fileID: 2079015642302364018}
   - component: {fileID: 3209848174327930658}
   - component: {fileID: 4025190433615785618}
-  - component: {fileID: 7380348156658591221}
   m_Layer: 15
   m_Name: Cube (82)
   m_TagString: TurretSpawnPoints
@@ -1271,22 +1142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &7380348156658591221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1841508000222917906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &2405075589395812585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,7 +1157,6 @@ GameObject:
   - component: {fileID: 5305543434071823170}
   - component: {fileID: 4781377148284165936}
   - component: {fileID: 5241802598972832886}
-  - component: {fileID: 2550560935549219218}
   m_Layer: 15
   m_Name: Cube (93)
   m_TagString: TurretSpawnPoints
@@ -1414,22 +1269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &2550560935549219218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2405075589395812585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &2475232662931449154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,7 +1284,6 @@ GameObject:
   - component: {fileID: 4342238822889985156}
   - component: {fileID: 998987742062164248}
   - component: {fileID: 3014616190835701346}
-  - component: {fileID: 151754164931514666}
   m_Layer: 15
   m_Name: Cube (83)
   m_TagString: TurretSpawnPoints
@@ -1557,22 +1396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &151754164931514666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2475232662931449154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &3096226876561198112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1587,7 +1411,6 @@ GameObject:
   - component: {fileID: 7730998858500126}
   - component: {fileID: 5823535836601470138}
   - component: {fileID: 1625064217184646350}
-  - component: {fileID: 2910331806835658084}
   m_Layer: 15
   m_Name: Cube (97)
   m_TagString: TurretSpawnPoints
@@ -1700,22 +1523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &2910331806835658084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3096226876561198112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &3147961455240906013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,7 +1538,6 @@ GameObject:
   - component: {fileID: 8773026852609078643}
   - component: {fileID: 4964196735643376116}
   - component: {fileID: 7351756509128884040}
-  - component: {fileID: 4971580998422026047}
   m_Layer: 15
   m_Name: Cube (70)
   m_TagString: TurretSpawnPoints
@@ -1843,22 +1650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &4971580998422026047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3147961455240906013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &3201480975328788557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,7 +1665,6 @@ GameObject:
   - component: {fileID: 6812364531660584560}
   - component: {fileID: 1099410093972736837}
   - component: {fileID: 1032069286696703980}
-  - component: {fileID: 3357217617053180037}
   m_Layer: 15
   m_Name: Cube (94)
   m_TagString: TurretSpawnPoints
@@ -1986,22 +1777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &3357217617053180037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3201480975328788557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &3225298692372279679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,7 +1792,6 @@ GameObject:
   - component: {fileID: 8067483251584937032}
   - component: {fileID: 1788981012094361076}
   - component: {fileID: 2011509350347362279}
-  - component: {fileID: 3764544377965725964}
   m_Layer: 15
   m_Name: Cube (69)
   m_TagString: TurretSpawnPoints
@@ -2129,22 +1904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &3764544377965725964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3225298692372279679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &3285063955969945658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,7 +1919,6 @@ GameObject:
   - component: {fileID: 5041126802726778049}
   - component: {fileID: 8079903921814901228}
   - component: {fileID: 4249891163145907627}
-  - component: {fileID: 7672479611379474693}
   m_Layer: 15
   m_Name: Cube (98)
   m_TagString: TurretSpawnPoints
@@ -2272,22 +2031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &7672479611379474693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3285063955969945658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &3584827143685909206
 GameObject:
   m_ObjectHideFlags: 0
@@ -2302,7 +2046,6 @@ GameObject:
   - component: {fileID: 594825682395164892}
   - component: {fileID: 5870823319644786877}
   - component: {fileID: 5900949869048186307}
-  - component: {fileID: 1893514295140635685}
   m_Layer: 15
   m_Name: Cube (90)
   m_TagString: TurretSpawnPoints
@@ -2415,22 +2158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &1893514295140635685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3584827143685909206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &4307083591715216616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,7 +2173,6 @@ GameObject:
   - component: {fileID: 4705277167641019790}
   - component: {fileID: 5123754531302960450}
   - component: {fileID: 5158989743291214593}
-  - component: {fileID: 8530738156105323519}
   m_Layer: 15
   m_Name: Cube (77)
   m_TagString: TurretSpawnPoints
@@ -2558,22 +2285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &8530738156105323519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4307083591715216616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &4793918210435319291
 GameObject:
   m_ObjectHideFlags: 0
@@ -2588,7 +2300,6 @@ GameObject:
   - component: {fileID: 3051118437502153737}
   - component: {fileID: 4131975636904973713}
   - component: {fileID: 1011596314591953161}
-  - component: {fileID: 1100489852847772500}
   m_Layer: 15
   m_Name: Cube (99)
   m_TagString: TurretSpawnPoints
@@ -2701,22 +2412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &1100489852847772500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4793918210435319291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &4804736354187011659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,7 +2483,6 @@ GameObject:
   - component: {fileID: 3416283087751059086}
   - component: {fileID: 3834276656771906670}
   - component: {fileID: 285294296376996678}
-  - component: {fileID: 947505189931206810}
   m_Layer: 15
   m_Name: Cube (95)
   m_TagString: TurretSpawnPoints
@@ -2900,22 +2595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &947505189931206810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5486741898151329123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &7235186940765315398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2930,7 +2610,6 @@ GameObject:
   - component: {fileID: 1731792824812518538}
   - component: {fileID: 6735364830876601308}
   - component: {fileID: 2190400904770053571}
-  - component: {fileID: 304514976201536575}
   m_Layer: 15
   m_Name: Cube (80)
   m_TagString: TurretSpawnPoints
@@ -3043,22 +2722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &304514976201536575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7235186940765315398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &7984887112013209328
 GameObject:
   m_ObjectHideFlags: 0
@@ -3073,7 +2737,6 @@ GameObject:
   - component: {fileID: 1791087946892945060}
   - component: {fileID: 2485738001677340903}
   - component: {fileID: 5619671779808750479}
-  - component: {fileID: 2214712089764039015}
   m_Layer: 15
   m_Name: Cube (91)
   m_TagString: TurretSpawnPoints
@@ -3186,22 +2849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &2214712089764039015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7984887112013209328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &8020177179721889936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3216,7 +2864,6 @@ GameObject:
   - component: {fileID: 6200413619053150374}
   - component: {fileID: 6091346142895077882}
   - component: {fileID: 4625745006795865295}
-  - component: {fileID: 5286995828685640910}
   m_Layer: 15
   m_Name: Cube (79)
   m_TagString: TurretSpawnPoints
@@ -3329,22 +2976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &5286995828685640910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8020177179721889936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &8053431287721429096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3359,7 +2991,6 @@ GameObject:
   - component: {fileID: 1226882187876335870}
   - component: {fileID: 2302828293118620648}
   - component: {fileID: 479790397633744568}
-  - component: {fileID: 6475583630281894673}
   m_Layer: 15
   m_Name: Cube (81)
   m_TagString: TurretSpawnPoints
@@ -3472,22 +3103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &6475583630281894673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8053431287721429096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &8285007274514893469
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,7 +3118,6 @@ GameObject:
   - component: {fileID: 1005903262525614901}
   - component: {fileID: 8032765630788537162}
   - component: {fileID: 6879764010292487073}
-  - component: {fileID: 2756792977257715199}
   m_Layer: 15
   m_Name: Cube (74)
   m_TagString: TurretSpawnPoints
@@ -3615,22 +3230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &2756792977257715199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8285007274514893469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0
 --- !u!1 &9039263220072185917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3645,7 +3245,6 @@ GameObject:
   - component: {fileID: 7427711657214441775}
   - component: {fileID: 1322266336689632030}
   - component: {fileID: 8982692938266341709}
-  - component: {fileID: 8518858920369030866}
   m_Layer: 15
   m_Name: Cube (96)
   m_TagString: TurretSpawnPoints
@@ -3758,19 +3357,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  upgrade: 0
-  created: 0
-  destroy: 0
---- !u!114 &8518858920369030866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9039263220072185917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  money: 0
+  towerType: 0

@@ -272,8 +272,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 020489defc2a91c41b84c117b4349c58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   musicSource: {fileID: 248187598}
   musicArray:
   - {fileID: 8300000, guid: 9c928e3073e1e4c43a6a64080e102464, type: 3}
@@ -602,8 +602,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bd31c741a072e4449ac91b3d0e5beef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   syncMode: 0
   syncInterval: 0.1
   maxHP: 0
@@ -622,12 +622,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   sceneId: 1446667215
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId:
   hasSpawned: 0
 --- !u!224 &455981133
 RectTransform:
@@ -658,9 +658,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c7ccf0c414706b41a6060a774b0e460, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  killedEnemies: 
+  m_Name:
+  m_EditorClassIdentifier:
+  killedEnemies:
 --- !u!1 &501011203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,11 +1258,11 @@ Mesh:
     channels: []
     fullWeights: []
   m_BindPose: []
-  m_BoneNameHashes: 
+  m_BoneNameHashes:
   m_RootBoneNameHash: 0
   m_BonesAABB: []
   m_VariableBoneCountWeights:
-    m_Data: 
+    m_Data:
   m_MeshCompression: 0
   m_IsReadable: 1
   m_KeepVertices: 0
@@ -1336,66 +1336,66 @@ Mesh:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_UV:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_Normals:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_Tangents:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_Weights:
       m_NumItems: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_NormalSigns:
       m_NumItems: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_TangentSigns:
       m_NumItems: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_FloatColors:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_BoneIndices:
       m_NumItems: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_Triangles:
       m_NumItems: 0
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_UVInfo: 0
   m_LocalAABB:
     m_Center: {x: -11, y: -0.49994993, z: -8}
     m_Extent: {x: 15, y: 6.50005, z: 21}
   m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
+  m_BakedConvexCollisionMesh:
+  m_BakedTriangleCollisionMesh:
   m_MeshMetrics[0]: 1
   m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 1
   m_StreamData:
     offset: 0
     size: 0
-    path: 
+    path:
 --- !u!1 &861461354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,8 +1437,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &862349719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,8 +1572,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1041377020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,8 +1874,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1344569550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,8 +1904,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42903348756511b46923002c7b852bd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   syncMode: 0
   syncInterval: 0.1
   mask:
@@ -1923,12 +1923,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   sceneId: 4292386330
   serverOnly: 1
   visible: 0
-  m_AssetId: 
+  m_AssetId:
   hasSpawned: 0
 --- !u!4 &1344569553
 Transform:
@@ -2169,8 +2169,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1501321708
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,12 +2287,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   sceneId: 1387930950
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId:
   hasSpawned: 0
 --- !u!1 &1559219595
 GameObject:
@@ -2600,8 +2600,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -2619,8 +2619,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
@@ -2918,7 +2918,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -2932,8 +2932,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae64f4f0e8ee5b143a3bfb9807dd85ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   animator: {fileID: 1790670151}
 --- !u!1 &1799997989
 GameObject:
@@ -3851,6 +3851,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1991549663467283683, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663532719234, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
     - target: {fileID: 1991549663537320708, guid: a49c130502d107648860b65ed3080b03,
         type: 3}
       propertyPath: m_RootOrder
@@ -3910,6 +3920,336 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Traps Places
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663580653735, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663611637870, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663651059321, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663677379425, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663678349811, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663698806179, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663701630507, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663746700390, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663781046941, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663790017142, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663810067014, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663822970249, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663849617246, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663905804892, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663906925110, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663918771740, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663958762111, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663959986911, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663960562920, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663966252506, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663976700243, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549663990711796, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664036928940, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664048768970, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664076708643, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664183992283, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664198432481, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664297056056, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664302829837, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664337473922, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664385804019, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664395477725, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664422526757, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664423640411, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664507219938, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664514603191, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664603515768, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664660278784, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664680037551, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664717423390, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664743252072, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664916686484, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664930629990, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664934396728, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664937903715, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664948527352, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549664973860388, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665010693831, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665023744116, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665037765418, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665057879470, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665063440871, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665127147005, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665249054260, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665274658225, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665301680055, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665315385516, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665350153897, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665377659225, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665386918725, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665437016222, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665438294361, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665453726756, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665538181583, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991549665539418896, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462982609290307335, guid: a49c130502d107648860b65ed3080b03,
+        type: 3}
+      propertyPath: m_TagString
+      value: TrapSpawnPoints
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a49c130502d107648860b65ed3080b03, type: 3}

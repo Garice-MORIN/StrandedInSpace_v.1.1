@@ -11,11 +11,12 @@ public class EnemyMovement : MonoBehaviour
     public float cooldownTime;
     Collider[] colliders;
     Transform goal;
-    public bool canAttack;
+
+    public float attackCooldown;
     public bool slowed;
+    public bool canAttack;
     public float baseSpeed;
     public float slowDuration;
-    public float slowPower;
     void Start()
     {
         goal = GameObject.FindGameObjectWithTag("Core").transform; //Assign AI's goal
@@ -26,14 +27,14 @@ public class EnemyMovement : MonoBehaviour
 
     public void Update()
     {
-        
-        //Attack tower if enemy is close enough 
+
+        //Attack tower if enemy is close enough
         if(canAttack)
         {
             StartCoroutine(TryAttack());
             canAttack = true;
         }
-        
+
         CheckSlow();
     }
 
@@ -46,15 +47,22 @@ public class EnemyMovement : MonoBehaviour
             obj.GetComponent<Health>().TakeDamage(damage);
         }
         yield return new WaitForSeconds(cooldownTime);
-        
+
     }
 
+    public void Slow(float slowPower1, float slowDuration1){
+        if(navMesh.speed == 0){
+            return;
+        }
+        if(navMesh.speed < baseSpeed * slowPower1){
+            slowDuration = slowDuration < slowDuration1 ? slowDuration1 : slowDuration;
+            return;
+        }
+        navMesh.speed = baseSpeed * slowPower1;
+
+    }
     //Check if enemy had been slowed and if it should be unslowed
     void CheckSlow(){
-        if(slowed){
-            navMesh.speed = baseSpeed * slowPower;
-            slowed = false;
-        }
         if(slowDuration <= 0){
             navMesh.speed = baseSpeed;
         }

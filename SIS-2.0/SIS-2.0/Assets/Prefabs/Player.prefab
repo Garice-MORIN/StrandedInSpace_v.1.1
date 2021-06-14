@@ -1881,7 +1881,7 @@ MonoBehaviour:
   playerBody: {fileID: 4242103549478655201}
   groundMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 67584
   towerPrefab: {fileID: 9000190440345884112, guid: e0fdc35a1e667454d967455d9fed5fa1,
     type: 3}
   myCam: {fileID: 4242103549988627682}
