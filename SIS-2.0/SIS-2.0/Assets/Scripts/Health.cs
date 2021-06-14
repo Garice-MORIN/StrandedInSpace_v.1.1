@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using System.Collections;
 using Mirror;
 
 public class Health : NetworkBehaviour
@@ -15,11 +13,13 @@ public class Health : NetworkBehaviour
     public RectTransform background;
 
     public bool destroyOnDeath;
-
+    private bool dead = false;
     private NetworkStartPosition[] spawnPoints;
     private bool doDrop;
+    public EnemyKill check;
 
     private void Start(){
+        check = FindObjectOfType<EnemyKill>();
         health = maxHP;
         if(isLocalPlayer){
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
@@ -30,20 +30,43 @@ public class Health : NetworkBehaviour
         HPBar.localPosition = new Vector3(maxHP/2, 0, 0);
     }
 
+    public IEnumerator GetBurned(int burnDamage, int nbTick){
+        for(int i = 0; i < nbTick; i++){
+            yield return new WaitForSeconds(0.5f);
+            if(!dead){
+                TakeDamage(burnDamage);
+            }
+        }
+    }
+
     //Give damage to entity
-    public void TakeDamage(int damage){   
+    public void TakeDamage(int damage){
         if(!isServer){
             return;
         }
+
         health -= damage;
 
         if(health <= 0){
-            doDrop = gameObject.tag == "Enemy" ? true : false; //Check if entity drop ammunition on death
-            //TODO: Add a probability to drop ammunations
             if(destroyOnDeath){
+                if(tag == "Core")
+                {
+                    GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                    foreach (var player in players)
+                    {
+                        player.GetComponent<PlayerController>().OnEndGame(false);
+                    }
+                }
+                if(tag == "Enemy")
+                {
+                    dead = true;
+                    //check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
+                    doDrop = Random.Range(0.0f, 1.0f) < 0.6f; //Check if entity drop ammunition on death
+                    check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
+                    gameObject.GetComponent<Money>().EnemyDropMoney();
+                }
                 if(doDrop){
                     //Give money to all players
-                    gameObject.GetComponent<Money>().EnemyDropMoney();
                     //Spawn ammo crate
                     Vector3 position = gameObject.transform.position + new Vector3(0,-0.5f,0);
                     var orientation = Quaternion.Euler(0f, 0f, 0f);
@@ -55,11 +78,12 @@ public class Health : NetworkBehaviour
             }
             else{
                 health = maxHP;
+                gameObject.GetComponent<PlayerController>().death += 1;
                 RpcRespawn();
             }
         }
     }
-    
+
     //Respawn player
     [ClientRpc]
     public void RpcRespawn()

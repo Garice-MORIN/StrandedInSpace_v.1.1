@@ -1,48 +1,72 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Mirror;
+using System.Net;
+using System;
 
 public class PlayerController : NetworkBehaviour
 {
+    int startingMoney;
+    [SyncVar(hook = "OnMoneyChanged")] public int money;
+    public string _name;
+    public int death;
+
     //Player related variables
+    private DateTime startGame;
     public CharacterController controller;
+    public EnemyKill kills;
     public Transform groundCheck;
     public Transform playerBody;
     public LayerMask groundMask;
     public GameObject towerPrefab;
+    private GameObject door;
+    private Door doorScript;
     public Camera myCam;
+    public Camera miniMapCamera;
     public AudioListener myAudioListener;
+    public List<Type> killedEnemies;
+    public static int score;
+    public static int deltaMoney;
+    public static bool win;
+    public bool _isServer;
+    public bool canWinPoints;
 
-    bool isGrounded;
+    public bool isGrounded;
     Vector3 velocity;
     float gravity = -19.62f;
     float jumpHeight = 2f;
+    int points;
+
+
+    [SyncVar(hook = "OnStateChanged")] bool pauseMenuActive;
 
 
     //Interface & Sound related variables
     public GameObject myCanvas;
     public AudioSource gunSource;
+
+
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public GameObject commandsMenu;
     public GameObject scoreBoard;
     public GameObject sureMenu;
     private NetworkManager networkManager;
+    public NetworkConnection networkConnection;
     public GameObject crosshair;
     public AudioClip[] soundArray;   //All sounds we can invoke in the game
-
-
+    public Animator transition;
+    public Text UIMoney;
     //Gun related variables
     public Animator animator; //Reload animation currently used (depend on weapon)
     public ParticleSystem gunParticle;
     public LayerMask rayMask; //Layer the raycat registers when shooting a gun
     public int maxMunitions; //Weapon's ammuntions clip's size
-    
     [SyncVar(hook = "OnStockChanged")]
-    public int munitions; //Ammunition the player currently has
-
+    public int munitions; //Ammunition the player currently ha
     public float gunRange;
     public Transform muzzle;
     public GameObject holster;
@@ -51,12 +75,14 @@ public class PlayerController : NetworkBehaviour
     public Transform holsterTransform;
     public Text UImunitions;
     public Text UIstock;
-
+    public GameObject panel;
+    public Text panelText;
+    [SyncVar(hook = "IpPanel")]
+    public bool isGameLaunched;
     public NetworkAnimator networkAnimator;
-
     [SyncVar(hook = "OnWeaponChanged")]
     public int activeWeapon = 0;
-
+    public NetworkManager GetNetworkManager() => networkManager;
     bool constructionMode;
     bool isReloading;
     bool canShoot;
@@ -67,10 +93,8 @@ public class PlayerController : NetworkBehaviour
     [SyncVar(hook = "OnAmmoChanged")]
     int nbMunitions; //Ammunitions currently in the gun chamber
     int indexWeapon;
-
-
-    private void Start()
-    {
+    int indexPlacement;
+    private void Start() {
         //Initialize all variables
         soundArray = new AudioClip[] {
             Resources.Load("EmptyGun") as AudioClip,
@@ -81,22 +105,21 @@ public class PlayerController : NetworkBehaviour
         constructionMode = false;
         currentSpeed = 5f;
         pauseMenu.SetActive(false);
+        pauseMenuActive = false;
         settingsMenu.SetActive(false);
         commandsMenu.SetActive(false);
         sureMenu.SetActive(false);
         scoreBoard.SetActive(false);
-
         networkManager = NetworkManager.singleton;
-        /*weapon = holsterArray[0];
-        ChangeWeaponStats(0);*/
         indexWeapon = 0;
         canShoot = true;
+        isGameLaunched = false;
+        networkManager.offlineScene = "MainMenu";
+        doorScript = door.GetComponent<Door>();
     }
 
-    void Update()
-    {
-        if(!isLocalPlayer)
-        {
+    void Update() {
+        if (!isLocalPlayer) {
             return;
         }
 
@@ -108,18 +131,24 @@ public class PlayerController : NetworkBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //Change the state of the cursor
-        if (Input.GetButtonDown("Cursor") && !pauseMenu.activeSelf && !settingsMenu.activeSelf && !commandsMenu.activeSelf && !sureMenu.activeSelf)
-        {
+        if (Input.GetButtonDown("Cursor") && !settingsMenu.activeSelf && !commandsMenu.activeSelf && !sureMenu.activeSelf) {
             ChangeCursorLockState();
         }
         //Change ShootMode into ConstructionMode and vice-versa
-        if (Input.GetButtonDown("TCM"))
-        {
+        if (Input.GetButtonDown("TCM")) {
             constructionMode = !constructionMode;
         }
         //Following instructions executed only if the player isn't in a menu
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
+        if (Cursor.lockState == CursorLockMode.Locked) {
+
+            if (Input.GetButtonDown("StartGame")) {
+                if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted) {
+                    doorScript.OpenDoor();
+                    FindObjectOfType<EnemiesSpawner>().StartGame();
+                    GetStartingTime();
+                    panel.SetActive(false);
+                }
+            }
 
             /*____________________________MOUSE CAMERA________________________________*/
 
@@ -132,20 +161,17 @@ public class PlayerController : NetworkBehaviour
             controller.Move(move * currentSpeed * Time.deltaTime);
 
             //Run command
-            if (Input.GetButtonDown("Run") && isGrounded)
-            {
-                ChangeSpeed();
+            if (Input.GetButtonDown("Run") && isGrounded) {
+                currentSpeed = currentSpeed == 5f ? 8f : 5f;
             }
 
             //Reset gravity to keep constant velocity
-            if (isGrounded && velocity.y < 0)
-            {
+            if (isGrounded && velocity.y < 0) {
                 velocity.y = -2f;
             }
 
             //Jump command
-            if(Input.GetButtonDown("Jump") && isGrounded)
-            {
+            if (Input.GetButtonDown("Jump") && isGrounded) {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
 
@@ -154,18 +180,18 @@ public class PlayerController : NetworkBehaviour
 
             //Fire command
 
-            if (Input.GetButtonDown("Fire1")){
-                if (constructionMode){
+            if (Input.GetButtonDown("Fire1")) {
+                if (constructionMode) {
                     CmdBuild(); //Build or upgrade a turret/trap
                 }
-                else{
-                    if(!isReloading){
-                        if (nbMunitions > 0 && canShoot){
+                else {
+                    if (!isReloading) {
+                        if (nbMunitions > 0 && canShoot) {
                             StartCoroutine(Shoot());
-                            nbMunitions--;                            
+                            nbMunitions--;
                         }
-                        else{
-                            if (nbMunitions <= 0 && canShoot){
+                        else {
+                            if (nbMunitions <= 0 && canShoot) {
                                 gunSource.clip = soundArray[0];
                                 gunSource.Play();
                             }
@@ -174,189 +200,178 @@ public class PlayerController : NetworkBehaviour
                 }
             }
 
-            if (Input.GetButtonDown("Fire2") && constructionMode)
-            {
+            if (Input.GetButtonDown("Fire2") && constructionMode) {
                 CmdDestroy();
             }
 
-            if(Input.GetButtonDown("Reload"))
-            {
-                if(munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
-                {
+            if (Input.GetButtonDown("Reload")) {
+                if (munitions > 0 && nbMunitions < maxMunitions) { //if gun isn't full and player have ammunations left, reload gun
                     StartCoroutine(Reload());
                     return;
                 }
             }
 
 
-            if(Input.GetAxis("Mouse ScrollWheel") > 0f)
-            {
-                //If user scroll up, change equipped weapon
-                indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
-                CmdChangeActiveWeapon(indexWeapon);
-                ChangeWeaponStats(indexWeapon);
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f) {
+                //If user scroll up
+                if(constructionMode) {
+                    //Change construction to build
+                    indexPlacement = indexPlacement == 3 ? 0 : indexPlacement + 1;
+                }
+                else {
+                    //Change equipped weapon
+                    indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
+                    CmdChangeActiveWeapon(indexWeapon);
+                    ChangeWeaponStats(indexWeapon);
+                }
+
             }
 
-            
-            
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f) {
+                //If user scroll down
+                if(constructionMode) {
+                    //Change construction to build
+                    indexPlacement = indexPlacement == 0 ? 3 : indexPlacement - 1;
+                }
+                else {
+                    //Change equipped weapon
+                    indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
+                    CmdChangeActiveWeapon(indexWeapon);
+                    ChangeWeaponStats(indexWeapon);
+                }
+            }
+
 
             /*____________________________SCOREBOARD_____________________________*/
 
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
+            if (Input.GetKeyDown(KeyCode.Tab)) {
                 scoreBoard.SetActive(!scoreBoard.activeSelf);
+                Debug.Log(_name);
             }
 
+            /*___________________________HUDforConstruction______________________*/
+            //if(constructionMode && getAimingObject().tag == "TurretSpawnPoints"){
+                //SpawnerHUD(indexPlacement);
+            //}
         }
     }
-
-    public void OnAmmoChanged(int _old, int _new)
-    {
+    public void OnAmmoChanged(int _old, int _new) {
         UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
     }
-
-    public void OnStockChanged(int _old, int _new)
-    {
+    public void OnStockChanged(int _old, int _new) {
         UIstock.text = $"Stock: {munitions}";
     }
+    public void OnMoneyChanged(int _old, int _new) {
+        UIMoney.text = $"{money}";
+    }
+    public void OnStateChanged(bool _old, bool _new) {
+        if(!_old) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
-    //Activate new equipped weapon and deactivate the previous one
-    public void OnWeaponChanged(int _old, int _new)
-    {
-        if(_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
-        {
-            holsterArray[_old].SetActive(false);
-        }
-        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null)
-        {
-            holsterArray[_new].SetActive(true);
-        }
     }
 
-    //Synchronize new weapon on server
-    [Command]
-    public void CmdChangeActiveWeapon(int newIndex)
-    {
+    public void IpPanel(bool _old, bool _new) {
+        panel.SetActive(!_new);
+    }
+
+    public void GetStartingTime() {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in players)
+            player.GetComponent<PlayerController>().startGame = DateTime.UtcNow;
+
+    }
+
+                    //Activate new equipped weapon and deactivate the previous one
+                    public void OnWeaponChanged(int _old, int _new) {
+                        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null) {
+                            holsterArray[_old].SetActive(false);
+                        }
+                        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null) {
+                            holsterArray[_new].SetActive(true);
+                        }
+                    }
+                    //Synchronize new weapon on server
+                    [Command]
+    public void CmdChangeActiveWeapon(int newIndex) {
         activeWeapon = newIndex;
     }
-
     //Update weapon characteristics to those of the new weapon
-    public void ChangeWeaponStats(int index)
-    {
+    public void ChangeWeaponStats(int index) {
         var weapon = holsterArray[index];
         gunDamage = weapon.GetComponent<WeaponCharacteristics>().damage;
         reloadTime = weapon.GetComponent<WeaponCharacteristics>().reloadSpeed;
         maxMunitions = weapon.GetComponent<WeaponCharacteristics>().munitions;
         fireRate = weapon.GetComponent<WeaponCharacteristics>().fireRate;
         animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        if (nbMunitions >= maxMunitions)
-        {
-            nbMunitions -= maxMunitions;
-            munitions += nbMunitions - maxMunitions;
-        }
-        else
-        {
-            if(munitions >= maxMunitions - nbMunitions)
-            {
-                nbMunitions = maxMunitions;
-                munitions -= maxMunitions - nbMunitions;
-            }
-            else
-            {
-                nbMunitions += munitions;
-                munitions = 0;
-            }
-        }
+        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator; //TODO: remove this
+        nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
-
     //Change lock state of cursor
-   public void ChangeCursorLockState()
-    {
-        if (Cursor.lockState == CursorLockMode.None)
-        {
+    public void ChangeCursorLockState() {
+        if (Cursor.lockState == CursorLockMode.None) {
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;   //Masque la souris quand le curseur est vérouillé (Not working because of a Unity bug)
+            Cursor.visible = false;
         }
-        else
-        {
+        else {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
         pauseMenu.SetActive(!pauseMenu.activeSelf);
+        pauseMenuActive = !pauseMenuActive;
     }
-
-    //Change movement speed
-    void ChangeSpeed()
-    {
-        if(currentSpeed == 5f)
-        {
-            currentSpeed = 8f;
-        }
-        else
-        {
-            currentSpeed = 5f;
-        }
-    }
-
-    void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
-    {
-        if(isClipEmpty)
-        {
-            if(canFullLoad)
-            {
+    void UpdateMunitions(bool isClipEmpty, bool canFullLoad) {
+        if (isClipEmpty) {
+            if (canFullLoad) {
                 nbMunitions = maxMunitions;
                 munitions -= maxMunitions;
             }
-            else
-            {
+            else {
                 nbMunitions = munitions;
                 munitions = 0;
             }
         }
-        else
-        {
-            if(canFullLoad)
-            {
+        else {
+            if (canFullLoad) {
                 munitions -= maxMunitions - nbMunitions;
                 nbMunitions = maxMunitions;
             }
-            else
-            {
-                if(maxMunitions-nbMunitions >= munitions)
-                {
+            else {
+                if (maxMunitions - nbMunitions >= munitions) {
                     nbMunitions += munitions;
                     munitions = 0;
                 }
-                else
-                {
+                else {
                     munitions -= maxMunitions - nbMunitions;
                     nbMunitions = maxMunitions;
                 }
             }
         }
     }
-
     //Reloading function
-    IEnumerator Reload()
-    {
+    IEnumerator Reload() {
         isReloading = true;
         animator.SetBool("isReloading", true);
         gunSource.clip = soundArray[3];
         gunSource.Play();
-
         yield return new WaitForSeconds(reloadTime);
 
         UpdateMunitions(nbMunitions == 0, munitions >= maxMunitions);
+        var weapon = holsterArray[indexWeapon];
+        weapon.GetComponent<WeaponCharacteristics>().UpdateAmmo(true, nbMunitions);
         animator.SetBool("isReloading", false);
         isReloading = false;
     }
-
-    IEnumerator Shoot()
-    {
+    IEnumerator Shoot() {
         canShoot = false;
         CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
-
+        var weapon = holsterArray[indexWeapon];
+        weapon.GetComponent<WeaponCharacteristics>().UpdateAmmo();
         yield return new WaitForSecondsRealtime(fireRate);
 
         canShoot = true;
@@ -365,15 +380,12 @@ public class PlayerController : NetworkBehaviour
     // Client --> Server
     //Try shooting a ray between gun muzzle and a point in front of the camera
     [Command]
-    void CmdTryShoot(Vector3 origin, Vector3 direction, float range)
-    {
+    void CmdTryShoot(Vector3 origin, Vector3 direction, float range) {
         // Création d'un raycast
-        if (!gunParticle.isPlaying)
-        {
+        if (!gunParticle.isPlaying) {
             RpcStartParticles();
         }
-        if(gunSource.isPlaying)
-        {
+        if (gunSource.isPlaying) {
             gunSource.Stop();
         }
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
@@ -381,57 +393,62 @@ public class PlayerController : NetworkBehaviour
         gunSource.Play();
         Ray ray = new Ray(origin, direction);
         RaycastHit hit;
-        if (Physics.Raycast(ray,out hit,range,rayMask))
-        {
-            if(hit.collider.tag == "Enemy")
-            {
+        if (Physics.Raycast(ray, out hit, range, rayMask)) {
+            if (hit.collider.tag == "Enemy") {
                 hit.collider.GetComponent<Health>().TakeDamage(gunDamage);
             }
+            else if (hit.collider.tag == "TurretSpawnPoints")
+                Debug.Log("Raycast hit");
         }
     }
-
     //Build a turret/trap
     [Command]
-    void CmdBuild()
-    {
+    void CmdBuild() {
         GameObject aimed = getAimingObject();
-        if (aimed != null && aimed.tag == "TurretSpawnPoints")
-        {
-            GetComponent<Money>().money = aimed.GetComponent<TurretSpawning>().TryUpgrade(GetComponent<Money>().money);
+        if (aimed != null) {
+            if(aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower") {
+                money -= (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
+            }
+            if(aimed.tag == "TrapSpawnPoint") {
+                money -= aimed.GetComponent<TrapSpawning>().TryBuild(money, indexPlacement);
+            }
         }
     }
 
     //Destroy a turret/trap
     [Command]
-    void CmdDestroy()
-    {
+    void CmdDestroy() {
         GameObject aimed = getAimingObject();
-        if (aimed != null && aimed.tag == "TurretSpawnPoints")
-        {
-            GetComponent<Money>().money = aimed.GetComponent<TurretSpawning>().TryDestroy(GetComponent<Money>().money);
+        if (aimed != null) {
+            if(aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower") {
+                money += (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryDestroy();
+            }
+            if(aimed.tag == "TrapSpawnPoint" || aimed.tag == "Trap") {
+                money += (aimed.tag == "Trap" ? aimed.GetComponent<TrapInfo>().linkedSpawner : aimed).GetComponent<TrapSpawning>().TryDestroy();
+            }
         }
     }
-
     //Server --> Client
     //Both next functions : Start playing gun particles
     [ClientRpc]
-    public void RpcStartParticles(){
+    public void RpcStartParticles() {
         StartParticles();
     }
-
-    public void StartParticles(){
+    public void StartParticles() {
         gunParticle.Play();
     }
-
     //Enable camera and audioListener on connection of the player
-    public override void OnStartLocalPlayer(){
-
+    public override void OnStartLocalPlayer() {
         GetComponent<MeshRenderer>().material.color = Color.blue;
-        if(!myCam.enabled || !myAudioListener.enabled || !myCanvas){
+        if (!myCam.enabled || !myAudioListener.enabled || !myCanvas || !miniMapCamera.enabled) {
             myCanvas.gameObject.SetActive(true);
             myCam.enabled = true;
             myAudioListener.enabled = true;
+            miniMapCamera.enabled = true;
         }
+        _isServer = isServer;
+        _name = RandomString();
+        score = 0;
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
         munitions = 20;
         isReloading = false;
@@ -439,39 +456,102 @@ public class PlayerController : NetworkBehaviour
         ChangeWeaponStats(0);
         nbMunitions = maxMunitions;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        /*UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
-        UIstock.text = $"Stock: {munitions}";*/
-    }
-
-    //Get the point where player is looking at
-    public GameObject getAimingObject()
-    {
-        Ray ray = new Ray(myCam.transform.position, myCam.transform.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 7.5f))
+        foreach(var gun in holsterArray) {
+            gun.GetComponent<WeaponCharacteristics>().currentAmmo = gun.GetComponent<WeaponCharacteristics>().munitions;
+        }
+        if (isServer) {
+            panel.SetActive(true);
+            panelText.text = LocalIPAddress();
+        }
+        startingMoney = GetComponent<Money>().money;
+        money = startingMoney;
+        if (FindObjectOfType<EnemiesSpawner>().isStarted)
         {
-            return hit.transform.gameObject;
+            startGame = DateTime.UtcNow;
         }
         else
-        {
+            startGame = new DateTime();
+
+        door = GameObject.FindGameObjectWithTag("Door");
+
+    }
+    //Get the point where player is looking at
+    public GameObject getAimingObject() {
+        Ray ray = new Ray(myCam.transform.position, myCam.transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 7.5f)) {
+            return hit.transform.gameObject;
+        }
+        else {
             return null;
         }
     }
-
-    //Bring back player to main menu
-    public void OnMainMenu()
-    {
-        if (isClientOnly)
-        {
+    public void OnMainMenu() {
+        if (isClientOnly) {
             networkManager.StopClient();
         }
-        else
-        {
+        else {
             networkManager.StopHost();
         }
-        SceneManager.LoadScene("MainMenu");
+    }
+    public static string LocalIPAddress()
+    {
+        var discovery = FindObjectOfType<Mirror.Discovery.NetworkDiscovery>();
+        int tmp = discovery.adress.GetHashCode();
+
+        return Math.Abs(tmp).ToString();
+    }
+    public void OnEndGame(bool victory) {
+        win = victory;
+        DateTime startWaveTwo = FindObjectOfType<EnemiesSpawner>().startWaveTwo;
+        canWinPoints = DateTime.Now - startGame >= DateTime.Now - startWaveTwo;
+        points = CountPoints(kills.killedEnemies);
+        Cursor.lockState = CursorLockMode.None;
+        deltaMoney = money - startingMoney;
+        networkManager.offlineScene = "WinScene";
+        if (!isClientOnly) {
+            Debug.Log(canWinPoints);
+            if (!isClientOnly) {
+                Debug.Log(canWinPoints);
+                networkManager.StopHost();
+                NetworkServer.Shutdown();
+            }
+            else {
+                networkManager.StopClient();
+            }
+        }
     }
 
-    public NetworkManager GetNetworkManager() => networkManager;
+    string RandomString() {
+        string s = "";
+        for(int i = 0; i < 6; i++) {
+            s += (char)UnityEngine.Random.Range(65, 91);
+        }
+        return s;
+    }
 
+    public int CountPoints(List<Type> list) {
+        float total = 0;
+        foreach(var enemyType in list) {
+            switch(enemyType) {
+                case Type.FLYING:
+                    total += 15;
+                    break;
+                case Type.NORMAL:
+                    total += 30;
+                    break;
+                case Type.HEAVY:
+                    total += 50;
+                    break;
+                default:
+                    total += 100;
+                    break;
+			}
+		}
+        total /= death/2;
+        total += money / 100;
+        total *= (1 + (EnemiesSpawner.waveNumber-1 / 5)*0.5f);
+
+        return Mathf.CeilToInt(total);
+	}
 }

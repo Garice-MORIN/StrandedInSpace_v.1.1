@@ -46,7 +46,8 @@ namespace Mirror.Discovery
             {
                 discoveredServers.Clear();
                 networkDiscovery.StartDiscovery();
-            }
+                
+            } // LANCER CA QUAND BOUTON JOIN APPUYE
 
             // LAN Host
             if (GUILayout.Button("Start Host"))
@@ -54,7 +55,7 @@ namespace Mirror.Discovery
                 discoveredServers.Clear();
                 NetworkManager.singleton.StartHost();
                 networkDiscovery.AdvertiseServer();
-            }
+            } // LANCER QUAND BOUTON HOST APPUYE
 
             // Dedicated server
             if (GUILayout.Button("Start Server"))
@@ -63,7 +64,7 @@ namespace Mirror.Discovery
                 NetworkManager.singleton.StartServer();
 
                 networkDiscovery.AdvertiseServer();
-            }
+            } // USELESS FOR US
 
             GUILayout.EndHorizontal();
 
@@ -73,10 +74,11 @@ namespace Mirror.Discovery
 
             // servers
             scrollViewPos = GUILayout.BeginScrollView(scrollViewPos);
+            Debug.Log(discoveredServers.Count);
 
             foreach (ServerResponse info in discoveredServers.Values)
                 if (GUILayout.Button(info.EndPoint.Address.ToString()))
-                    Connect(info);
+                    Connect(info);  // LIST OF ALL SERVERS DISCOVERED
 
             GUILayout.EndScrollView();
         }

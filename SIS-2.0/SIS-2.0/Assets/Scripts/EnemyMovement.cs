@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -7,51 +8,61 @@ public class EnemyMovement : MonoBehaviour
     public Transform enemyPosition;
     public NavMeshAgent navMesh;
     public int damage;
+    public float cooldownTime;
     Collider[] colliders;
     Transform goal;
+
     public float attackCooldown;
     public bool slowed;
+    public bool canAttack;
     public float baseSpeed;
     public float slowDuration;
-    public float slowPower;
     void Start()
     {
-        goal = GameObject.FindGameObjectWithTag("Tower").transform; //Assign AI's goal
+        goal = GameObject.FindGameObjectWithTag("Core").transform; //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
+        canAttack = true;
     }
 
     public void Update()
     {
-        //Attack tower if enemy is close enough 
-        CheckAttack();
+
+        //Attack tower if enemy is close enough
+        if(canAttack)
+        {
+            StartCoroutine(TryAttack());
+            canAttack = true;
+        }
+
         CheckSlow();
     }
 
-    //TODO: Optimize this function
-    void CheckAttack(){
-        if(attackCooldown <= 0){
-            AttackTower();
-            attackCooldown = 1;
-        }
-        else{
-            attackCooldown -= Time.deltaTime;
-        }
-    }
-
-    void AttackTower(){
+    IEnumerator TryAttack()
+    {
+        canAttack = false;
         colliders = Physics.OverlapSphere(enemyPosition.position, 2.0f, mask);
-        foreach(var obj in colliders){
+        foreach (var obj in colliders)
+        {
             obj.GetComponent<Health>().TakeDamage(damage);
         }
+        yield return new WaitForSeconds(cooldownTime);
+
     }
 
+    public void Slow(float slowPower1, float slowDuration1){
+        if(navMesh.speed == 0){
+            return;
+        }
+        if(navMesh.speed < baseSpeed * slowPower1){
+            slowDuration = slowDuration < slowDuration1 ? slowDuration1 : slowDuration;
+            return;
+        }
+        navMesh.speed = baseSpeed * slowPower1;
+
+    }
     //Check if enemy had been slowed and if it should be unslowed
     void CheckSlow(){
-        if(slowed){
-            navMesh.speed = baseSpeed * slowPower;
-            slowed = false;
-        }
         if(slowDuration <= 0){
             navMesh.speed = baseSpeed;
         }

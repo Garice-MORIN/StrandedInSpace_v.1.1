@@ -1,15 +1,26 @@
-﻿using UnityEngine;
-using UnityEngine.Audio;
-
-//DEPRECATED
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Music : MonoBehaviour
 {
     public AudioSource musicSource;
-    public Variables variables;
+    public AudioClip[] musicArray;
+    int currentSong;
 
-    private void Start()
+    void Start()
     {
-        musicSource.volume = variables.musicVolume;
+        musicSource.volume = PlayerPrefs.GetFloat("Music");
+        musicSource.clip = musicArray[currentSong];
+        musicSource.Play();
+    }
+
+    private void Update()
+    {
+        if(!musicSource.isPlaying)
+        {
+            musicSource.clip = musicArray[currentSong == 2 ? 0 : currentSong++];
+            musicSource.Play();
+        }
     }
 }
