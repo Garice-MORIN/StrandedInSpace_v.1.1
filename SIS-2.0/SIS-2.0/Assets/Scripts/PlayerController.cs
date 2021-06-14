@@ -10,7 +10,12 @@ public class PlayerController : NetworkBehaviour
 {
     int startingMoney;
     [SyncVar(hook = "OnMoneyChanged")] public int money;
+<<<<<<< Updated upstream
 
+=======
+    public string _name;
+    public int death;
+>>>>>>> Stashed changes
     //Player related variables
     public CharacterController controller;
     public Transform groundCheck;
@@ -25,6 +30,7 @@ public class PlayerController : NetworkBehaviour
     public static int deltaMoney;
     public static bool win;
     public bool _isServer;
+<<<<<<< Updated upstream
 
     public bool isGrounded;
     Vector3 velocity;
@@ -32,9 +38,14 @@ public class PlayerController : NetworkBehaviour
     float jumpHeight = 2f;
 
 
+=======
+    public bool canWinPoints;
+    public bool isGrounded;
+    Vector3 velocity;
+    float gravity = -19.62f;
+    float jumpHeight = 1.5f;
+>>>>>>> Stashed changes
     [SyncVar(hook = "OnStateChanged")] bool pauseMenuActive;
-
-
     //Interface & Sound related variables
     public GameObject myCanvas;
     public AudioSource gunSource;
@@ -50,16 +61,13 @@ public class PlayerController : NetworkBehaviour
        //All musics in the game
     public Animator transition;
     public Text UIMoney;
-
     //Gun related variables
     public Animator animator; //Reload animation currently used (depend on weapon)
     public ParticleSystem gunParticle;
     public LayerMask rayMask; //Layer the raycat registers when shooting a gun
     public int maxMunitions; //Weapon's ammuntions clip's size
-
     [SyncVar(hook = "OnStockChanged")]
-    public int munitions; //Ammunition the player currently has
-
+    public int munitions; //Ammunition the player currently ha
     public float gunRange;
     public Transform muzzle;
     public GameObject holster;
@@ -213,6 +221,7 @@ public class PlayerController : NetworkBehaviour
             }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             if (Input.GetButtonDown("Reload"))
             {
                 if (munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
@@ -220,6 +229,10 @@ public class PlayerController : NetworkBehaviour
 =======
             if (Input.GetButtonDown("Reload")) {
                 if (munitions > 0 && nbMunitions < maxMunitions) { //if gun isn't full and player have ammunations left, reload gun 
+>>>>>>> Stashed changes
+=======
+            if (Input.GetButtonDown("Reload")) {
+                if (munitions > 0 && nbMunitions < maxMunitions) { //if gun isn't full and player have ammunations left, reload gun
 >>>>>>> Stashed changes
                     StartCoroutine(Reload());
                     return;
@@ -229,10 +242,11 @@ public class PlayerController : NetworkBehaviour
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f) {
                 //If user scroll up
-                if(constructionMode){
+                if(constructionMode) {
+                    //Change construction to build
                     indexPlacement = indexPlacement == 3 ? 0 : indexPlacement + 1;
                 }
-                else{
+                else {
                     //Change equipped weapon
                     indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
                     CmdChangeActiveWeapon(indexWeapon);
@@ -244,6 +258,10 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetAxis("Mouse ScrollWheel") < 0f) {
                 //If user scroll down
                 if(constructionMode) {
+<<<<<<< Updated upstream
+=======
+                    //Change construction to build
+>>>>>>> Stashed changes
                     indexPlacement = indexPlacement == 0 ? 3 : indexPlacement - 1;
                 }
                 else {
@@ -287,7 +305,10 @@ public class PlayerController : NetworkBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+<<<<<<< Updated upstream
             
+=======
+>>>>>>> Stashed changes
     }
     public void IpPanel(bool _old, bool _new)
     {
@@ -430,8 +451,18 @@ public class PlayerController : NetworkBehaviour
     void CmdBuild()
     {
         GameObject aimed = getAimingObject();
+<<<<<<< Updated upstream
         if (aimed != null && (aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower")) {
             money -= (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
+=======
+        if (aimed != null) {
+            if(aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower") {
+                money -= (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
+            }
+            if(aimed.tag == "TrapSpawnPoints") {
+                money -= aimed.GetComponent<TrapSpawning>().TryBuild(money, indexPlacement);
+            }      
+>>>>>>> Stashed changes
         }
     }
 
@@ -439,8 +470,18 @@ public class PlayerController : NetworkBehaviour
     [Command]
     void CmdDestroy() {
         GameObject aimed = getAimingObject();
+<<<<<<< Updated upstream
         if (aimed != null && (aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower")) {
             money += (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryDestroy(money);
+=======
+        if (aimed != null) {
+            if(aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower") {
+                money += (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryDestroy();
+            }
+            if(aimed.tag == "TrapSpawnPoints" || aimed.tag == "Trap") {
+                money += (aimed.tag == "Trap" ? aimed.GetComponent<TrapInfo>().linkedSpawner : aimed).GetComponent<TrapSpawning>().TryDestroy();
+            }
+>>>>>>> Stashed changes
         }
     }
     //Server --> Client
@@ -480,12 +521,19 @@ public class PlayerController : NetworkBehaviour
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
         if (FindObjectOfType<EnemiesSpawner>().isStarted) {
             startGame = DateTime.UtcNow;
         }
-        else
+        else {
             startGame = new DateTime();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+        }
 >>>>>>> Stashed changes
     }
     //Get the point where player is looking at
@@ -510,7 +558,10 @@ public class PlayerController : NetworkBehaviour
     public static string LocalIPAddress() {
         IPHostEntry host;
         host = Dns.GetHostEntry(Dns.GetHostName());
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
         return $"Server's IP is : {host.AddressList[host.AddressList.Length-1]}";
     }
     public void OnEndGame(bool victory) {
@@ -519,9 +570,12 @@ public class PlayerController : NetworkBehaviour
         deltaMoney = money - startingMoney;
         networkManager.offlineScene = "WinScene";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         if (!isClientOnly)
         {
 =======
+=======
+>>>>>>> Stashed changes
         if (!isClientOnly) {
             Debug.Log(canWinPoints);
 >>>>>>> Stashed changes
@@ -533,8 +587,11 @@ public class PlayerController : NetworkBehaviour
         }
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 
+=======
+>>>>>>> Stashed changes
     string RandomString() {
         string s = "";
         for(int i = 0; i < 6; i++) {

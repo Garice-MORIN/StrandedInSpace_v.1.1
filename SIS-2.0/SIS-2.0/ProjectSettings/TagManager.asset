@@ -11,6 +11,14 @@ TagManager:
   - Anchor
   - Music
   - Spawner
+<<<<<<< Updated upstream
+=======
+  - TurretSpawnPoints
+  - Core
+  - BarricadeSpawnPoint
+  - TrapSpawnPoint
+  - Trap
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -27,8 +35,13 @@ TagManager:
   - Tower
   - Wall
   - Munition
+<<<<<<< Updated upstream
   - 
   - 
+=======
+  - Spawn
+  - Trap
+>>>>>>> Stashed changes
   - 
   - 
   - 

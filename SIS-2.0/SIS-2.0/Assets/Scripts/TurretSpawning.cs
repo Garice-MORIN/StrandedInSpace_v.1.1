@@ -14,7 +14,7 @@ public class TurretSpawning : NetworkBehaviour
     private Vector3 position;
     private Quaternion orientation;
     void Start(){
-        position = transform.position + new Vector3(0, 2.5f, 0);
+        position = transform.position + new Vector3(0, 2f, 0);
         orientation = Quaternion.Euler(0f, 0f, 0f);
     }
     
@@ -28,11 +28,11 @@ public class TurretSpawning : NetworkBehaviour
         return 0;
     }
 
-    public int Build(int playerMoney, int towerToBuild){
-        int priceNeeded = GetComponent<Money>().money;
-        if(playerMoney >= priceNeeded){
+    public int Build(int playerMoney, int towerToBuild) {
+        towerPrefab = GetNetworkManager().GetComponentInParent<SpawnTable>().GetTower(towerToBuild,0);
+        int priceNeeded = towerPrefab.GetComponent<Money>().money;
+        if(playerMoney >= priceNeeded) {
             towerType = towerToBuild;
-            towerPrefab = GetNetworkManager().GetComponentInParent<SpawnTable>().GetTower(towerType,0);
             towerPrefab.GetComponent<TurretInfo>().linkedSpawner = this.transform.gameObject;
             toSpawn = (GameObject)Instantiate(towerPrefab, position, orientation);
             NetworkServer.Spawn(toSpawn);
@@ -41,9 +41,9 @@ public class TurretSpawning : NetworkBehaviour
         }
         return 0;
     }
-    public int Upgrade(int playerMoney){
+    public int Upgrade(int playerMoney) {
         int priceNeeded = toSpawn.GetComponent<Money>().money;
-        if(playerMoney >= priceNeeded){
+        if(playerMoney >= priceNeeded) {
             Destroy(toSpawn);
             towerPrefab = GetNetworkManager().GetComponentInParent<SpawnTable>().GetTower(towerType,level);
             towerPrefab.GetComponent<TurretInfo>().linkedSpawner = this.transform.gameObject;
@@ -55,9 +55,10 @@ public class TurretSpawning : NetworkBehaviour
         return 0;
     }
 
-    public int TryDestroy(int playerMoney){
-        if(level != 0){
+    public int TryDestroy() {
+        if(level != 0) {
             Destroy(toSpawn);
+            level = 0;
             return toSpawn.GetComponent<Money>().money;
         }
         return 0;

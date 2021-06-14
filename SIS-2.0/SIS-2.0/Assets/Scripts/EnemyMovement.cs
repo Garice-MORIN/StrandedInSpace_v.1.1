@@ -9,11 +9,14 @@ public class EnemyMovement : MonoBehaviour
     public int damage;
     Collider[] colliders;
     Transform goal;
+<<<<<<< Updated upstream
     public float attackCooldown;
     public bool slowed;
+=======
+    public bool canAttack;
+>>>>>>> Stashed changes
     public float baseSpeed;
     public float slowDuration;
-    public float slowPower;
     void Start()
     {
         goal = GameObject.FindGameObjectWithTag("Tower").transform; //Assign AI's goal
@@ -46,12 +49,19 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    public void Slow(float slowPower1, float slowDuration1){
+        if(navMesh.speed == 0){
+            return;
+        }
+        if(navMesh.speed < baseSpeed * slowPower1){
+            slowDuration = slowDuration < slowDuration1 ? slowDuration1 : slowDuration;
+            return;
+        }
+        navMesh.speed = baseSpeed * slowPower1;
+
+    }
     //Check if enemy had been slowed and if it should be unslowed
     void CheckSlow(){
-        if(slowed){
-            navMesh.speed = baseSpeed * slowPower;
-            slowed = false;
-        }
         if(slowDuration <= 0){
             navMesh.speed = baseSpeed;
         }
