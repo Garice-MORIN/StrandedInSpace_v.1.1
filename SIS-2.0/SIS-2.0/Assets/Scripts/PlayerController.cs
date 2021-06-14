@@ -471,14 +471,8 @@ public class PlayerController : NetworkBehaviour
         }
         else
             startGame = new DateTime();
-        door = GameObject.FindGameObjectWithTag("Door");
 
-        if (FindObjectOfType<EnemiesSpawner>().isStarted) {
-            startGame = DateTime.UtcNow;
-        }
-        else {
-            startGame = new DateTime();
-        }
+        door = GameObject.FindGameObjectWithTag("Door");
 
     }
     //Get the point where player is looking at

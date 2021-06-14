@@ -22,8 +22,6 @@ public class EnemiesSpawner : NetworkBehaviour
     GameObject[] allSpawnPoints;
     bool canSpawnNextWave;
     Queue<string> queue = new Queue<string>();
-    //[SyncVar(hook = "Endgame")]
-    //bool endgame = false;
 
     private void Start()
     {
@@ -47,12 +45,7 @@ public class EnemiesSpawner : NetworkBehaviour
     {
         if(enemiesLeft == 0)
         {
-			try {
-                StartCoroutine("DoorAnimation");
-            }
-			catch (Exception e){
-                Debug.Log("Exception trying to spawn next wave : " + e.ToString());
-			}
+            StartCoroutine("DoorAnimation");
 
         }
     }
