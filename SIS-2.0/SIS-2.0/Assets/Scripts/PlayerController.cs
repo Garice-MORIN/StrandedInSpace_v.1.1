@@ -14,10 +14,6 @@ public class PlayerController : NetworkBehaviour
     public string _name;
     public int death;
 
-=======
-    public string _name;
-    public int death;
->>>>>>> Stashed changes
     //Player related variables
     private DateTime startGame;
     public CharacterController controller;
@@ -41,16 +37,8 @@ public class PlayerController : NetworkBehaviour
     Vector3 velocity;
     float gravity = -19.62f;
     float jumpHeight = 1.5f;
-
-
-=======
-    public bool canWinPoints;
-    public bool isGrounded;
-    Vector3 velocity;
-    float gravity = -19.62f;
-    float jumpHeight = 1.5f;
->>>>>>> Stashed changes
-    [SyncVar(hook = "OnStateChanged")] bool pauseMenuActive;
+    [SyncVar(hook = "OnStateChanged")] 
+    bool pauseMenuActive;
     //Interface & Sound related variables
     public GameObject myCanvas;
     public AudioSource gunSource;
@@ -213,16 +201,7 @@ public class PlayerController : NetworkBehaviour
             }
 
             if (Input.GetButtonDown("Reload")) {
-                if (munitions > 0 && nbMunitions < maxMunitions) //if gun isn't full and player have ammunations left, reload gun
-                {
-=======
-            if (Input.GetButtonDown("Reload")) {
                 if (munitions > 0 && nbMunitions < maxMunitions) { //if gun isn't full and player have ammunations left, reload gun
->>>>>>> Stashed changes
-=======
-            if (Input.GetButtonDown("Reload")) {
-                if (munitions > 0 && nbMunitions < maxMunitions) { //if gun isn't full and player have ammunations left, reload gun
->>>>>>> Stashed changes
                     StartCoroutine(Reload());
                     return;
                 }
@@ -299,22 +278,22 @@ public class PlayerController : NetworkBehaviour
 
     public void GetStartingTime() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (var player in players) {
+        foreach (var player in players) 
             player.GetComponent<PlayerController>().startGame = DateTime.UtcNow;
-        }
+        
     }
 
-    //Activate new equipped weapon and deactivate the previous one
-    public void OnWeaponChanged(int _old, int _new) {
-        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null) {
-            holsterArray[_old].SetActive(false);
-        }
-        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null) {
-            holsterArray[_new].SetActive(true);
-        }
-    }
-    //Synchronize new weapon on server
-    [Command]
+                    //Activate new equipped weapon and deactivate the previous one
+                    public void OnWeaponChanged(int _old, int _new) {
+                        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null) {
+                            holsterArray[_old].SetActive(false);
+                        }
+                        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null) {
+                            holsterArray[_new].SetActive(true);
+                        }
+                    }
+                    //Synchronize new weapon on server
+                    [Command]
     public void CmdChangeActiveWeapon(int newIndex) {
         activeWeapon = newIndex;
     }
@@ -426,7 +405,7 @@ public class PlayerController : NetworkBehaviour
             if(aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower") {
                 money -= (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
             }
-            if(aimed.tag == "TrapSpawnPoints") {
+            if(aimed.tag == "TrapSpawnPoint") {
                 money -= aimed.GetComponent<TrapSpawning>().TryBuild(money, indexPlacement);
             }
         }
@@ -440,7 +419,7 @@ public class PlayerController : NetworkBehaviour
             if(aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower") {
                 money += (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryDestroy();
             }
-            if(aimed.tag == "TrapSpawnPoints" || aimed.tag == "Trap") {
+            if(aimed.tag == "TrapSpawnPoint" || aimed.tag == "Trap") {
                 money += (aimed.tag == "Trap" ? aimed.GetComponent<TrapInfo>().linkedSpawner : aimed).GetComponent<TrapSpawning>().TryDestroy();
             }
         }
@@ -531,26 +510,18 @@ public class PlayerController : NetworkBehaviour
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = money - startingMoney;
         networkManager.offlineScene = "WinScene";
-        if (!isClientOnly)
-        {
-            Debug.Log(canWinPoints);
         if (!isClientOnly) {
             Debug.Log(canWinPoints);
-            networkManager.StopHost();
-            NetworkServer.Shutdown();
-        }
-        else {
-            networkManager.StopClient();
+            if (!isClientOnly) {
+                Debug.Log(canWinPoints);
+                networkManager.StopHost();
+                NetworkServer.Shutdown();
+            }
+            else {
+                networkManager.StopClient();
+            }
         }
     }
-
-    public string RandomString() {
-        string s = "";
-        for(int i = 0; i < 6; i++) {
-            s += (char)(UnityEngine.Random.Range(65,91));
-        }
-        return s;
-	}
 
     string RandomString() {
         string s = "";
