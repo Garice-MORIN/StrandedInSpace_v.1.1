@@ -14,7 +14,7 @@ public class TurretSpawning : NetworkBehaviour
     private Vector3 position;
     private Quaternion orientation;
     void Start(){
-        position = transform.position + new Vector3(0, 2f, 0);
+        position = transform.position;
         orientation = Quaternion.Euler(0f, 0f, 0f);
     }
 

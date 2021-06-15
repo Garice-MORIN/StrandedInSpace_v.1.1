@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5905525671402598577}
   - component: {fileID: 8112392325394085166}
   - component: {fileID: 1440411010824793956}
+  - component: {fileID: 7121448853331844096}
   m_Layer: 15
   m_Name: Cube (48)
   m_TagString: BarricadeSpawnPoint
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249300345488693595}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 13.5, y: -5.995, z: 10}
   m_LocalScale: {x: 1, y: 0.01, z: 3}
   m_Children: []
@@ -106,7 +107,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 50
+  money: 150
+--- !u!114 &7121448853331844096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249300345488693595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcaf103a0d6b7a43865898629576957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotNeeded: 0
 --- !u!1 &2836479799070304837
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,6 +134,7 @@ GameObject:
   - component: {fileID: 590161657876818876}
   - component: {fileID: 1097064195542936432}
   - component: {fileID: 6533618007814309483}
+  - component: {fileID: 2029614865218983845}
   m_Layer: 15
   m_Name: Cube (46)
   m_TagString: BarricadeSpawnPoint
@@ -213,7 +228,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 50
+  money: 150
+--- !u!114 &2029614865218983845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836479799070304837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcaf103a0d6b7a43865898629576957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotNeeded: 1
 --- !u!1 &3689467107766596181
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +289,7 @@ GameObject:
   - component: {fileID: 546902385377701303}
   - component: {fileID: 3147497735691025295}
   - component: {fileID: 8115666967236235861}
+  - component: {fileID: 3927063539925664665}
   m_Layer: 15
   m_Name: Cube (47)
   m_TagString: BarricadeSpawnPoint
@@ -275,7 +304,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5366101551103146582}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 8.5, y: -5.995, z: 10}
   m_LocalScale: {x: 1, y: 0.01, z: 3}
   m_Children: []
@@ -354,7 +383,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 50
+  money: 150
+--- !u!114 &3927063539925664665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366101551103146582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcaf103a0d6b7a43865898629576957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotNeeded: 0
 --- !u!1 &6388175163040260845
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +410,7 @@ GameObject:
   - component: {fileID: 5281093140493462396}
   - component: {fileID: 6891898220813627771}
   - component: {fileID: 6395601057328416039}
+  - component: {fileID: 1696204735380089865}
   m_Layer: 15
   m_Name: Cube (45)
   m_TagString: BarricadeSpawnPoint
@@ -461,4 +504,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 50
+  money: 150
+--- !u!114 &1696204735380089865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6388175163040260845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcaf103a0d6b7a43865898629576957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotNeeded: 1

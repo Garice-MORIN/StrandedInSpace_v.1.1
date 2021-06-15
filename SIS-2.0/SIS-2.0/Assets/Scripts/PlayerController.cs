@@ -412,6 +412,9 @@ public class PlayerController : NetworkBehaviour
             if(aimed.tag == "TrapSpawnPoint") {
                 money -= aimed.GetComponent<TrapSpawning>().TryBuild(money, indexPlacement);
             }
+            if(aimed.tag == "BarricadeSpawnPoint") {
+                money -= aimed.GetComponent<BarricadeSpawning>().TryBuild(money);
+            }
         }
     }
 
