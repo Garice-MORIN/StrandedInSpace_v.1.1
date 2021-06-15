@@ -4,6 +4,8 @@ using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
+    public Type type;
+
     public LayerMask mask;
     public Transform enemyPosition;
     public NavMeshAgent navMesh;
@@ -19,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
     public float slowDuration;
     void Start()
     {
-        goal = GameObject.FindGameObjectWithTag("Core").transform; //Assign AI's goal
+        goal = ChooseTarget(); //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
         canAttack = true;
@@ -68,6 +70,34 @@ public class EnemyMovement : MonoBehaviour
         }
         else{
             slowDuration -= Time.deltaTime;
+        }
+    }
+
+    Transform FocusRandomPlayer() {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        return players[Random.Range(0,players.Length)].transform;
+	}
+
+    Transform ChooseTarget() {
+        switch(type) {
+            case Type.HEAVY:
+                return GameObject.FindGameObjectWithTag("Core").transform;
+            case Type.FLYING:
+                GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Turret");
+                if (turretsPos.Length == 0)
+                    return GameObject.FindGameObjectWithTag("Core").transform;
+                else
+                    return turretsPos[Random.Range(0, turretsPos.Length)].transform;
+            case Type.NORMAL:
+                int i = Random.Range(0, 2);
+                if (i == 0) {
+                    return GameObject.FindGameObjectWithTag("Core").transform;
+                }
+				else {
+                    return FocusRandomPlayer();
+				}
+            default: //Type.BOSS
+                return GameObject.FindGameObjectWithTag("Core").transform;
         }
     }
 }

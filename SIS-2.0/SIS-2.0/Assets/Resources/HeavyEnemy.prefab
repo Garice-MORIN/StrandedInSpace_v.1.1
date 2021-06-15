@@ -584,17 +584,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e355c8aa67d1974684e07dfe07f02d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 2
   mask:
     serializedVersion: 2
     m_Bits: 4096
   enemyPosition: {fileID: 3657620336170778689}
   navMesh: {fileID: 7504748251946289719}
   damage: 50
+  cooldownTime: 0
   attackCooldown: 1
   slowed: 0
+  canAttack: 0
   baseSpeed: 0
   slowDuration: 0
-  slowPower: 0
 --- !u!114 &1220136199153754049
 MonoBehaviour:
   m_ObjectHideFlags: 0
