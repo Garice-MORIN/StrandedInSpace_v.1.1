@@ -52,6 +52,10 @@ public class Health : NetworkBehaviour
                 if(tag == "Core")
                 {
                     GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                    EnemyMovement[] enemies = GameObject.FindObjectsOfType<EnemyMovement>();
+                    foreach(var mov in enemies) {
+                        mov.enabled = false;
+					}
                     foreach (var player in players)
                     {
                         player.GetComponent<PlayerController>().OnEndGame(false);

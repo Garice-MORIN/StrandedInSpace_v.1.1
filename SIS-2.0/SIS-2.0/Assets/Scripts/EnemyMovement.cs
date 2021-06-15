@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
     public float slowDuration;
     void Start()
     {
-        goal = ChooseTarget(); //Assign AI's goal
+        ChooseTarget(); //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
         canAttack = true;
@@ -34,7 +34,6 @@ public class EnemyMovement : MonoBehaviour
         if(canAttack)
         {
             StartCoroutine(TryAttack());
-            canAttack = true;
         }
 
         CheckSlow();
@@ -49,7 +48,7 @@ public class EnemyMovement : MonoBehaviour
             obj.GetComponent<Health>().TakeDamage(damage);
         }
         yield return new WaitForSeconds(cooldownTime);
-
+        canAttack = true;
     }
 
     public void Slow(float slowPower1, float slowDuration1){
@@ -78,26 +77,29 @@ public class EnemyMovement : MonoBehaviour
         return players[Random.Range(0,players.Length)].transform;
 	}
 
-    Transform ChooseTarget() {
+    public void ChooseTarget() {
         switch(type) {
             case Type.HEAVY:
-                return GameObject.FindGameObjectWithTag("Core").transform;
+                goal = GameObject.FindGameObjectWithTag("Core").transform;
+                break;
             case Type.FLYING:
                 GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Turret");
                 if (turretsPos.Length == 0)
-                    return GameObject.FindGameObjectWithTag("Core").transform;
+                    goal = GameObject.FindGameObjectWithTag("Core").transform;
                 else
-                    return turretsPos[Random.Range(0, turretsPos.Length)].transform;
+                    goal = turretsPos[Random.Range(0, turretsPos.Length)].transform;
+                break;
             case Type.NORMAL:
                 int i = Random.Range(0, 2);
-                if (i == 0) {
-                    return GameObject.FindGameObjectWithTag("Core").transform;
-                }
-				else {
-                    return FocusRandomPlayer();
-				}
+                if (i == 0) 
+                    goal = GameObject.FindGameObjectWithTag("Core").transform;
+				else
+                    goal = FocusRandomPlayer();
+                break;
             default: //Type.BOSS
-                return GameObject.FindGameObjectWithTag("Core").transform;
+                goal = GameObject.FindGameObjectWithTag("Core").transform;
+                break;
         }
     }
+
 }
