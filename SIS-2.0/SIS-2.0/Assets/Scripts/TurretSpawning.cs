@@ -36,6 +36,7 @@ public class TurretSpawning : NetworkBehaviour
             towerPrefab.GetComponent<TurretInfo>().linkedSpawner = this.transform.gameObject;
             toSpawn = (GameObject)Instantiate(towerPrefab, position, orientation);
             NetworkServer.Spawn(toSpawn);
+            UpdateEnemiesGoal(true);
             level += 1;
             return priceNeeded;
         }
@@ -58,9 +59,30 @@ public class TurretSpawning : NetworkBehaviour
     public int TryDestroy() {
         if(level != 0) {
             Destroy(toSpawn);
+            UpdateEnemiesGoal(false, toSpawn);
             level = 0;
             return toSpawn.GetComponent<Money>().money;
         }
         return 0;
     }
+
+    void UpdateEnemiesGoal(bool add, GameObject turretTarget = null) {
+        EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
+        if(add) {
+            for (int i = 0; i < enemies.Length; i++) {
+                if (enemies[i].type == Type.FLYING && !enemies[i].goToTurret) {
+                    enemies[i].ChooseTarget(true);
+                }
+            }
+        }
+		else {
+            for (int i = 0; i < enemies.Length; i++) {
+                if (enemies[i].type == Type.FLYING && enemies[i].GetFocusedObject() == turretTarget) {
+                    enemies[i].ChooseTarget(true);
+                }
+            }
+        }
+
+        
+	}
 }

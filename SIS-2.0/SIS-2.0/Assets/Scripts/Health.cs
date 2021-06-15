@@ -80,7 +80,7 @@ public class Health : NetworkBehaviour
                 else if(tag == "Turret") {
                     GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                     for(int i = 0; i < enemies.Length; i++) {
-                        if(enemies[i].GetComponent<EnemyType>().type == Type.FLYING) {
+                        if(enemies[i].GetComponent<EnemyType>().type == Type.FLYING && enemies[i].GetComponent<EnemyMovement>().GetFocusedObject() == gameObject) {
                             enemies[i].GetComponent<EnemyMovement>().ChooseTarget(true);
 						}
 					}
@@ -89,6 +89,11 @@ public class Health : NetworkBehaviour
             }
             else{
                 health = maxHP;
+                EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
+                for(int i = 0; i < enemies.Length; i++) {
+                    if (enemies[i].type == Type.NORMAL && enemies[i].GetFocusedObject() == gameObject)
+                        enemies[i].ChooseTarget();
+				}
                 gameObject.GetComponent<PlayerController>().death += 1;
                 RpcRespawn();
             }

@@ -12,7 +12,9 @@ public class EnemyMovement : MonoBehaviour
     public int damage;
     public float cooldownTime;
     Collider[] colliders;
+    GameObject target;
     Transform goal;
+    public bool goToTurret;
 
     public float attackCooldown;
     public bool slowed;
@@ -21,6 +23,8 @@ public class EnemyMovement : MonoBehaviour
     public float slowDuration;
     void Start()
     {
+        target = null;
+        goToTurret = false;
         ChooseTarget(); //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
@@ -74,16 +78,22 @@ public class EnemyMovement : MonoBehaviour
 
     Transform FocusRandomPlayer() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        return players[Random.Range(0,players.Length)].transform;
+        target = players[Random.Range(0, players.Length)];
+        return target.transform;
 	}
 
     public void ChooseTarget(bool isFlying = false) {
         if(isFlying) {
             GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Turret");
-            if (turretsPos.Length == 0)
+            if (turretsPos.Length == 0) {
                 goal = GameObject.FindGameObjectWithTag("Core").transform;
-            else
+                goToTurret = false;
+			}
+			else {
                 goal = turretsPos[Random.Range(0, turretsPos.Length)].transform;
+                goToTurret = true;
+			}
+                
         }
 		else {
             switch (type) {
@@ -104,5 +114,9 @@ public class EnemyMovement : MonoBehaviour
         }
         
     }
+
+    public GameObject GetFocusedObject() {
+        return target;
+	}
 
 }
