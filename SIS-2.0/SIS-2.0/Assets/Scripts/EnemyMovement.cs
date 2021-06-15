@@ -23,8 +23,6 @@ public class EnemyMovement : MonoBehaviour
     public float slowDuration;
     void Start()
     {
-        target = null;
-        goToTurret = false;
         ChooseTarget(); //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
@@ -80,26 +78,19 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    Transform FocusRandomPlayer() {
+    GameObject FocusRandomPlayer() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         target = players[Random.Range(0, players.Length)];
-        return target.transform;
+        return target;
 	}
 
     public void ChooseTarget() {
-        
-        switch (type) {
-            case Type.HEAVY:
-                goal = GameObject.FindGameObjectWithTag("Core").transform;
-                break;
-            case Type.FLYING:
-                goal = FocusRandomPlayer();
-                break;
-            default: //Type.BOSS
-                goal = GameObject.FindGameObjectWithTag("Core").transform;
-                break;
+        if(type == Type.FLYING) {
+            target = FocusRandomPlayer();
+            goal = target.transform;
         }
-        
+        else
+            goal = GameObject.FindGameObjectWithTag("Core").transform;        
     }
 
     public GameObject GetFocusedObject() {
