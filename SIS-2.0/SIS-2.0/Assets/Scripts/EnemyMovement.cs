@@ -77,29 +77,32 @@ public class EnemyMovement : MonoBehaviour
         return players[Random.Range(0,players.Length)].transform;
 	}
 
-    public void ChooseTarget() {
-        switch(type) {
-            case Type.HEAVY:
+    public void ChooseTarget(bool isFlying = false) {
+        if(isFlying) {
+            GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Turret");
+            if (turretsPos.Length == 0)
                 goal = GameObject.FindGameObjectWithTag("Core").transform;
-                break;
-            case Type.FLYING:
-                GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Turret");
-                if (turretsPos.Length == 0)
-                    goal = GameObject.FindGameObjectWithTag("Core").transform;
-                else
-                    goal = turretsPos[Random.Range(0, turretsPos.Length)].transform;
-                break;
-            case Type.NORMAL:
-                int i = Random.Range(0, 2);
-                if (i == 0) 
-                    goal = GameObject.FindGameObjectWithTag("Core").transform;
-				else
-                    goal = FocusRandomPlayer();
-                break;
-            default: //Type.BOSS
-                goal = GameObject.FindGameObjectWithTag("Core").transform;
-                break;
+            else
+                goal = turretsPos[Random.Range(0, turretsPos.Length)].transform;
         }
+		else {
+            switch (type) {
+                case Type.HEAVY:
+                    goal = GameObject.FindGameObjectWithTag("Core").transform;
+                    break;
+                case Type.NORMAL:
+                    int i = Random.Range(0, 2);
+                    if (i == 0)
+                        goal = GameObject.FindGameObjectWithTag("Core").transform;
+                    else
+                        goal = FocusRandomPlayer();
+                    break;
+                default: //Type.BOSS
+                    goal = GameObject.FindGameObjectWithTag("Core").transform;
+                    break;
+            }
+        }
+        
     }
 
 }

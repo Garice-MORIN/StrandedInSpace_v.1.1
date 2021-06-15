@@ -52,7 +52,7 @@ public class Health : NetworkBehaviour
                 if(tag == "Core")
                 {
                     GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                    EnemyMovement[] enemies = GameObject.FindObjectsOfType<EnemyMovement>();
+                    EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
                     foreach(var mov in enemies) {
                         mov.enabled = false;
 					}
@@ -61,24 +61,31 @@ public class Health : NetworkBehaviour
                         player.GetComponent<PlayerController>().OnEndGame(false);
                     }
                 }
-                if(tag == "Enemy")
+                else if(tag == "Enemy")
                 {
                     dead = true;
-                    //check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
                     doDrop = Random.Range(0.0f, 1.0f) < 0.6f; //Check if entity drop ammunition on death
                     check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
                     gameObject.GetComponent<Money>().EnemyDropMoney();
+                    FindObjectOfType<EnemiesSpawner>().enemiesLeft--;
+                    if (doDrop) {
+                        //Give money to all players
+                        //Spawn ammo crate
+                        Vector3 position = gameObject.transform.position + new Vector3(0, -0.5f, 0);
+                        var orientation = Quaternion.Euler(0f, 0f, 0f);
+                        var toSpawn = (GameObject)Instantiate(Resources.Load("munitions") as GameObject, position, orientation);
+                        NetworkServer.Spawn(toSpawn);
+                    }
                 }
-                if(doDrop){
-                    //Give money to all players
-                    //Spawn ammo crate
-                    Vector3 position = gameObject.transform.position + new Vector3(0,-0.5f,0);
-                    var orientation = Quaternion.Euler(0f, 0f, 0f);
-                    var toSpawn = (GameObject)Instantiate(Resources.Load("munitions") as GameObject, position, orientation);
-                    NetworkServer.Spawn(toSpawn);
-                }
+                else if(tag == "Turret") {
+                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                    for(int i = 0; i < enemies.Length; i++) {
+                        if(enemies[i].GetComponent<EnemyType>().type == Type.FLYING) {
+                            enemies[i].GetComponent<EnemyMovement>().ChooseTarget(true);
+						}
+					}
+				}
                 Destroy(gameObject);
-                FindObjectOfType<EnemiesSpawner>().enemiesLeft--;
             }
             else{
                 health = maxHP;
