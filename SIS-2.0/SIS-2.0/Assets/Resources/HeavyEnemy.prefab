@@ -592,6 +592,7 @@ MonoBehaviour:
   navMesh: {fileID: 7504748251946289719}
   damage: 50
   cooldownTime: 0
+  goToTurret: 0
   attackCooldown: 1
   slowed: 0
   canAttack: 0

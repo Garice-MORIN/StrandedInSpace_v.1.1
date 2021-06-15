@@ -375,6 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 0
   serverOnly: 0
+  visible: 0
   m_AssetId: 
   hasSpawned: 0
 --- !u!114 &9000190440345884106
@@ -395,6 +396,9 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  syncScale: 1
 --- !u!114 &3561873878526864249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +418,8 @@ MonoBehaviour:
   HPBar: {fileID: 5060325479796799084}
   background: {fileID: 5060325479995801550}
   destroyOnDeath: 1
+  hasHealthBar: 0
+  check: {fileID: 0}
 --- !u!114 &7013333575031039884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,6 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  linkedSpawner: {fileID: 0}
   typeOfTower: 0
   range: 5
   attackDelay: 2
@@ -436,9 +443,7 @@ MonoBehaviour:
   targetsPerAttack: 1
   slowDuration: 0
   slowPower: 0
-  mask:
-    serializedVersion: 2
-    m_Bits: 0
+  burnDuration: 0
 --- !u!114 &8055962814527873147
 MonoBehaviour:
   m_ObjectHideFlags: 0

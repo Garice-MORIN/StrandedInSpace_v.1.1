@@ -40,6 +40,10 @@ public class EnemyMovement : MonoBehaviour
             StartCoroutine(TryAttack());
         }
 
+        if(type == Type.FLYING) {
+            navMesh.destination = goal.position;
+        }
+
         CheckSlow();
     }
 
@@ -82,35 +86,18 @@ public class EnemyMovement : MonoBehaviour
         return target.transform;
 	}
 
-    public void ChooseTarget(bool isFlying = false) {
-        if(isFlying) {
-            GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Turret");
-            if (turretsPos.Length == 0) {
+    public void ChooseTarget() {
+        
+        switch (type) {
+            case Type.HEAVY:
                 goal = GameObject.FindGameObjectWithTag("Core").transform;
-                goToTurret = false;
-			}
-			else {
-                goal = turretsPos[Random.Range(0, turretsPos.Length)].transform;
-                goToTurret = true;
-			}
-                
-        }
-		else {
-            switch (type) {
-                case Type.HEAVY:
-                    goal = GameObject.FindGameObjectWithTag("Core").transform;
-                    break;
-                case Type.NORMAL:
-                    int i = Random.Range(0, 2);
-                    if (i == 0)
-                        goal = GameObject.FindGameObjectWithTag("Core").transform;
-                    else
-                        goal = FocusRandomPlayer();
-                    break;
-                default: //Type.BOSS
-                    goal = GameObject.FindGameObjectWithTag("Core").transform;
-                    break;
-            }
+                break;
+            case Type.FLYING:
+                goal = FocusRandomPlayer();
+                break;
+            default: //Type.BOSS
+                goal = GameObject.FindGameObjectWithTag("Core").transform;
+                break;
         }
         
     }
