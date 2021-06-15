@@ -144,7 +144,7 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetButtonDown("StartGame")) {
                 if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted) {
                     doorScript.OpenDoor();
-                    FindObjectOfType<EnemiesSpawner>().StartGame();
+                    //FindObjectOfType<EnemiesSpawner>().StartGame();
                     GetStartingTime();
                     panel.SetActive(false);
                 }
@@ -505,21 +505,19 @@ public class PlayerController : NetworkBehaviour
         win = victory;
         DateTime startWaveTwo = FindObjectOfType<EnemiesSpawner>().startWaveTwo;
         canWinPoints = DateTime.Now - startGame >= DateTime.Now - startWaveTwo;
-        points = CountPoints(kills.killedEnemies);
+        //points = CountPoints(kills.killedEnemies);
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = money - startingMoney;
         networkManager.offlineScene = "WinScene";
         if (!isClientOnly) {
             Debug.Log(canWinPoints);
-            if (!isClientOnly) {
-                Debug.Log(canWinPoints);
-                networkManager.StopHost();
-                NetworkServer.Shutdown();
-            }
-            else {
-                networkManager.StopClient();
-            }
+            networkManager.StopHost();
+            NetworkServer.Shutdown();
         }
+        else {
+            networkManager.StopClient();
+        }
+        
     }
 
     string RandomString() {
