@@ -16,7 +16,7 @@ public class EnemiesSpawner : NetworkBehaviour
     private Door doorScript;
     public GameObject check;
     public CheckForPlayer checkForPlayer;
-    bool canSpawn = true;
+    private StopWatch stopWatchCheck;
 
     public static int waveNumber = 0;
     [SyncVar(hook = "OnChangeEnemiesLeft")]
@@ -35,7 +35,7 @@ public class EnemiesSpawner : NetworkBehaviour
     public void StartGame()
     {
         CreateSpawnList();
-        startTime = DateTime.Now;
+        stopWatchCheck = check.GetComponent<StopWatch>();
         isStarted = true;
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         doorScript = GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
@@ -52,8 +52,11 @@ public class EnemiesSpawner : NetworkBehaviour
 
     public void LoadEnemies()
     {
-        if (waveNumber == 2)
-            startWaveTwo = DateTime.Now;
+        
+        foreach (var watch in FindObjectsOfType<StopWatch>()) {
+            if(!watch.isCheckWatch && waveNumber < 2)
+                watch.StartWatch();
+        }
 
         int i = 0;
 
@@ -85,6 +88,7 @@ public class EnemiesSpawner : NetworkBehaviour
 
     public void SpawnEnemies() {
         if (waveNumber < maxWave) {
+            
             LoadEnemies();
             waveNumber++;
             openDoor = false;
@@ -101,6 +105,8 @@ public class EnemiesSpawner : NetworkBehaviour
         {
             return;
         }
+        foreach (var watch in FindObjectsOfType<StopWatch>())
+            watch.PauseWatch();
         if(checkForPlayer.nbPlayer == 0) {
             StartCoroutine("WaitToSpawn");
 		}

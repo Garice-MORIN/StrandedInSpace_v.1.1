@@ -583,8 +583,8 @@ GameObject:
   m_Component:
   - component: {fileID: 455981133}
   - component: {fileID: 455981132}
-  - component: {fileID: 455981131}
   - component: {fileID: 455981134}
+  - component: {fileID: 455981131}
   m_Layer: 0
   m_Name: Check
   m_TagString: Untagged
@@ -601,18 +601,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 455981130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bd31c741a072e4449ac91b3d0e5beef, type: 3}
+  m_Script: {fileID: 11500000, guid: 17fec63cff271a445a410c792be8ef83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  maxHP: 0
-  health: 100
-  HPBar: {fileID: 455981133}
-  background: {fileID: 455981133}
-  destroyOnDeath: 0
-  hasHealthBar: 0
-  check: {fileID: 455981134}
+  isCheckWatch: 1
 --- !u!114 &455981132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1838,7 +1830,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   isStarted: 0
-  check: {fileID: 8324825977746885475, guid: 0eb0e5cc0247df94bba22337ec01f23e, type: 3}
+  check: {fileID: 455981130}
   checkForPlayer: {fileID: 1464532671}
   enemiesLeft: 0
   openDoor: 0

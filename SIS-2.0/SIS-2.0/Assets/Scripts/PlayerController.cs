@@ -19,6 +19,7 @@ public class PlayerController : NetworkBehaviour
     public CharacterController controller;
     public EnemyKill kills;
     public EnemiesSpawner spawner;
+    public StopWatch watch;
     public Transform groundCheck;
     public Transform playerBody;
     public LayerMask groundMask;
@@ -32,8 +33,8 @@ public class PlayerController : NetworkBehaviour
     public static int score;
     public static int deltaMoney;
     public static bool win;
-    public bool _isServer;
     public bool canWinPoints;
+    public Variables state;
 
     public bool isGrounded;
     Vector3 velocity;
@@ -123,6 +124,7 @@ public class PlayerController : NetworkBehaviour
         if (!isLocalPlayer) {
             return;
         }
+        Debug.Log(watch.GetElapsedTime());
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -447,7 +449,6 @@ public class PlayerController : NetworkBehaviour
             myAudioListener.enabled = true;
             miniMapCamera.enabled = true;
         }
-        _isServer = isServer;
         _name = RandomString();
         score = 0;
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
@@ -468,13 +469,18 @@ public class PlayerController : NetworkBehaviour
         }
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
-        if (FindObjectOfType<EnemiesSpawner>().isStarted)
+        if (state.isStarted)
         {
             startGame = DateTime.UtcNow;
         }
         else
             startGame = new DateTime();
     }
+
+    public void StartWatch() {
+
+	}
+
     //Get the point where player is looking at
     public GameObject getAimingObject() {
         Ray ray = new Ray(myCam.transform.position, myCam.transform.forward);
