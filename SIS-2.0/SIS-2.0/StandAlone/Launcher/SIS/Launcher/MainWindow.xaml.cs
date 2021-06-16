@@ -30,7 +30,7 @@ namespace Launcher
 
         public void SetActu()
         {
-            string url = "http://strandedinspace/actus.txt";
+            string url = "https://strandedinspace.000webhostapp.com/Actus/actus.txt";
             using (WebClient client = new WebClient())
             {
                 string actus = client.DownloadString(url);
@@ -39,7 +39,7 @@ namespace Launcher
                     actu.Text = actus;
                 }
             }
-            string url1 = "http://strandedinspace/prevactus.txt";
+            string url1 = "https://strandedinspace.000webhostapp.com/Actus/prevactus.txt";
             using (WebClient client = new WebClient())
             {
                 string actus = client.DownloadString(url1);
@@ -57,7 +57,7 @@ namespace Launcher
 
         private void Account_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("http://strandedinspace/pages/inscription.php");
+            Process.Start("https://strandedinspace.000webhostapp.com/pages/inscription.php");
         }
     }
 }
