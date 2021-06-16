@@ -18,6 +18,7 @@ public class PlayerController : NetworkBehaviour
     private DateTime startGame;
     public CharacterController controller;
     public EnemyKill kills;
+    public EnemiesSpawner spawner;
     public Transform groundCheck;
     public Transform playerBody;
     public LayerMask groundMask;
@@ -115,7 +116,7 @@ public class PlayerController : NetworkBehaviour
         canShoot = true;
         isGameLaunched = false;
         networkManager.offlineScene = "MainMenu";
-        doorScript = door.GetComponent<Door>();
+        
     }
 
     void Update() {
@@ -287,17 +288,17 @@ public class PlayerController : NetworkBehaviour
 
     }
 
-                    //Activate new equipped weapon and deactivate the previous one
-                    public void OnWeaponChanged(int _old, int _new) {
-                        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null) {
-                            holsterArray[_old].SetActive(false);
-                        }
-                        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null) {
-                            holsterArray[_new].SetActive(true);
-                        }
-                    }
-                    //Synchronize new weapon on server
-                    [Command]
+     //Activate new equipped weapon and deactivate the previous one
+    public void OnWeaponChanged(int _old, int _new) {
+        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null) {
+            holsterArray[_old].SetActive(false);
+        }
+        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null) {
+            holsterArray[_new].SetActive(true);
+        }
+    }
+    //Synchronize new weapon on server
+    [Command]
     public void CmdChangeActiveWeapon(int newIndex) {
         activeWeapon = newIndex;
     }
@@ -462,6 +463,8 @@ public class PlayerController : NetworkBehaviour
         if (isServer) {
             panel.SetActive(true);
             panelText.text = LocalIPAddress();
+            door = GameObject.FindGameObjectWithTag("Door");
+            doorScript = door.GetComponent<Door>();
         }
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
@@ -471,9 +474,6 @@ public class PlayerController : NetworkBehaviour
         }
         else
             startGame = new DateTime();
-
-        door = GameObject.FindGameObjectWithTag("Door");
-
     }
     //Get the point where player is looking at
     public GameObject getAimingObject() {

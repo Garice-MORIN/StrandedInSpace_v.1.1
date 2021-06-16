@@ -50,6 +50,7 @@ public class Health : NetworkBehaviour
         }
 
         health -= damage;
+        Debug.Log(health);
 
         if(health <= 0){
             if(destroyOnDeath){
@@ -85,13 +86,14 @@ public class Health : NetworkBehaviour
             }
             else{
                 health = maxHP;
+                gameObject.GetComponent<PlayerController>().death += 1;
+                RpcRespawn();
                 EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
                 for(int i = 0; i < enemies.Length; i++) {
                     if (enemies[i].type == Type.NORMAL && enemies[i].GetFocusedObject() == gameObject)
                         enemies[i].ChooseTarget();
 				}
-                gameObject.GetComponent<PlayerController>().death += 1;
-                RpcRespawn();
+                
             }
         }
     }

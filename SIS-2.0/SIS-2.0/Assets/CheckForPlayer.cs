@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
-public class CheckForPlayer : MonoBehaviour
+using Mirror;
+public class CheckForPlayer : NetworkBehaviour
 {
 	public int nbPlayer;
 	public EnemiesSpawner enemiesSpawner;

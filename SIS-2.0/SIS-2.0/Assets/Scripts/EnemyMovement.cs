@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -29,16 +30,14 @@ public class EnemyMovement : MonoBehaviour
         canAttack = true;
     }
 
-    public void Update()
-    {
-
-        //Attack tower if enemy is close enough
+    public void Update() { 
+        //Attack target if enemy is close enough
         if(canAttack)
         {
             StartCoroutine(TryAttack());
         }
 
-        if(type == Type.FLYING) {
+        if(type == Type.FLYING && !(goal is null)) {
             navMesh.destination = goal.position;
         }
 
@@ -51,7 +50,13 @@ public class EnemyMovement : MonoBehaviour
         colliders = Physics.OverlapSphere(enemyPosition.position, 2.0f, mask);
         foreach (var obj in colliders)
         {
-            obj.GetComponent<Health>().TakeDamage(damage);
+			try {
+                obj.GetComponent<Health>().TakeDamage(damage);
+            }
+			catch {
+                continue;
+			}
+            
         }
         yield return new WaitForSeconds(cooldownTime);
         canAttack = true;
@@ -80,7 +85,7 @@ public class EnemyMovement : MonoBehaviour
 
     GameObject FocusRandomPlayer() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        target = players[Random.Range(0, players.Length)];
+        target = players[UnityEngine.Random.Range(0, players.Length)];
         return target;
 	}
 
