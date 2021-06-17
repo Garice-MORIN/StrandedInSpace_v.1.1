@@ -84,7 +84,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void ChooseTarget(bool isFlying = false) {
         if(isFlying) {
-            GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Turret");
+            GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Tower");
             if (turretsPos.Length == 0) {
                 goal = GameObject.FindGameObjectWithTag("Core").transform;
                 goToTurret = false;
