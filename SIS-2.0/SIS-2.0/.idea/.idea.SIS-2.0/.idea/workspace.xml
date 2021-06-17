@@ -32,6 +32,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/Connection.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Database.cs" />
       </list>
     </option>
   </component>
@@ -77,7 +78,8 @@
       <option name="presentableId" value="Default" />
       <updated>1623932445510</updated>
       <workItem from="1623932485441" duration="4145000" />
-      <workItem from="1623938883646" duration="439000" />
+      <workItem from="1623938883646" duration="634000" />
+      <workItem from="1623940227266" duration="2259000" />
     </task>
     <servers />
   </component>
