@@ -60,7 +60,7 @@ public class TurretInfo : NetworkBehaviour
     GameObject BasicAim(GameObject[] enemiesLeft) {
         int i = 0;
         while(i < enemiesLeft.Length) {
-            Ray ray = new Ray(transform.position, enemiesLeft[i].transform.position - transform.position);
+            Ray ray = new Ray(transform.position + new Vector3(0f,1.5f,0f), enemiesLeft[i].transform.position - (transform.position + new Vector3(0f,2f,0f)));
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, range)) {
                 if(hit.transform.gameObject == enemiesLeft[i]) {
@@ -88,7 +88,7 @@ public class TurretInfo : NetworkBehaviour
         int maxEnemiesAtRange = 0;
         GameObject[] enemiesPossible = new GameObject[enemiesLeft.Length];
         while(i < enemiesLeft.Length) {
-            Ray ray = new Ray(transform.position, enemiesLeft[i].transform.position - transform.position);
+            Ray ray = new Ray(transform.position + new Vector3(0f,1.5f,0f), enemiesLeft[i].transform.position - (transform.position + new Vector3(0f,2f,0f)));
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, range)) {
                 if(hit.transform.gameObject == enemiesLeft[i]) {
@@ -129,7 +129,7 @@ public class TurretInfo : NetworkBehaviour
         GameObject target = BasicAim(enemiesLeft);
         RaycastHit[] hits;
         if(target != null) {
-            hits = Physics.RaycastAll(transform.position, target.transform.position - transform.position, range).OrderBy(h=>h.distance).ToArray();
+            hits = Physics.RaycastAll(transform.position + new Vector3(0f,1.5f,0f), target.transform.position - (transform.position + new Vector3(0f,2f,0f)), range).OrderBy(h=>h.distance).ToArray();
             int i = 0;
             while(i < hits.Length && hits[i].transform.gameObject.tag == "Enemy") {
                 i++;
@@ -159,7 +159,7 @@ public class TurretInfo : NetworkBehaviour
         }
     }
     RaycastHit[] SlowAim() {
-        return Physics.SphereCastAll(transform.position,range,transform.forward,0.01f);
+        return Physics.SphereCastAll(transform.position + new Vector3(0f,1.5f,0f),range,transform.forward,0.01f);
     }
     void AttackSlow() {
         if(cooldown <= 0) {
