@@ -16,6 +16,7 @@ public class Health : NetworkBehaviour
     private bool dead = false;
     private NetworkStartPosition[] spawnPoints;
     private bool doDrop;
+    public bool hasHealthBar;
     public EnemyKill check;
 
     private void Start(){
@@ -24,10 +25,13 @@ public class Health : NetworkBehaviour
         if(isLocalPlayer){
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
         }
-        //Initialize health bars
-        background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
-        HPBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
-        HPBar.localPosition = new Vector3(maxHP/2, 0, 0);
+        if(hasHealthBar) {
+            //Initialize health bars
+            background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
+            HPBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
+            HPBar.localPosition = new Vector3(maxHP / 2, 0, 0);
+        }
+        
     }
 
     public IEnumerator GetBurned(int burnDamage, int nbTick){
@@ -46,6 +50,7 @@ public class Health : NetworkBehaviour
         }
 
         health -= damage;
+        Debug.Log(health);
 
         if(health <= 0){
             if(destroyOnDeath){
@@ -77,25 +82,18 @@ public class Health : NetworkBehaviour
                         NetworkServer.Spawn(toSpawn);
                     }
                 }
-                else if(tag == "Turret") {
-                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                    for(int i = 0; i < enemies.Length; i++) {
-                        if(enemies[i].GetComponent<EnemyType>().type == Type.FLYING && enemies[i].GetComponent<EnemyMovement>().GetFocusedObject() == gameObject) {
-                            enemies[i].GetComponent<EnemyMovement>().ChooseTarget(true);
-						}
-					}
-				}
                 Destroy(gameObject);
             }
             else{
                 health = maxHP;
+                gameObject.GetComponent<PlayerController>().death += 1;
+                RpcRespawn();
                 EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
                 for(int i = 0; i < enemies.Length; i++) {
                     if (enemies[i].type == Type.NORMAL && enemies[i].GetFocusedObject() == gameObject)
                         enemies[i].ChooseTarget();
 				}
-                gameObject.GetComponent<PlayerController>().death += 1;
-                RpcRespawn();
+                
             }
         }
     }
@@ -118,6 +116,7 @@ public class Health : NetworkBehaviour
     //Update health bar when damage is received
     public void OnChangeHealth(int oldHealth, int newHealth)
     {
-        HPBar.sizeDelta = new Vector2(newHealth, HPBar.sizeDelta.y);
+        if(hasHealthBar)
+            HPBar.sizeDelta = new Vector2(newHealth, HPBar.sizeDelta.y);
     }
 }

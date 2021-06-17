@@ -800,6 +800,7 @@ MonoBehaviour:
   HPBar: {fileID: 6552537193013299022}
   background: {fileID: 6552537192679558892}
   destroyOnDeath: 1
+  hasHealthBar: 0
   check: {fileID: 0}
 --- !u!195 &4969366338107377879
 NavMeshAgent:
@@ -835,18 +836,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e355c8aa67d1974684e07dfe07f02d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   mask:
     serializedVersion: 2
-    m_Bits: 4352
+    m_Bits: 256
   enemyPosition: {fileID: 6931518593030710512}
   navMesh: {fileID: 4969366338107377879}
-  damage: 10
-  cooldownTime: 5
-  canAttack: 0
+  damage: 5
+  cooldownTime: 0.5
+  goToTurret: 0
+  attackCooldown: 0
   slowed: 0
+  canAttack: 0
   baseSpeed: 0
   slowDuration: 0
-  slowPower: 0
 --- !u!114 &8709382546225377591
 MonoBehaviour:
   m_ObjectHideFlags: 0

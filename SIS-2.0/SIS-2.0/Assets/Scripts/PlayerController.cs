@@ -15,9 +15,11 @@ public class PlayerController : NetworkBehaviour
     public int death;
 
     //Player related variables
-    private DateTime startGame;
+    private float startRoundThree = -1f;
     public CharacterController controller;
     public EnemyKill kills;
+    public EnemiesSpawner spawner;
+    public StopWatch watch;
     public Transform groundCheck;
     public Transform playerBody;
     public LayerMask groundMask;
@@ -31,8 +33,8 @@ public class PlayerController : NetworkBehaviour
     public static int score;
     public static int deltaMoney;
     public static bool win;
-    public bool _isServer;
     public bool canWinPoints;
+    public Variables state;
 
     public bool isGrounded;
     Vector3 velocity;
@@ -115,7 +117,7 @@ public class PlayerController : NetworkBehaviour
         canShoot = true;
         isGameLaunched = false;
         networkManager.offlineScene = "MainMenu";
-        doorScript = door.GetComponent<Door>();
+        
     }
 
     void Update() {
@@ -144,8 +146,6 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetButtonDown("StartGame")) {
                 if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted) {
                     doorScript.OpenDoor();
-                    FindObjectOfType<EnemiesSpawner>().StartGame();
-                    GetStartingTime();
                     panel.SetActive(false);
                 }
             }
@@ -280,24 +280,18 @@ public class PlayerController : NetworkBehaviour
         panel.SetActive(!_new);
     }
 
-    public void GetStartingTime() {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (var player in players)
-            player.GetComponent<PlayerController>().startGame = DateTime.UtcNow;
 
+     //Activate new equipped weapon and deactivate the previous one
+    public void OnWeaponChanged(int _old, int _new) {
+        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null) {
+            holsterArray[_old].SetActive(false);
+        }
+        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null) {
+            holsterArray[_new].SetActive(true);
+        }
     }
-
-                    //Activate new equipped weapon and deactivate the previous one
-                    public void OnWeaponChanged(int _old, int _new) {
-                        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null) {
-                            holsterArray[_old].SetActive(false);
-                        }
-                        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null) {
-                            holsterArray[_new].SetActive(true);
-                        }
-                    }
-                    //Synchronize new weapon on server
-                    [Command]
+    //Synchronize new weapon on server
+    [Command]
     public void CmdChangeActiveWeapon(int newIndex) {
         activeWeapon = newIndex;
     }
@@ -309,7 +303,6 @@ public class PlayerController : NetworkBehaviour
         maxMunitions = weapon.GetComponent<WeaponCharacteristics>().munitions;
         fireRate = weapon.GetComponent<WeaponCharacteristics>().fireRate;
         animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator; //TODO: remove this
         nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
     //Change lock state of cursor
@@ -449,7 +442,6 @@ public class PlayerController : NetworkBehaviour
             myAudioListener.enabled = true;
             miniMapCamera.enabled = true;
         }
-        _isServer = isServer;
         _name = RandomString();
         score = 0;
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
@@ -465,19 +457,14 @@ public class PlayerController : NetworkBehaviour
         if (isServer) {
             panel.SetActive(true);
             panelText.text = LocalIPAddress();
+            door = GameObject.FindGameObjectWithTag("Door");
+            doorScript = door.GetComponent<Door>();
         }
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
-        if (FindObjectOfType<EnemiesSpawner>().isStarted)
-        {
-            startGame = DateTime.UtcNow;
-        }
-        else
-            startGame = new DateTime();
-
-        door = GameObject.FindGameObjectWithTag("Door");
-
     }
+
+
     //Get the point where player is looking at
     public GameObject getAimingObject() {
         Ray ray = new Ray(myCam.transform.position, myCam.transform.forward);
@@ -506,24 +493,22 @@ public class PlayerController : NetworkBehaviour
     }
     public void OnEndGame(bool victory) {
         win = victory;
-        DateTime startWaveTwo = FindObjectOfType<EnemiesSpawner>().startWaveTwo;
-        canWinPoints = DateTime.Now - startGame >= DateTime.Now - startWaveTwo;
-        points = CountPoints(kills.killedEnemies);
+        canWinPoints = startRoundThree < 0f;
+        //points = CountPoints(kills.killedEnemies);
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = money - startingMoney;
         networkManager.offlineScene = "WinScene";
         if (!isClientOnly) {
-            Debug.Log(canWinPoints);
-            if (!isClientOnly) {
-                Debug.Log(canWinPoints);
-                networkManager.StopHost();
-                NetworkServer.Shutdown();
-            }
-            else {
-                networkManager.StopClient();
-            }
+            networkManager.StopHost();
+            NetworkServer.Shutdown();
         }
+        else {
+            networkManager.StopClient();
+        }
+        
     }
+
+    public void SetRoundThree(float start) => startRoundThree = start;
 
     string RandomString() {
         string s = "";

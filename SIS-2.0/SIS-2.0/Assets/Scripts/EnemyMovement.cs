@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -23,21 +24,21 @@ public class EnemyMovement : MonoBehaviour
     public float slowDuration;
     void Start()
     {
-        target = null;
-        goToTurret = false;
         ChooseTarget(); //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
         canAttack = true;
     }
 
-    public void Update()
-    {
-
-        //Attack tower if enemy is close enough
+    public void Update() { 
+        //Attack target if enemy is close enough
         if(canAttack)
         {
             StartCoroutine(TryAttack());
+        }
+
+        if(type == Type.FLYING && !(goal is null)) {
+            navMesh.destination = goal.position;
         }
 
         CheckSlow();
@@ -49,7 +50,13 @@ public class EnemyMovement : MonoBehaviour
         colliders = Physics.OverlapSphere(enemyPosition.position, 2.0f, mask);
         foreach (var obj in colliders)
         {
-            obj.GetComponent<Health>().TakeDamage(damage);
+			try {
+                obj.GetComponent<Health>().TakeDamage(damage);
+            }
+			catch {
+                continue;
+			}
+            
         }
         yield return new WaitForSeconds(cooldownTime);
         canAttack = true;
@@ -76,43 +83,19 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    Transform FocusRandomPlayer() {
+    GameObject FocusRandomPlayer() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        target = players[Random.Range(0, players.Length)];
-        return target.transform;
+        target = players[UnityEngine.Random.Range(0, players.Length)];
+        return target;
 	}
 
-    public void ChooseTarget(bool isFlying = false) {
-        if(isFlying) {
-            GameObject[] turretsPos = GameObject.FindGameObjectsWithTag("Turret");
-            if (turretsPos.Length == 0) {
-                goal = GameObject.FindGameObjectWithTag("Core").transform;
-                goToTurret = false;
-			}
-			else {
-                goal = turretsPos[Random.Range(0, turretsPos.Length)].transform;
-                goToTurret = true;
-			}
-                
+    public void ChooseTarget() {
+        if(type == Type.FLYING) {
+            target = FocusRandomPlayer();
+            goal = target.transform;
         }
-		else {
-            switch (type) {
-                case Type.HEAVY:
-                    goal = GameObject.FindGameObjectWithTag("Core").transform;
-                    break;
-                case Type.NORMAL:
-                    int i = Random.Range(0, 2);
-                    if (i == 0)
-                        goal = GameObject.FindGameObjectWithTag("Core").transform;
-                    else
-                        goal = FocusRandomPlayer();
-                    break;
-                default: //Type.BOSS
-                    goal = GameObject.FindGameObjectWithTag("Core").transform;
-                    break;
-            }
-        }
-        
+        else
+            goal = GameObject.FindGameObjectWithTag("Core").transform;        
     }
 
     public GameObject GetFocusedObject() {

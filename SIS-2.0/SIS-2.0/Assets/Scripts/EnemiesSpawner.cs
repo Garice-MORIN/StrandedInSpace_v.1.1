@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class EnemiesSpawner : NetworkBehaviour
 {
-    const int maxWave = 20;
+    const int maxWave = 4;
     DateTime startTime;
     DateTime endTime;
     public DateTime startWaveTwo;
@@ -14,13 +14,17 @@ public class EnemiesSpawner : NetworkBehaviour
     public LayerMask mask;
     public bool isStarted = false;
     private Door doorScript;
+    public GameObject check;
+    public CheckForPlayer checkForPlayer;
+    private StopWatch stopWatchCheck;
 
     public static int waveNumber = 0;
     [SyncVar(hook = "OnChangeEnemiesLeft")]
     public int enemiesLeft = 0;
 
     GameObject[] allSpawnPoints;
-    bool canSpawnNextWave;
+    [SyncVar(hook = "OnStateChanged")]
+    public bool openDoor = false;
     Queue<string> queue = new Queue<string>();
 
     private void Start()
@@ -30,47 +34,29 @@ public class EnemiesSpawner : NetworkBehaviour
 
     public void StartGame()
     {
-        canSpawnNextWave = true;
-        startTime = DateTime.Now;
         CreateSpawnList();
+        stopWatchCheck = check.GetComponent<StopWatch>();
         isStarted = true;
         allSpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoints");
         doorScript = GameObject.FindGameObjectWithTag("Door").GetComponent<Door>();
         LoadEnemies();
         waveNumber++;
-    }
-
-    //Spawn next wave if there is at least one left
-    public void TrySpawningNextWave()
-    {
-        if(enemiesLeft == 0)
-        {
-            StartCoroutine("DoorAnimation");
-
-        }
-    }
-
-    public void Endgame(bool _old, bool _new)
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject host = null;
-        foreach (var player in players)
-        {
-            if (!player.GetComponent<PlayerController>()._isServer)
-            {
-                player.GetComponent<PlayerController>().GetNetworkManager().offlineScene = "WinScene";
-                player.GetComponent<PlayerController>().OnEndGame(true);
-            }
-            else
-                host = player;
-        }
-        host.GetComponent<PlayerController>().OnEndGame(true);
+        doorScript.CloseDoor();
     }
 
     public void LoadEnemies()
     {
-        if (waveNumber == 2)
-            startWaveTwo = DateTime.Now;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in players) {
+            var playerController = player.GetComponent<PlayerController>();
+            playerController.watch.StartWatch();
+            if(waveNumber == 3) {
+                Debug.Log(stopWatchCheck.GetElapsedTime());
+                playerController.SetRoundThree(stopWatchCheck.GetElapsedTime());
+			}
+        }
+        if (waveNumber < 3)
+            stopWatchCheck.StartWatch();
 
         int i = 0;
 
@@ -100,6 +86,17 @@ public class EnemiesSpawner : NetworkBehaviour
         sr.Close();
     }
 
+    public void SpawnEnemies() {
+        if (waveNumber < maxWave) {
+            waveNumber++;
+            LoadEnemies();
+            openDoor = false;
+        }
+        else {
+            EndOfGame();
+        }
+    }
+
     //Update number of ennemies left on the map when one is killed
     void OnChangeEnemiesLeft(int oldEnemiesleft, int newEnemiesLeft)
     {
@@ -107,25 +104,31 @@ public class EnemiesSpawner : NetworkBehaviour
         {
             return;
         }
-        TrySpawningNextWave();
-    }
-
-    System.Collections.IEnumerator DoorAnimation() {
-        doorScript.OpenDoor();
-        yield return new WaitForSecondsRealtime(10);
-        doorScript.CloseDoor();
-        if (waveNumber < maxWave) {
-            LoadEnemies();
-            waveNumber++;
-        }
+        foreach (var watch in FindObjectsOfType<StopWatch>())
+            watch.PauseWatch();
+        if(checkForPlayer.nbPlayer == 0) {
+            StartCoroutine("WaitToSpawn");
+		}
         else {
-            StartCoroutine("EndOfGame");
+            openDoor = true;
         }
     }
 
-    System.Collections.IEnumerator EndOfGame() {
+    void OnStateChanged(bool oldState, bool newState) {
+        Debug.Log("StateChanged");
+        if (newState)
+            doorScript.OpenDoor();
+        else
+            doorScript.CloseDoor();
+	}
+
+    System.Collections.IEnumerator WaitToSpawn() {
+        yield return new WaitForSecondsRealtime(5);
+        SpawnEnemies();
+    }
+
+    void EndOfGame() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        yield return new WaitForSecondsRealtime(10);
         foreach (var player in players)
             player.GetComponent<PlayerController>().OnEndGame(true);
     }
