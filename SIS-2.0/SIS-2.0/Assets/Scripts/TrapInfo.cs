@@ -40,8 +40,11 @@ public class TrapInfo : MonoBehaviour
                 break;
         }
     }
+    IEnumerator WaitCoroutine(){
+        yield return new WaitForSeconds(1);
+    }
     void Attack(Vector3 hitbox, bool applySlow) {
-        foreach(RaycastHit rayHit in Physics.BoxCastAll(transform.position, hitbox, transform.forward,new Quaternion(0,0,0,0) , 0.01f)) {
+        foreach(RaycastHit rayHit in Physics.BoxCastAll(transform.position, hitbox, transform.forward, new Quaternion(0,0,0,0) , 0.01f)) {
             if(rayHit.transform.gameObject.tag == "Enemy") {
                 usedThisTurn = true;
                 rayHit.transform.gameObject.GetComponent<Health>().TakeDamage(damage);
@@ -66,8 +69,17 @@ public class TrapInfo : MonoBehaviour
     }
     void AttackExplosive() {
         if(cooldown <= 0) {
-            Attack(new Vector3(1.5f,1f,1.5f), false);
-            cooldown = attackDelay;
+            bool triggered = false;
+            foreach(RaycastHit rayHit in Physics.BoxCastAll(transform.position, new Vector3(1.5f,1f,1.5f), transform.forward, new Quaternion(0,0,0,0) , 0.01f)) {
+                if(rayHit.transform.gameObject.tag == "Enemy") {
+                    triggered = true;
+                }
+            }
+            if(triggered){
+                StartCoroutine(WaitCoroutine());
+                Attack(new Vector3(3f,2f,3f), false);
+                cooldown = attackDelay;
+            }
         }
         else {
             cooldown -= Time.deltaTime;
