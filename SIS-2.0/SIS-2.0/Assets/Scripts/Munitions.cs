@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-
+using Mirror;
 public class Munitions : MonoBehaviour
 {
     public Transform munitions;
     public AudioSource audioSource;
-
+    public NetworkManager GetNetworkManager() => FindObjectOfType<NetworkManager>();
     //Pick up function
     private void OnTriggerEnter(Collider collider)
     {
@@ -13,7 +13,7 @@ public class Munitions : MonoBehaviour
             return;
         }
         collider.GetComponent<PlayerController>().munitions += Mathf.CeilToInt(Random.Range(50, 100));
-        collider.GetComponent<PlayerController>().gunSource.clip = collider.GetComponent<PlayerController>().soundArray[2];
+        collider.GetComponent<PlayerController>().gunSource.clip = GetNetworkManager().GetComponentInParent<SpawnTable>().GetGunSound(2);
         collider.GetComponent<PlayerController>().gunSource.Play();
         Destroy(gameObject);
     }

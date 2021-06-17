@@ -59,7 +59,6 @@ public class PlayerController : NetworkBehaviour
     private NetworkManager networkManager;
     public NetworkConnection networkConnection;
     public GameObject crosshair;
-    public AudioClip[] soundArray;   //All sounds we can invoke in the game
     public Animator transition;
     public Text UIMoney;
     //Gun related variables
@@ -98,12 +97,6 @@ public class PlayerController : NetworkBehaviour
     int indexPlacement;
     private void Start() {
         //Initialize all variables
-        soundArray = new AudioClip[] {
-            Resources.Load("EmptyGun") as AudioClip,
-            Resources.Load("GunFire") as AudioClip,
-            Resources.Load("Pick up") as AudioClip,
-            Resources.Load("Reload") as AudioClip
-        };
         constructionMode = false;
         currentSpeed = 5f;
         pauseMenu.SetActive(false);
@@ -192,7 +185,7 @@ public class PlayerController : NetworkBehaviour
                         }
                         else {
                             if (nbMunitions <= 0 && canShoot) {
-                                gunSource.clip = soundArray[0];
+                                gunSource.clip = GetNetworkManager().GetComponentInParent<SpawnTable>().GetGunSound(0);
                                 gunSource.Play();
                             }
                         }
@@ -350,7 +343,7 @@ public class PlayerController : NetworkBehaviour
     IEnumerator Reload() {
         isReloading = true;
         animator.SetBool("isReloading", true);
-        gunSource.clip = soundArray[3];
+        gunSource.clip = GetNetworkManager().GetComponentInParent<SpawnTable>().GetGunSound(3);
         gunSource.Play();
         yield return new WaitForSeconds(reloadTime);
 
@@ -382,7 +375,7 @@ public class PlayerController : NetworkBehaviour
             gunSource.Stop();
         }
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
-        gunSource.clip = soundArray[1];
+        gunSource.clip = GetNetworkManager().GetComponentInParent<SpawnTable>().GetGunSound(1);
         gunSource.Play();
         Ray ray = new Ray(origin, direction);
         RaycastHit hit;
