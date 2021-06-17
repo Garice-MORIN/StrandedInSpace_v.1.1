@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: -3750436295486918602}
   - component: {fileID: 5668913441801385412}
   - component: {fileID: 2387495263958516894}
+  - component: {fileID: 2241857881055060272}
   m_Layer: 12
   m_Name: Basic11
   m_TagString: Tower
@@ -242,6 +243,7 @@ MonoBehaviour:
   HPBar: {fileID: 0}
   background: {fileID: 0}
   destroyOnDeath: 0
+  hasHealthBar: 0
   check: {fileID: 0}
 --- !u!114 &5668913441801385412
 MonoBehaviour:
@@ -280,6 +282,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
+--- !u!65 &2241857881055060272
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3916440759951999373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 5, z: 4}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &5423580740266713930
 GameObject:
   m_ObjectHideFlags: 0

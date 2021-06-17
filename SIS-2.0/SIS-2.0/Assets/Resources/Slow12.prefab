@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 5106193402638595171}
   - component: {fileID: 3033251215506928709}
   - component: {fileID: -79549992889108899}
+  - component: {fileID: -2545364382015505468}
   m_Layer: 12
   m_Name: Slow12
   m_TagString: Tower
@@ -210,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 5271344812122289508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.3773825, y: -0.95, z: 1.4133501}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 4529655664598728512}
   - {fileID: 1863444019215831556}
@@ -275,6 +276,7 @@ MonoBehaviour:
   HPBar: {fileID: 0}
   background: {fileID: 0}
   destroyOnDeath: 0
+  hasHealthBar: 0
   check: {fileID: 0}
 --- !u!114 &3033251215506928709
 MonoBehaviour:
@@ -313,6 +315,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 0
+--- !u!65 &-2545364382015505468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271344812122289508}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 5, z: 4}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &6719088259410399343
 GameObject:
   m_ObjectHideFlags: 0
