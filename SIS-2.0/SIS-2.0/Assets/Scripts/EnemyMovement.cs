@@ -30,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
         canAttack = true;
     }
 
-    public void Update() { 
+    public void Update() {
         //Attack target if enemy is close enough
         if(canAttack)
         {
@@ -56,7 +56,7 @@ public class EnemyMovement : MonoBehaviour
 			catch {
                 continue;
 			}
-            
+
         }
         yield return new WaitForSeconds(cooldownTime);
         canAttack = true;
@@ -95,7 +95,7 @@ public class EnemyMovement : MonoBehaviour
             goal = target.transform;
         }
         else
-            goal = GameObject.FindGameObjectWithTag("Core").transform;        
+            goal = GameObject.FindGameObjectWithTag("Core").transform;
     }
 
     public GameObject GetFocusedObject() {

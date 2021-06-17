@@ -11,9 +11,9 @@ public class SpawnTable : MonoBehaviour
         towerTable = new GameObject[4,3] 
             {
             {Resources.Load("Basic11") as GameObject, Resources.Load("Basic12") as GameObject, Resources.Load("Basic13") as GameObject},
-            {Resources.Load("Electric1") as GameObject, Resources.Load("Electric2") as GameObject, Resources.Load("Electric3") as GameObject},
-            {Resources.Load("Fire1") as GameObject, Resources.Load("Fire2") as GameObject, Resources.Load("Fire3") as GameObject},
-            {Resources.Load("Slow1") as GameObject, Resources.Load("Slow2") as GameObject, Resources.Load("Slow3") as GameObject}
+            {Resources.Load("Electric11") as GameObject, Resources.Load("Electric2") as GameObject, Resources.Load("Electric3") as GameObject},
+            {Resources.Load("Fire11") as GameObject, Resources.Load("Fire2") as GameObject, Resources.Load("Fire3") as GameObject},
+            {Resources.Load("Slow11") as GameObject, Resources.Load("Slow2") as GameObject, Resources.Load("Slow3") as GameObject}
         };
         trapTable = new GameObject[4] 
         {
