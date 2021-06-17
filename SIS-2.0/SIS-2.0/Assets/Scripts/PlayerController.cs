@@ -15,7 +15,7 @@ public class PlayerController : NetworkBehaviour
     public int death;
 
     //Player related variables
-    private DateTime startGame;
+    private float startRoundThree = -1f;
     public CharacterController controller;
     public EnemyKill kills;
     public EnemiesSpawner spawner;
@@ -124,7 +124,6 @@ public class PlayerController : NetworkBehaviour
         if (!isLocalPlayer) {
             return;
         }
-        Debug.Log(watch.GetElapsedTime());
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -147,8 +146,6 @@ public class PlayerController : NetworkBehaviour
             if (Input.GetButtonDown("StartGame")) {
                 if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted) {
                     doorScript.OpenDoor();
-                    //FindObjectOfType<EnemiesSpawner>().StartGame();
-                    GetStartingTime();
                     panel.SetActive(false);
                 }
             }
@@ -283,12 +280,6 @@ public class PlayerController : NetworkBehaviour
         panel.SetActive(!_new);
     }
 
-    public void GetStartingTime() {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (var player in players)
-            player.GetComponent<PlayerController>().startGame = DateTime.UtcNow;
-
-    }
 
      //Activate new equipped weapon and deactivate the previous one
     public void OnWeaponChanged(int _old, int _new) {
@@ -312,7 +303,6 @@ public class PlayerController : NetworkBehaviour
         maxMunitions = weapon.GetComponent<WeaponCharacteristics>().munitions;
         fireRate = weapon.GetComponent<WeaponCharacteristics>().fireRate;
         animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator; //TODO: remove this
         nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
     //Change lock state of cursor
@@ -469,17 +459,8 @@ public class PlayerController : NetworkBehaviour
         }
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
-        if (state.isStarted)
-        {
-            startGame = DateTime.UtcNow;
-        }
-        else
-            startGame = new DateTime();
     }
 
-    public void StartWatch() {
-
-	}
 
     //Get the point where player is looking at
     public GameObject getAimingObject() {
@@ -509,14 +490,12 @@ public class PlayerController : NetworkBehaviour
     }
     public void OnEndGame(bool victory) {
         win = victory;
-        DateTime startWaveTwo = FindObjectOfType<EnemiesSpawner>().startWaveTwo;
-        canWinPoints = DateTime.Now - startGame >= DateTime.Now - startWaveTwo;
+        canWinPoints = startRoundThree < 0f;
         //points = CountPoints(kills.killedEnemies);
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = money - startingMoney;
         networkManager.offlineScene = "WinScene";
         if (!isClientOnly) {
-            Debug.Log(canWinPoints);
             networkManager.StopHost();
             NetworkServer.Shutdown();
         }
@@ -525,6 +504,8 @@ public class PlayerController : NetworkBehaviour
         }
         
     }
+
+    public void SetRoundThree(float start) => startRoundThree = start;
 
     string RandomString() {
         string s = "";

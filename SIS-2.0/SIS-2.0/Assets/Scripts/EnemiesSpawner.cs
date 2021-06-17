@@ -44,19 +44,19 @@ public class EnemiesSpawner : NetworkBehaviour
         doorScript.CloseDoor();
     }
 
-    //Spawn next wave if there is at least one left
-    /*public void TrySpawningNextWave()
-    {
-        StartCoroutine("DoorAnimation");
-    }*/
-
     public void LoadEnemies()
     {
-        
-        foreach (var watch in FindObjectsOfType<StopWatch>()) {
-            if(!watch.isCheckWatch && waveNumber < 2)
-                watch.StartWatch();
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in players) {
+            var playerController = player.GetComponent<PlayerController>();
+            playerController.watch.StartWatch();
+            if(waveNumber == 3) {
+                Debug.Log(stopWatchCheck.GetElapsedTime());
+                playerController.SetRoundThree(stopWatchCheck.GetElapsedTime());
+			}
         }
+        if (waveNumber < 3)
+            stopWatchCheck.StartWatch();
 
         int i = 0;
 
@@ -88,9 +88,8 @@ public class EnemiesSpawner : NetworkBehaviour
 
     public void SpawnEnemies() {
         if (waveNumber < maxWave) {
-            
-            LoadEnemies();
             waveNumber++;
+            LoadEnemies();
             openDoor = false;
         }
         else {
