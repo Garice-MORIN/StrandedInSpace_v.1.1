@@ -12,10 +12,12 @@ public class TrapSpawning : MonoBehaviour
     private GameObject trapPrefab;
     private Vector3 position;
     private Quaternion orientation;
+    private Quaternion orientation2;
 
     void Start(){
         position = transform.position + new Vector3(0, 0.1f, 0);
         orientation = Quaternion.Euler(0f, 0f, 0f);
+        orientation2 = Quaternion.Euler(-90f,0f,0f);
     }
     public int TryBuild(int playerMoney, int trapToBuild) {
         if(level == 0) {
@@ -30,7 +32,7 @@ public class TrapSpawning : MonoBehaviour
             trapType = trapToBuild;
             level += 1;
             trapPrefab.GetComponent<TrapInfo>().linkedSpawner = this.transform.gameObject;
-            toSpawn = (GameObject)Instantiate(trapPrefab, position, orientation);
+            toSpawn = (GameObject)Instantiate(trapPrefab, position, trapToBuild == 1 || trapToBuild == 3 ? orientation2 : orientation);
             NetworkServer.Spawn(toSpawn);
             return priceNeeded;
         }

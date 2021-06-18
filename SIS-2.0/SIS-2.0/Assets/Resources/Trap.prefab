@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -5383554784691791673}
   - component: {fileID: 6580836500523400309}
   - component: {fileID: 5458210423966554987}
-  m_Layer: 16
+  m_Layer: 11
   m_Name: Trap
   m_TagString: Trap
   m_Icon: {fileID: 0}
@@ -148,13 +148,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedSpawner: {fileID: 0}
-  typeOfTrap: 0
-  attackDelay: 0
+  typeOfTrap: 2
+  attackDelay: 2
   cooldown: 0
-  damage: 0
-  slowDuration: 0
+  damage: 30
+  slowDuration: 0.5
   slowPower: 0
-  usesLeft: 0
+  usesLeft: 60
 --- !u!114 &5458210423966554987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,4 +167,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 5
+  money: 75

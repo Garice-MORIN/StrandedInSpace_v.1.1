@@ -13,7 +13,7 @@ public class BarricadeSpawning : MonoBehaviour
     private Quaternion orientation;
     public bool rotNeeded;
     void Start(){
-        position = transform.position + new Vector3(0, 1f, 0);
+        position = transform.position + new Vector3(0, 0, -1.5f);
         orientation = Quaternion.Euler(0f, rotNeeded ? 0f : 90f, 0f);
     }
     public int TryBuild(int playerMoney) {

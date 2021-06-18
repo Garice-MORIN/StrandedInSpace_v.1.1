@@ -11,22 +11,22 @@ public class SpawnTable : MonoBehaviour
     void Start() {
         towerTable = new GameObject[4,3] 
         {
-            {Resources.Load("Basic11") as GameObject, Resources.Load("Basic12") as GameObject, Resources.Load("Basic13") as GameObject},
-            {Resources.Load("Electric11") as GameObject, Resources.Load("Electric12") as GameObject, Resources.Load("Electric13") as GameObject},
-            {Resources.Load("Fire11") as GameObject, Resources.Load("Fire12") as GameObject, Resources.Load("Fire13") as GameObject},
-            {Resources.Load("Slow11") as GameObject, Resources.Load("Slow12") as GameObject, Resources.Load("Slow13") as GameObject}
+            {Resources.Load("Basic1Tower") as GameObject, Resources.Load("Basic2Tower") as GameObject, Resources.Load("Basic3Tower") as GameObject},
+            {Resources.Load("Electric1Tower") as GameObject, Resources.Load("Electric2Tower") as GameObject, Resources.Load("Electric3Tower") as GameObject},
+            {Resources.Load("Fire1Tower") as GameObject, Resources.Load("Fire2Tower") as GameObject, Resources.Load("Fire3Tower") as GameObject},
+            {Resources.Load("Slow1Tower") as GameObject, Resources.Load("Slow2Tower") as GameObject, Resources.Load("Slow3Tower") as GameObject}
         };
         trapTable = new GameObject[4] 
         {
+            Resources.Load("AcidPoolTrap") as GameObject, 
+            Resources.Load("ExplosiveTrap") as GameObject, 
             Resources.Load("Trap") as GameObject, 
-            Resources.Load("Trap") as GameObject, 
-            Resources.Load("Trap") as GameObject, 
-            Resources.Load("Trap") as GameObject 
+            Resources.Load("SlowTrap") as GameObject 
         };
         barricadeTable = new GameObject[2]
         {
             Resources.Load("Barricade") as GameObject,
-            Resources.Load("Barricade") as GameObject
+            Resources.Load("Barricade1") as GameObject
         };
         gunSoundTable = new AudioClip[4] 
         {
