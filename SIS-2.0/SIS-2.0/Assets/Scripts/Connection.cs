@@ -17,6 +17,7 @@ public class Connection : MonoBehaviour
     private string _login;
     private string _password;
     public List<bool>[] Trees;
+    public int Krux;
 
     public string[] GetInfos(string file)
     {
@@ -54,6 +55,16 @@ public class Connection : MonoBehaviour
 
         return dataList;
     }
+
+    public int GetKrux(string file)
+    {
+        using (StreamReader sr = new StreamReader(file))
+        {
+            sr.ReadLine();
+            string line = sr.ReadLine();
+            return Int32.Parse(line);
+        }
+    }
     public List<bool>[] On_Click()
     {
         string file = "../../StandAlone/infos.txt";
@@ -62,9 +73,10 @@ public class Connection : MonoBehaviour
         _password = password.ToString();
         if (infos[0] == _login && Crypter.CheckPassword(_password, infos[1]))
         {
-            List<bool> characterTree = GetData(file, 1);
-            List<bool> towerTree = GetData(file, 2);
-            List<bool> trapTree = GetData(file, 3);
+            Krux = GetKrux(file);
+            List<bool> characterTree = GetData(file, 2);
+            List<bool> towerTree = GetData(file, 3);
+            List<bool> trapTree = GetData(file, 4);
             Trees = new List<bool>[3];
             Trees[0] = characterTree;
             Trees[1] = towerTree;
