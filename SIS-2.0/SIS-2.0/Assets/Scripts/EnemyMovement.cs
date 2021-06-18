@@ -121,20 +121,23 @@ public class EnemyMovement : MonoBehaviour
         if(type == Type.FLYING) {
             navMesh.areaMask = ALL;
 		}
-        int rnd = UnityEngine.Random.Range(1, 5);
-        switch(rnd) {
-            case 1:
-                navMesh.areaMask = GG;
-                break;
-            case 2:
-                navMesh.areaMask = DG;
-                break;
-            case 3:
-                navMesh.areaMask = DD;
-                break;
-            case 4:
-                navMesh.areaMask = GD;
-                break;
-		}
+        else {
+            int rnd = UnityEngine.Random.Range(1, 5);
+            switch (rnd) {
+                case 1:
+                    navMesh.areaMask = GG;
+                    break;
+                case 2:
+                    navMesh.areaMask = DG;
+                    break;
+                case 3:
+                    navMesh.areaMask = DD;
+                    break;
+                case 4:
+                    navMesh.areaMask = GD;
+                    break;
+            }
+        }
+        
 	}
 }
