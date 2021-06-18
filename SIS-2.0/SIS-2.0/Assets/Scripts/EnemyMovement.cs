@@ -5,11 +5,19 @@ using System;
 
 public class EnemyMovement : MonoBehaviour
 {
+    //Constants used to give a particular path to the enemy
+    const int GG = 336;
+    const int DD = 392;
+    const int GD = 400;
+    const int DG = 328;
+    const int ALL = 472;
+
     public Type type;
 
     public LayerMask mask;
     public Transform enemyPosition;
     public NavMeshAgent navMesh;
+    public bool isToGoRight;
     public int damage;
     public float cooldownTime;
     Collider[] colliders;
@@ -25,6 +33,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         ChooseTarget(); //Assign AI's goal
+        ChooseForcedPath();
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
         canAttack = true;
@@ -95,11 +104,37 @@ public class EnemyMovement : MonoBehaviour
             goal = target.transform;
         }
         else
-            goal = GameObject.FindGameObjectWithTag("Core").transform;
+            goal = GameObject.FindGameObjectWithTag("Checkpoint").transform;
     }
 
     public GameObject GetFocusedObject() {
         return target;
 	}
 
+    public void SetGoal(Transform goal) {
+        this.goal = goal;
+        navMesh.destination = goal.position;
+        Debug.Log("Changed Destination");
+	}
+
+    void ChooseForcedPath() {
+        if(type == Type.FLYING) {
+            navMesh.areaMask = ALL;
+		}
+        int rnd = UnityEngine.Random.Range(1, 5);
+        switch(rnd) {
+            case 1:
+                navMesh.areaMask = GG;
+                break;
+            case 2:
+                navMesh.areaMask = DG;
+                break;
+            case 3:
+                navMesh.areaMask = DD;
+                break;
+            case 4:
+                navMesh.areaMask = GD;
+                break;
+		}
+	}
 }

@@ -18,6 +18,7 @@ TagManager:
   - Door
   - Trap
   - Barricade
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

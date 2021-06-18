@@ -58,10 +58,12 @@ public class EnemiesSpawner : NetworkBehaviour
         if (waveNumber < 3)
             stopWatchCheck.StartWatch();
 
-        int i = 0;
+        StartCoroutine(GenerateEnemies());
+    }
 
-        foreach (var enemy in queue.Dequeue().Split(','))
-        {
+    System.Collections.IEnumerator GenerateEnemies() {
+        int i = 0;
+        foreach (var enemy in queue.Dequeue().Split(',')) {
             enemyPrefab = Resources.Load(enemy) as GameObject;     //Load corresponding enemy model
 
             var position = allSpawnPoints[i].transform.position;
@@ -69,8 +71,9 @@ public class EnemiesSpawner : NetworkBehaviour
             var toSpawn = (GameObject)Instantiate(enemyPrefab, position, orientation);
 
             NetworkServer.Spawn(toSpawn);
-            i = (i+1)%4; //Enable rotation of spawn point
+            i = (i + 1) % 4; //Enable rotation of spawn point
             enemiesLeft++;
+            yield return new WaitForSecondsRealtime(1f);
         }
     }
 

@@ -263,6 +263,7 @@ MonoBehaviour:
   HPBar: {fileID: 4071917071252899835}
   background: {fileID: 4071917071049707097}
   destroyOnDeath: 1
+  hasHealthBar: 0
   check: {fileID: 0}
 --- !u!195 &7880699171596970845
 NavMeshAgent:
@@ -304,8 +305,10 @@ MonoBehaviour:
     m_Bits: 4096
   enemyPosition: {fileID: 170188676883244101}
   navMesh: {fileID: 7880699171596970845}
+  isToGoRight: 1
   damage: 20
   cooldownTime: 0
+  goToTurret: 0
   attackCooldown: 1
   slowed: 0
   canAttack: 0
