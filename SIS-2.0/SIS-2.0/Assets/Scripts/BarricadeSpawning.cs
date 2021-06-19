@@ -30,7 +30,7 @@ public class BarricadeSpawning : MonoBehaviour
         int priceNeeded = barricadePrefab.GetComponent<Money>().money;
         if(playerMoney >= priceNeeded) {
             level += 1;
-            barricadePrefab.GetComponent<BarricadeInfo>().linkedSpawner = this.transform.gameObject;
+            barricadePrefab.GetComponent<BarricadeInfo>().linkedSpawner = transform.gameObject;
             toSpawn = (GameObject)Instantiate(barricadePrefab, position, orientation);
             NetworkServer.Spawn(toSpawn);
 
@@ -48,6 +48,15 @@ public class BarricadeSpawning : MonoBehaviour
         return 0;
     }
     public void TryDestroy(){
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+            EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+            if (enemyMovement.GetGoal() == transform) {
+                if (rdc)
+                    enemyMovement.SetGoal(GameObject.FindGameObjectWithTag("Checkpoint").transform);
+                else
+                    enemyMovement.SetGoal(GameObject.FindGameObjectWithTag("Core").transform);
+            }
+        }
         Destroy(toSpawn);
         level = 0;
     }
