@@ -32,7 +32,7 @@ TagManager:
   - Enemy
   - Bullet
   - Ground
-  - Tower
+  - Construction
   - Wall
   - Munition
   - Spawn

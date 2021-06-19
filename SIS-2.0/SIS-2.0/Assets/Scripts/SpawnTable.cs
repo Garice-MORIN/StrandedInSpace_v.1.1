@@ -20,7 +20,7 @@ public class SpawnTable : MonoBehaviour
         {
             Resources.Load("AcidPoolTrap") as GameObject, 
             Resources.Load("ExplosiveTrap") as GameObject, 
-            Resources.Load("Trap") as GameObject, 
+            Resources.Load("SpikesTrap") as GameObject, 
             Resources.Load("SlowTrap") as GameObject 
         };
         barricadeTable = new GameObject[2]
