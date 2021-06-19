@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     const int GD = 400;
     const int DG = 328;
     const int ALL = 472;
+    const int IGNOREWALLS = 1;
 
     public Type type;
 
@@ -174,7 +175,7 @@ public class EnemyMovement : MonoBehaviour
 
     void ChooseForcedPath() {
         if(type == Type.FLYING) {
-            navMesh.areaMask = ALL;
+            navMesh.areaMask = ALL + 1;
 		}
         int rnd = UnityEngine.Random.Range(1, 5);
         switch(rnd) {
