@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9183218253754711448}
   - component: {fileID: 6531324989282170980}
   - component: {fileID: 8933219376947467625}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 8008690140568833755}
   - component: {fileID: 2562917233788347640}
   - component: {fileID: 4700377594392581190}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cone.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: -1090931240011996130}
   - component: {fileID: -1621588977760472943}
   - component: {fileID: 3548808111462712415}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Barricade
   m_TagString: Barricade
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 4341435651933657689}
   - component: {fileID: 3266600170465043522}
   - component: {fileID: 8654907732932892659}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cone.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

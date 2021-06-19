@@ -6,6 +6,7 @@ using Mirror;
 public class BarricadeSpawning : MonoBehaviour
 {
     public NetworkManager GetNetworkManager() => FindObjectOfType<NetworkManager>();
+    public Transform coreTransform;
     private int level = 0;
     private GameObject toSpawn;
     private GameObject barricadePrefab;
@@ -15,7 +16,7 @@ public class BarricadeSpawning : MonoBehaviour
     public bool rdc;
     public bool left;
     void Start(){
-        position = transform.position + new Vector3(0, 0, -1.5f);
+        position = transform.position + (rotNeeded ? new Vector3(0, 0, -1.5f) : new Vector3(-1.5f, 0, 0));
         orientation = Quaternion.Euler(0f, rotNeeded ? 0f : 90f, 0f);
     }
     public int TryBuild(int playerMoney) {
@@ -50,11 +51,17 @@ public class BarricadeSpawning : MonoBehaviour
     public void TryDestroy(){
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
             EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
-            if (enemyMovement.GetGoal() == transform) {
-                if (rdc)
+            (bool, bool) path = enemyMovement.GetPath();
+            if (enemyMovement.GetGoal().position  == transform.position) {
+                Debug.Log("Entered Loop...");
+                if (rdc) {
                     enemyMovement.SetGoal(GameObject.FindGameObjectWithTag("Checkpoint").transform);
-                else
-                    enemyMovement.SetGoal(GameObject.FindGameObjectWithTag("Core").transform);
+                }
+                else {
+                    Debug.Log("Entering else statement...");
+                    enemyMovement.SetGoal(coreTransform);
+                    Debug.Log("Exiting");
+                }
             }
         }
         Destroy(toSpawn);

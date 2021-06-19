@@ -415,9 +415,6 @@ public class PlayerController : NetworkBehaviour
             if(aimed.tag == "TrapSpawnPoint" || aimed.tag == "Trap") {
                 money += (aimed.tag == "Trap" ? aimed.GetComponent<TrapInfo>().linkedSpawner : aimed).GetComponent<TrapSpawning>().TryDestroy();
             }
-            if (aimed.tag == "BarricadeSpawnPoint" || aimed.tag == "Barricade") {
-                (aimed.tag == "Barricade" ? aimed.GetComponent<BarricadeInfo>().linkedSpawner : aimed).GetComponent<BarricadeSpawning>().TryDestroy();
-            }
         }
     }
     //Server --> Client

@@ -4748,6 +4748,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1696204735380089865, guid: d41139dcd260bd24aadbc7094739ce52,
+        type: 3}
+      propertyPath: coreTransform
+      value: 
+      objectReference: {fileID: 1963004255}
+    - target: {fileID: 2029614865218983845, guid: d41139dcd260bd24aadbc7094739ce52,
+        type: 3}
+      propertyPath: coreTransform
+      value: 
+      objectReference: {fileID: 1963004255}
     - target: {fileID: 3689467107766596181, guid: d41139dcd260bd24aadbc7094739ce52,
         type: 3}
       propertyPath: m_Name
@@ -4758,6 +4768,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: BarricadeSpawnPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 3927063539925664665, guid: d41139dcd260bd24aadbc7094739ce52,
+        type: 3}
+      propertyPath: coreTransform
+      value: 
+      objectReference: {fileID: 1963004255}
     - target: {fileID: 6223206210012530320, guid: d41139dcd260bd24aadbc7094739ce52,
         type: 3}
       propertyPath: m_RootOrder
@@ -4813,5 +4828,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7121448853331844096, guid: d41139dcd260bd24aadbc7094739ce52,
+        type: 3}
+      propertyPath: coreTransform
+      value: 
+      objectReference: {fileID: 1963004255}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d41139dcd260bd24aadbc7094739ce52, type: 3}

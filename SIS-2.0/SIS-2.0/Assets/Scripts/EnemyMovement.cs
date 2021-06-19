@@ -65,14 +65,11 @@ public class EnemyMovement : MonoBehaviour
 	}
 
     IEnumerator CommitSuicide() {
-        yield return new WaitForSeconds(1f);
-        colliders = Physics.OverlapBox(enemyPosition.position, new Vector3(1, 0.5f, 1));
-        foreach(var touchedObject in colliders) {
+        yield return new WaitForSecondsRealtime(1f);
+        colliders = Physics.OverlapBox(transform.position, new Vector3(1.5f, 0.5f, 1.5f));
+        foreach (var touchedObject in colliders) {
             if(touchedObject.tag == "Barricade") {
                 touchedObject.GetComponent<BarricadeInfo>().explosionLeft -= 1;
-			}
-            else if(touchedObject.tag == "Trap") {
-                touchedObject.GetComponent<TrapInfo>().usesLeft -= 1;  //TODO: Set a good value here
 			}
             else if(touchedObject.tag == "Turret") {
                 touchedObject.GetComponent<Health>().TakeDamage(explosionDamage);
@@ -81,7 +78,7 @@ public class EnemyMovement : MonoBehaviour
                 touchedObject.GetComponent<Health>().TakeDamage(explosionDamage);
 			}
 		}
-        Destroy(gameObject);
+        GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemiesSpawner>().enemiesLeft -= 1;
 	}
 
 	IEnumerator TryAttack()
@@ -160,8 +157,8 @@ public class EnemyMovement : MonoBehaviour
         return goal;
 	}
 
-    public void Debug_ShowDestination(Transform destination) {
-        Debug.Log($"{destination.position.x}|{destination.position.y}|{destination.position.z}");
+    public static string Debug_ShowDestination(Transform destination) {
+        return ($"{destination.position.x}|{destination.position.y}|{destination.position.z}");
 	}
 
     public void SwitchCheckpoint(bool rdc) {
