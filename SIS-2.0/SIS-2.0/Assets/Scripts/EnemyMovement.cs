@@ -34,8 +34,8 @@ public class EnemyMovement : MonoBehaviour
     public float slowDuration;
     void Start()
     {
-        ChooseTarget(); //Assign AI's goal
         ChooseForcedPath();
+        ChooseTarget(); //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
         canAttack = true;
@@ -105,6 +105,15 @@ public class EnemyMovement : MonoBehaviour
             target = FocusRandomPlayer();
             goal = target.transform;
         }
+		else if(type == Type.EXPLOSIVE) {
+            goal = GameObject.FindGameObjectWithTag("Checkpoint").transform;
+            GameObject[] barricades = GameObject.FindGameObjectsWithTag("Barricade");
+            foreach(var barricade in barricades) {
+                if (barricade.GetComponent<BarricadeInfo>().linkedSpawner.GetComponent<BarricadeSpawning>().left == GetPath().Item1
+                    && barricade.GetComponent<BarricadeInfo>().linkedSpawner.GetComponent<BarricadeSpawning>().rdc)
+                    SetGoal(barricade.transform);
+			}
+		}
         else
             goal = GameObject.FindGameObjectWithTag("Checkpoint").transform;
     }
