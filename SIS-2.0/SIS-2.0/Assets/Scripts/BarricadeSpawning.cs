@@ -37,7 +37,10 @@ public class BarricadeSpawning : MonoBehaviour
             foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
                 EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
                 if (ShouldChangeDirection(enemyMovement,rdc)) {
-                    enemyMovement.SetGoal(transform);
+                    if (rdc)
+                        enemyMovement.SetGoal(transform);
+                    else
+                        enemyMovement.SetGoal(transform, left ? new Vector3(0.5f, 0, 0) : new Vector3(-0.5f, 0,0));
                 }
             }
             return priceNeeded;

@@ -113,9 +113,9 @@ public class EnemyMovement : MonoBehaviour
         return target;
 	}
 
-    public void SetGoal(Transform goal) {
+    public void SetGoal(Transform goal, Vector3 offset = new Vector3()) {
         this.goal = goal;
-        navMesh.destination = goal.position;
+        navMesh.destination = goal.position + offset;
 	}
 
     public Transform GetGoal() {
