@@ -174,6 +174,7 @@ GameObject:
   - component: {fileID: -2587287157852159236}
   - component: {fileID: 7250712432568566340}
   - component: {fileID: -1090931240011996130}
+  - component: {fileID: -1621588977760472943}
   m_Layer: 0
   m_Name: Barricade
   m_TagString: Barricade
@@ -278,6 +279,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4, y: 1.75, z: 2}
   m_Center: {x: 0, y: 0.65, z: 1}
+--- !u!208 &-1621588977760472943
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042300489701992233}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.7, y: 0.875, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.65, z: 1}
+  m_TimeToStationary: 0.5
 --- !u!1 &8650864250764091131
 GameObject:
   m_ObjectHideFlags: 0
