@@ -110,7 +110,7 @@ public class PlayerController : NetworkBehaviour
         canShoot = true;
         isGameLaunched = false;
         networkManager.offlineScene = "MainMenu";
-        
+        killedEnemies = kills.killedEnemies;
     }
 
     void Update() {
@@ -487,9 +487,9 @@ public class PlayerController : NetworkBehaviour
     public void OnEndGame(bool victory) {
         win = victory;
         canWinPoints = startRoundThree < 0f;
-        //points = CountPoints(kills.killedEnemies);
+        killedEnemies = kills.killedEnemies;
         Cursor.lockState = CursorLockMode.None;
-        deltaMoney = money - startingMoney;
+        deltaMoney = CountPoints(killedEnemies);
         networkManager.offlineScene = "WinScene";
         if (!isClientOnly) {
             networkManager.StopHost();
