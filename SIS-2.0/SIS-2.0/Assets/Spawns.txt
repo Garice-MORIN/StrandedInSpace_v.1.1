@@ -1,4 +1,4 @@
-NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy,HeavyEnemy,HeavyEnemy,HeavyEnemy,HeavyEnemy
+HeavyEnemy,HeavyEnemy,HeavyEnemy,HeavyEnemy
 SmallEnemy,SmallEnemy
 NormalEnemy
 HeavyEnemy,HeavyEnemy

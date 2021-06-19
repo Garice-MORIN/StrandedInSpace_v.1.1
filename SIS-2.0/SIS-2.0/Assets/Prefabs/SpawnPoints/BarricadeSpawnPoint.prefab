@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotNeeded: 0
+  rdc: 1
 --- !u!1 &2836479799070304837
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotNeeded: 1
+  rdc: 0
 --- !u!1 &3689467107766596181
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotNeeded: 0
+  rdc: 1
 --- !u!1 &6388175163040260845
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,3 +521,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotNeeded: 1
+  rdc: 0

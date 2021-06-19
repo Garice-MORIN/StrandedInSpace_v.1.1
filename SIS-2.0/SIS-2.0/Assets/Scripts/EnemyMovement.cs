@@ -24,7 +24,9 @@ public class EnemyMovement : MonoBehaviour
     GameObject target;
     Transform goal;
     public bool goToTurret;
-
+    private bool hasPassedFirstBarricade = false;
+    private bool hasPassedSecondBarricade = false;
+    
     public float attackCooldown;
     public bool slowed;
     public bool canAttack;
@@ -114,7 +116,21 @@ public class EnemyMovement : MonoBehaviour
     public void SetGoal(Transform goal) {
         this.goal = goal;
         navMesh.destination = goal.position;
-        Debug.Log("Changed Destination");
+	}
+
+    public Transform GetGoal() {
+        return goal;
+	}
+
+    public void SwitchCheckpoint(bool rdc) {
+        if (rdc)
+            hasPassedFirstBarricade = true;
+        else
+            hasPassedSecondBarricade = true;
+	}
+
+    public bool GetPassedCheckpoint(bool rdc) {
+        return rdc ? hasPassedFirstBarricade : hasPassedSecondBarricade;
 	}
 
     void ChooseForcedPath() {

@@ -10,6 +10,6 @@ public enum Type
 {
     FLYING,
     NORMAL,
-    HEAVY,
+    EXPLOSIVE,
     BOSS
 }

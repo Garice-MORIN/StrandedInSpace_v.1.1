@@ -306,7 +306,7 @@ MonoBehaviour:
   enemyPosition: {fileID: 170188676883244101}
   navMesh: {fileID: 7880699171596970845}
   isToGoRight: 1
-  damage: 20
+  damage: 0
   cooldownTime: 0
   goToTurret: 0
   attackCooldown: 1

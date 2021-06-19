@@ -12,6 +12,7 @@ public class BarricadeSpawning : MonoBehaviour
     private Vector3 position;
     private Quaternion orientation;
     public bool rotNeeded;
+    public bool rdc;
     void Start(){
         position = transform.position + new Vector3(0, 0, -1.5f);
         orientation = Quaternion.Euler(0f, rotNeeded ? 0f : 90f, 0f);
@@ -31,6 +32,22 @@ public class BarricadeSpawning : MonoBehaviour
             barricadePrefab.GetComponent<BarricadeInfo>().linkedSpawner = this.transform.gameObject;
             toSpawn = (GameObject)Instantiate(barricadePrefab, position, orientation);
             NetworkServer.Spawn(toSpawn);
+            if(rdc) {
+                foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+                    EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+                    if (enemyMovement.type == Type.EXPLOSIVE && !enemyMovement.GetPassedCheckpoint(true)) {
+                        enemyMovement.SetGoal(toSpawn.transform);
+                    }
+                }
+            }
+            else {
+                foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+                    EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
+                    if (enemyMovement.type == Type.EXPLOSIVE && !enemyMovement.GetPassedCheckpoint(false)) {
+                        enemyMovement.SetGoal(transform);
+                    }
+                }
+            }
             return priceNeeded;
         }
         return 0;
