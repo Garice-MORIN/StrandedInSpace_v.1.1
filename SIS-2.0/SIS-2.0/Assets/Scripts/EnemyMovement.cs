@@ -122,6 +122,10 @@ public class EnemyMovement : MonoBehaviour
         return goal;
 	}
 
+    public void Debug_ShowDestination(Transform destination) {
+        Debug.Log($"{destination.position.x}|{destination.position.y}|{destination.position.z}");
+	}
+
     public void SwitchCheckpoint(bool rdc) {
         if (rdc)
             hasPassedFirstBarricade = true;
@@ -151,6 +155,21 @@ public class EnemyMovement : MonoBehaviour
             case 4:
                 navMesh.areaMask = GD;
                 break;
+		}
+	}
+
+    public (bool,bool) GetPath() {
+        switch(navMesh.areaMask) {
+            case GG:
+                return (true, true);
+            case DG:
+                return (false, true);
+            case GD:
+                return (true, false);
+            case DD:
+                return (false, false);
+            default:
+                throw new Exception("Unknown Path");
 		}
 	}
 }
