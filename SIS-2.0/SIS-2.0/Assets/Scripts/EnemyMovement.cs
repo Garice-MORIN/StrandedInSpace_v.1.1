@@ -15,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
     public Type type;
 
     public LayerMask mask;
+    public LayerMask explosionMask;
     public Transform enemyPosition;
     public NavMeshAgent navMesh;
     public bool isToGoRight;
@@ -28,6 +29,7 @@ public class EnemyMovement : MonoBehaviour
     private bool hasPassedSecondBarricade = false;
     
     public float attackCooldown;
+    public int explosionDamage;
     public bool slowed;
     public bool canAttack;
     public float baseSpeed;
@@ -55,7 +57,34 @@ public class EnemyMovement : MonoBehaviour
         CheckSlow();
     }
 
-    IEnumerator TryAttack()
+	private void OnTriggerEnter(Collider other) {
+		if(other.tag == "Barricade") {
+            StartCoroutine(CommitSuicide());
+            Debug.Log("KABOOM");
+		}
+	}
+
+    IEnumerator CommitSuicide() {
+        yield return new WaitForSeconds(1f);
+        colliders = Physics.OverlapBox(enemyPosition.position, new Vector3(1, 0.5f, 1));
+        foreach(var touchedObject in colliders) {
+            if(touchedObject.tag == "Barricade") {
+                touchedObject.GetComponent<BarricadeInfo>().explosionLeft -= 1;
+			}
+            else if(touchedObject.tag == "Trap") {
+                touchedObject.GetComponent<TrapInfo>().usesLeft -= 1;  //TODO: Set a good value here
+			}
+            else if(touchedObject.tag == "Turret") {
+                touchedObject.GetComponent<Health>().TakeDamage(explosionDamage);
+			}
+            else if(touchedObject.tag == "Player") {
+                touchedObject.GetComponent<Health>().TakeDamage(explosionDamage);
+			}
+		}
+        Destroy(gameObject);
+	}
+
+	IEnumerator TryAttack()
     {
         canAttack = false;
         colliders = Physics.OverlapSphere(enemyPosition.position, 2.0f, mask);

@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 7250712432568566340}
   - component: {fileID: -1090931240011996130}
   - component: {fileID: -1621588977760472943}
+  - component: {fileID: 3548808111462712415}
   m_Layer: 0
   m_Name: Barricade
   m_TagString: Barricade
@@ -295,6 +296,22 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.65, z: 1}
   m_TimeToStationary: 0.5
+--- !u!54 &3548808111462712415
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042300489701992233}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8650864250764091131
 GameObject:
   m_ObjectHideFlags: 0
