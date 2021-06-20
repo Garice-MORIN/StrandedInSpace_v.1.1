@@ -110,7 +110,7 @@ public class PlayerController : NetworkBehaviour
         canShoot = true;
         isGameLaunched = false;
         networkManager.offlineScene = "MainMenu";
-        killedEnemies = kills.killedEnemies;
+        killedEnemies = FindObjectOfType<EnemyKill>().killedEnemies;
     }
 
     void Update() {
@@ -486,10 +486,9 @@ public class PlayerController : NetworkBehaviour
     }
     public void OnEndGame(bool victory) {
         win = victory;
-        canWinPoints = startRoundThree < 0f;
-        killedEnemies = kills.killedEnemies;
+        canWinPoints = startRoundThree != 0f;
         Cursor.lockState = CursorLockMode.None;
-        deltaMoney = CountPoints(killedEnemies);
+        deltaMoney = canWinPoints ? CountPoints(FindObjectOfType<EnemyKill>().killedEnemies) : 0;
         networkManager.offlineScene = "WinScene";
         if (!isClientOnly) {
             networkManager.StopHost();
@@ -502,7 +501,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     public void SavePlayer() {
-        StatsManager.instance.money += CountPoints(killedEnemies);
+        StatsManager.instance.money += CountPoints(FindObjectOfType<EnemyKill>().killedEnemies);
     }
 
     public void SetRoundThree(float start) => startRoundThree = start;
@@ -533,7 +532,7 @@ public class PlayerController : NetworkBehaviour
                     break;
 			}
 		}
-        total /= death/2;
+        total /= death < 2 ? 1 : death/2;
         total += money / 100;
         total *= (1 + (EnemiesSpawner.waveNumber-1 / 5)*0.5f);
 

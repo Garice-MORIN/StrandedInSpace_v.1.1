@@ -80,6 +80,7 @@ public class EnemyMovement : MonoBehaviour
 			}
 		}
         GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemiesSpawner>().enemiesLeft -= 1;
+        Destroy(gameObject);
 	}
 
 	IEnumerator TryAttack()
