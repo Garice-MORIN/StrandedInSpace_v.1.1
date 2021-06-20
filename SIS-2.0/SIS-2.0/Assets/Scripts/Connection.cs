@@ -83,7 +83,7 @@ public class Connection : MonoBehaviour
             Trees[2] = trapTree;
             return Trees;
         }
-        Console.Error.WriteLine("Erreur, pas le bon mot de passe/username, merci de réessayer");
+        Console.Error.WriteLine("Erreur, mot de passe/username non reconnu, merci de réessayer");
         return Trees;
     }
 }

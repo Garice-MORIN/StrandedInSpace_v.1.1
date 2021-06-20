@@ -24,12 +24,13 @@ namespace Mirror.Discovery {
         public NetworkManager networkManager;
         public InputField inputField;
         public Vector2 position = Vector2.zero;
+        int firstRun = 0;
 
         //Servers search
         public NetworkDiscovery networkDiscovery;
 
         private void Start() {
-
+            
             volumeSlider.value = 0.5f;
             effectSlider.value = 0.5f;
             musicLevel.text = "50 %";

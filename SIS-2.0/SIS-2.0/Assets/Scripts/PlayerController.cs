@@ -501,6 +501,10 @@ public class PlayerController : NetworkBehaviour
         
     }
 
+    public void SavePlayer() {
+        StatsManager.instance.money += CountPoints(killedEnemies);
+    }
+
     public void SetRoundThree(float start) => startRoundThree = start;
 
     string RandomString() {
