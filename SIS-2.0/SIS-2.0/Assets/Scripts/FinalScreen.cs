@@ -13,7 +13,6 @@ public class FinalScreen : MonoBehaviour
     private void Start()
     {
         _header.text = PlayerController.win ? $"Congratulations" : $"Too bad... maybe next time!";
-        _score.text = $"You've scored {PlayerController.score} point{(PlayerController.score == 1 ? "" : "s")}";
         _waves.text = $"You survived up to wave {EnemiesSpawner.waveNumber}";
         _money.text = $"You've earned a total of {PlayerController.deltaMoney} Krux";
     }

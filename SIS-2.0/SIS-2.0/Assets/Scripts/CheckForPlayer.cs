@@ -7,6 +7,9 @@ public class CheckForPlayer : NetworkBehaviour
 
 	private void OnTriggerEnter(Collider other) {
 		nbPlayer++;
+		if(nbPlayer == NetworkServer.connections.Count && enemiesSpawner.enemiesLeft != 0) {
+			enemiesSpawner.EndOfGame(false);
+		}
 	}
 
 	private void OnTriggerExit(Collider other) {

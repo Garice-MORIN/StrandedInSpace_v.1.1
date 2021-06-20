@@ -28,6 +28,7 @@ public class EnemyMovement : MonoBehaviour
     public bool goToTurret;
     private bool hasPassedFirstBarricade = false;
     private bool hasPassedSecondBarricade = false;
+    public AudioSource explosion;
     
     public float attackCooldown;
     public int explosionDamage;
@@ -79,6 +80,7 @@ public class EnemyMovement : MonoBehaviour
                 touchedObject.GetComponent<Health>().TakeDamage(explosionDamage);
 			}
 		}
+        explosion.Play();
         GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemiesSpawner>().enemiesLeft -= 1;
         Destroy(gameObject);
 	}

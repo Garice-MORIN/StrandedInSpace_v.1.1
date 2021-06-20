@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Mirror;
+using UnityEngine.UI;
 
 public class Health : NetworkBehaviour
 {
@@ -9,8 +10,8 @@ public class Health : NetworkBehaviour
     [SyncVar(hook = "OnChangeHealth")]
     public int health;
 
-    public RectTransform HPBar;
-    public RectTransform background;
+    //public RectTransform HPBar;
+    //public RectTransform background;
 
     public bool destroyOnDeath;
     private bool dead = false;
@@ -18,18 +19,26 @@ public class Health : NetworkBehaviour
     private bool doDrop;
     public bool hasHealthBar;
     public EnemyKill check;
+    public Text life;
 
     private void Start(){
         check = FindObjectOfType<EnemyKill>();
         health = maxHP;
-        if(isLocalPlayer){
+        if (!hasHealthBar)
+            life = null;
+        else
+            life.text = health.ToString();
+
+        if (isLocalPlayer){
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+            
+            gameObject.GetComponent<PlayerController>().life.text = $"{maxHP} / {maxHP}";
         }
         if(hasHealthBar) {
             //Initialize health bars
-            background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
+            /*background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
             HPBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
-            HPBar.localPosition = new Vector3(maxHP / 2, 0, 0);
+            HPBar.localPosition = new Vector3(maxHP / 2, 0, 0);*/
         }
         
     }
@@ -50,7 +59,6 @@ public class Health : NetworkBehaviour
         }
 
         health -= damage;
-        Debug.Log(health);
 
         if(health <= 0){
             if(destroyOnDeath){
@@ -116,7 +124,11 @@ public class Health : NetworkBehaviour
     //Update health bar when damage is received
     public void OnChangeHealth(int oldHealth, int newHealth)
     {
-        if(hasHealthBar)
-            HPBar.sizeDelta = new Vector2(newHealth, HPBar.sizeDelta.y);
+        if (hasHealthBar)
+            life.text = newHealth.ToString();
+        if (tag == "Player")
+            gameObject.GetComponent<PlayerController>().life.text = $"{newHealth.ToString()} / {maxHP}";
+            //HPBar.sizeDelta = new Vector2(newHealth, HPBar.sizeDelta.y);
+        
     }
 }

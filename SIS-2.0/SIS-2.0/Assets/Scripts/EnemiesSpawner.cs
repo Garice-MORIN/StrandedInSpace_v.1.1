@@ -126,14 +126,14 @@ public class EnemiesSpawner : NetworkBehaviour
 	}
 
     System.Collections.IEnumerator WaitToSpawn() {
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(40);
         SpawnEnemies();
     }
 
-    void EndOfGame() {
+    public void EndOfGame(bool victory = true) {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (var player in players)
-            player.GetComponent<PlayerController>().OnEndGame(true);
+            player.GetComponent<PlayerController>().OnEndGame(victory);
     }
 
 }

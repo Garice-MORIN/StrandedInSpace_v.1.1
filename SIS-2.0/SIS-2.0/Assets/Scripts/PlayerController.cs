@@ -78,6 +78,7 @@ public class PlayerController : NetworkBehaviour
     public Text UIstock;
     public GameObject panel;
     public Text panelText;
+    public Text life;
     [SyncVar(hook = "IpPanel")]
     public bool isGameLaunched;
     public NetworkAnimator networkAnimator;
@@ -486,7 +487,7 @@ public class PlayerController : NetworkBehaviour
     }
     public void OnEndGame(bool victory) {
         win = victory;
-        canWinPoints = startRoundThree != 0f;
+        canWinPoints = startRoundThree != -1f;
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = canWinPoints ? CountPoints(FindObjectOfType<EnemyKill>().killedEnemies) : 0;
         networkManager.offlineScene = "WinScene";
