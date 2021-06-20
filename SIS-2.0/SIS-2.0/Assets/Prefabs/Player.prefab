@@ -1965,7 +1965,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   maxHP: 250
-  health: 250
+  health: 0
   destroyOnDeath: 0
   hasHealthBar: 0
   check: {fileID: 0}

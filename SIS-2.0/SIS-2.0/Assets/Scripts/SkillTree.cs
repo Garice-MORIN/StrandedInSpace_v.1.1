@@ -48,6 +48,8 @@ public class SkillTree : MonoBehaviour
         if(Int32.TryParse(text, out priceNeeded)){
             if(CanUnlockSkill(skillType, priceNeeded)){
             Tree.Add(skillType);
+            PlayerPrefs.SetInt("krux", PlayerPrefs.GetInt("krux") - priceNeeded);
+            GetUpgrades(skillType);
             return true;
             }
         }
@@ -56,7 +58,7 @@ public class SkillTree : MonoBehaviour
 
     public bool CanUnlockSkill(SkillType skillType, int priceNeeded)
     {
-        return !IsUnlocked(skillType) && IsUnlocked(GetRequirements(skillType));
+        return !IsUnlocked(skillType) && IsUnlocked(GetRequirements(skillType)) && PlayerPrefs.GetInt("krux") >= priceNeeded;
     }
     public bool IsUnlocked(SkillType skillType)
     {
@@ -81,69 +83,64 @@ public class SkillTree : MonoBehaviour
             default : return SkillType.None;
         }
     }
-    public float[] GetUpgrades()
+    public void GetUpgrades(SkillType skillType)
     {
-        float[] upgrades = new float[6];
-        foreach (SkillType skillType in Tree)
+        switch (skillType)
         {
-            switch (skillType)
-            {
-                case SkillType.StartingMoney1 :
-                    upgrades[0] += 10;
-                    break;
-                case SkillType.StartingMoney2 :
-                    upgrades[0] += 15;
-                    break;
-                case SkillType.StartingMoney3 :
-                    upgrades[0] += 25;
-                    break;
-                case SkillType.MaxHealth1 :
-                    upgrades[1] += 25;
-                    break;
-                case SkillType.MaxHealth2 :
-                    upgrades[1] += 25;
-                    break;
-                case SkillType.MaxHealth3 :
-                    upgrades[1] += 50;
-                    break;
-                case SkillType.TowerDamage1 :
-                    upgrades[2] += 10;
-                    break;
-                case SkillType.TowerDamage2 :
-                    upgrades[2] += 15;
-                    break;
-                case SkillType.TowerDamage3 :
-                    upgrades[2] += 25;
-                    break;
-                case SkillType.TowerStatus1 :
-                    upgrades[3] += 25;
-                    break;
-                case SkillType.TowerStatus2 :
-                    upgrades[3] += 25;
-                    break;
-                case SkillType.TowerStatus3 :
-                    upgrades[3] += 50;
-                    break;
-                case SkillType.TrapDamage1 :
-                    upgrades[4] += 20;
-                    break;
-                case SkillType.TrapDamage2 :
-                    upgrades[4] += 30;
-                    break;
-                case SkillType.TrapDamage3 :
-                    upgrades[4] += 50;
-                    break;
-                case SkillType.TrapUses1 :
-                    upgrades[5] += 20;
-                    break;
-                case SkillType.TrapUses2 :
-                    upgrades[5] += 30;
-                    break;
-                case SkillType.TrapUses3 :
-                    upgrades[5] += 50;
-                    break;
-            }
+            case SkillType.StartingMoney1:
+                PlayerPrefs.SetFloat("StartingMoney", 1.1f);
+                break;
+            case SkillType.StartingMoney2:
+                PlayerPrefs.SetFloat("StartingMoney", 1.25f);
+                break;
+            case SkillType.StartingMoney3:
+                PlayerPrefs.SetFloat("StartingMoney", 1.5f);
+                break;
+            case SkillType.MaxHealth1:
+                PlayerPrefs.SetFloat("MaxHealth", 1.25f);
+                break;
+            case SkillType.MaxHealth2:
+                PlayerPrefs.SetFloat("MaxHealth", 1.5f);
+                break;
+            case SkillType.MaxHealth3:
+                PlayerPrefs.SetFloat("MaxHealth", 2f);
+                break;
+            case SkillType.TowerDamage1:
+                PlayerPrefs.SetFloat("TowerDamage", 1.1f);
+                break;
+            case SkillType.TowerDamage2:
+                PlayerPrefs.SetFloat("TowerDamage", 1.25f);
+                break;
+            case SkillType.TowerDamage3:
+                PlayerPrefs.SetFloat("TowerDamage", 1.5f);
+                break;
+            case SkillType.TowerStatus1:
+                PlayerPrefs.SetFloat("TowerStatus", 1.25f);
+                break;
+            case SkillType.TowerStatus2:
+                PlayerPrefs.SetFloat("TowerStatus", 1.5f);
+                break;
+            case SkillType.TowerStatus3:
+                PlayerPrefs.SetFloat("TowerStatus", 2f);
+                break;
+            case SkillType.TrapDamage1:
+                PlayerPrefs.SetFloat("TrapDamage", 1.2f);
+                break;
+            case SkillType.TrapDamage2:
+                PlayerPrefs.SetFloat("TrapDamage", 1.5f);
+                break;
+            case SkillType.TrapDamage3:
+                PlayerPrefs.SetFloat("TrapDamage", 2f);
+                break;
+            case SkillType.TrapUses1:
+                PlayerPrefs.SetFloat("TrapUses", 1.2f);
+                break;
+            case SkillType.TrapUses2:
+                PlayerPrefs.SetFloat("TrapUses", 1.5f);
+                break;
+            case SkillType.TrapUses3:
+                PlayerPrefs.SetFloat("TrapUses", 2f);
+                break;
         }
-        return upgrades;
     }
 }

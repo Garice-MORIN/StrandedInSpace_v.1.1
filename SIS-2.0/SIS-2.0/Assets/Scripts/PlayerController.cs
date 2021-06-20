@@ -112,6 +112,7 @@ public class PlayerController : NetworkBehaviour
         isGameLaunched = false;
         networkManager.offlineScene = "MainMenu";
         killedEnemies = FindObjectOfType<EnemyKill>().killedEnemies;
+        money = (int)(PlayerPrefs.GetFloat("StartingMoney") * money);
     }
 
     void Update() {
@@ -490,6 +491,7 @@ public class PlayerController : NetworkBehaviour
         canWinPoints = startRoundThree != -1f;
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = canWinPoints ? CountPoints(FindObjectOfType<EnemyKill>().killedEnemies) : 0;
+        PlayerPrefs.SetInt("krux", PlayerPrefs.GetInt("krux") + deltaMoney);
         networkManager.offlineScene = "WinScene";
         if (!isClientOnly) {
             networkManager.StopHost();
