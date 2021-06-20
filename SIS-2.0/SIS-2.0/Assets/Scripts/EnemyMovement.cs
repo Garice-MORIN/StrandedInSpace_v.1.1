@@ -23,12 +23,13 @@ public class EnemyMovement : MonoBehaviour
     public int damage;
     public float cooldownTime;
     Collider[] colliders;
-    GameObject target;
+    GameObject target = null;
     Transform goal;
     public bool goToTurret;
     private bool hasPassedFirstBarricade = false;
     private bool hasPassedSecondBarricade = false;
-    public AudioSource explosion;
+    AudioSource explosion;
+    //Animator animator;
     
     public float attackCooldown;
     public int explosionDamage;
@@ -38,20 +39,23 @@ public class EnemyMovement : MonoBehaviour
     public float slowDuration;
     void Start()
     {
+        //animator = GetComponent<Animator>();
+        if (type == Type.EXPLOSIVE)
+            explosion = GetComponent<AudioSource>();
         ChooseForcedPath();
         ChooseTarget(); //Assign AI's goal
         navMesh.destination = goal.position;
         baseSpeed = navMesh.speed;
         canAttack = true;
-    }
+    }   
 
     public void Update() {
+
         //Attack target if enemy is close enough
-        if(canAttack)
+        if (canAttack)
         {
             StartCoroutine(TryAttack());
         }
-
         if(type == Type.FLYING && !(goal is null)) {
             navMesh.destination = goal.position;
         }
@@ -127,12 +131,15 @@ public class EnemyMovement : MonoBehaviour
     GameObject FocusRandomPlayer() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         target = players[UnityEngine.Random.Range(0, players.Length)];
+
         return target;
 	}
 
     public void ChooseTarget() {
         if(type == Type.FLYING) {
             target = FocusRandomPlayer();
+            Debug.Log(target);
+            Debug_ShowDestination(target.transform);
             goal = target.transform;
         }
 		else if(type == Type.EXPLOSIVE) {
@@ -162,6 +169,8 @@ public class EnemyMovement : MonoBehaviour
 	}
 
     public static string Debug_ShowDestination(Transform destination) {
+        if (destination is null)
+            return $"Destination is null";
         return ($"{destination.position.x}|{destination.position.y}|{destination.position.z}");
 	}
 

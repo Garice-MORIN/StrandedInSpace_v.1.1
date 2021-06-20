@@ -467,7 +467,7 @@ MonoBehaviour:
   reloadSpeed: 1
   damage: 1000
   fireRate: 0.4
-  currentAmmo: 0
+  currentAmmo: 10
   isPulse: 0
 --- !u!1 &1978834553824132996
 GameObject:
@@ -546,7 +546,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 250 / 250
 --- !u!1 &2138240530183171192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,7 +1459,7 @@ MonoBehaviour:
   reloadSpeed: 2
   damage: 10
   fireRate: 0.1
-  currentAmmo: 0
+  currentAmmo: 30
   isPulse: 0
 --- !u!1 &3610351189874336584
 GameObject:
@@ -2131,7 +2131,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4242103549988627680}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2149,7 +2149,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4242103549988627680}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
@@ -2192,7 +2192,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4242103549988627680}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!114 &9116378912941778975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2483,9 +2483,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 17454bbc7650c474585de46f3f06c796, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5d7fabb54c67e824280ea7a95fd564a1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2992,7 +2992,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9145703420242795720}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
@@ -3322,6 +3322,11 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontStyle
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4872194192145631732, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5446997908512064170, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3420,7 +3425,7 @@ PrefabInstance:
     - target: {fileID: 8020548970884120004, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
       propertyPath: m_Text
-      value: 
+      value: '10 / 10 '
       objectReference: {fileID: 0}
     - target: {fileID: 8404045104903969298, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
@@ -3430,7 +3435,7 @@ PrefabInstance:
     - target: {fileID: 8805212867594377250, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
       propertyPath: m_Text
-      value: 
+      value: 'Stock: 20'
       objectReference: {fileID: 0}
     - target: {fileID: 8805212867594377250, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
@@ -3844,10 +3849,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3973401140778893789, guid: 4695929c56665b94bac30a8904de682b,
+        type: 3}
+      propertyPath: m_Text
+      value: 1047121014
+      objectReference: {fileID: 0}
     - target: {fileID: 7733104799524891760, guid: 4695929c56665b94bac30a8904de682b,
         type: 3}
       propertyPath: m_Name
       value: Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733104799524891760, guid: 4695929c56665b94bac30a8904de682b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4695929c56665b94bac30a8904de682b, type: 3}

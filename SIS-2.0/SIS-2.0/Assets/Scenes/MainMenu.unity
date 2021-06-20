@@ -4344,7 +4344,7 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 170188676883244103, guid: 4a90ef062a8401f4da9cb0a9c31bbf68, type: 3}
-  - {fileID: 6931518593030710514, guid: 6ec9d731cdddec545bd97f1cb0fdc0e1, type: 3}
+  - {fileID: 3131851406412282831, guid: f86c75aef3c9a3b4ba3761d19736df27, type: 3}
   - {fileID: 3657620336170778691, guid: 258e25f7b8b12564d822ae4dfc133d3d, type: 3}
   - {fileID: 3916440759951999373, guid: 3f11a11ffdf48fd4b890fa2684dae42c, type: 3}
   - {fileID: 2357709426800646527, guid: cc3c970c8f7474c4bbcd0b68ad1ee6cf, type: 3}
