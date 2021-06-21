@@ -96,7 +96,12 @@ public class EnemyMovement : MonoBehaviour
         foreach (var obj in colliders)
         {
 			try {
-                obj.GetComponent<Health>().TakeDamage(damage);
+                if (obj.tag == "Player" || obj.tag == "Core")
+                    obj.GetComponent<Health>().TakeDamage(damage);
+                else if (obj.tag == "Turret")
+                    obj.GetComponent<Health>().TakeDamage(1);
+                else if (obj.tag == "Barricade")
+                    obj.GetComponent<BarricadeInfo>().explosionLeft -= 2;
             }
 			catch {
                 continue;
