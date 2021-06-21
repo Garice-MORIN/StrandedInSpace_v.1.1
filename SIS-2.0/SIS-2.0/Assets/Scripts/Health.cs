@@ -34,14 +34,12 @@ public class Health : NetworkBehaviour
         else
             life.text = health.ToString();
 
-        
-        if(hasHealthBar) {
-            //Initialize health bars
-            /*background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
-            HPBar.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
-            HPBar.localPosition = new Vector3(maxHP / 2, 0, 0);*/
+        if (isLocalPlayer){
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+
+            gameObject.GetComponent<PlayerController>().life.text = $"{maxHP} / {maxHP}";
         }
-        
+
     }
 
     public IEnumerator GetBurned(int burnDamage, int nbTick){
@@ -102,7 +100,7 @@ public class Health : NetworkBehaviour
                     if (enemies[i].type == Type.NORMAL && enemies[i].GetFocusedObject() == gameObject)
                         enemies[i].ChooseTarget();
 				}
-                
+
             }
         }
     }
@@ -128,8 +126,7 @@ public class Health : NetworkBehaviour
         if (hasHealthBar)
             life.text = newHealth.ToString();
         if (tag == "Player")
-            gameObject.GetComponent<PlayerController>().life.text = $"{newHealth.ToString()} / {maxHP}";
-            //HPBar.sizeDelta = new Vector2(newHealth, HPBar.sizeDelta.y);
-        
+            gameObject.GetComponent<PlayerController>().life.text = $"{newHealth} / {maxHP}";
+
     }
 }
