@@ -721,16 +721,16 @@ MonoBehaviour:
   isGrounded: 0
   myCanvas: {fileID: 7078293398212962893}
   gunSource: {fileID: 6794398522717391947}
-  hudTrap: {fileID: 4660560451687171445}
-  hudTurret: {fileID: 2474006382647983735}
-  selection1: {fileID: 2664305168805673758}
-  selection2: {fileID: 8364493705984942881}
-  selection3: {fileID: 1837633145631958036}
-  selection4: {fileID: 2194380072500904089}
-  select1: {fileID: 393991716735190078}
-  select2: {fileID: 9148014219679392796}
-  select3: {fileID: 520483051583841233}
-  select4: {fileID: 5860194889634206796}
+  hudTrap: {fileID: 2474006382647983735}
+  hudTurret: {fileID: 4660560451687171445}
+  TurretSelect1: {fileID: 393991716735190078}
+  TurretSelect2: {fileID: 9148014219679392796}
+  TurretSelect3: {fileID: 520483051583841233}
+  TurretSelect4: {fileID: 5860194889634206796}
+  TrapSelect1: {fileID: 2664305168805673758}
+  TrapSelect2: {fileID: 8364493705984942881}
+  TrapSelect3: {fileID: 1837633145631958036}
+  TrapSelect4: {fileID: 2194380072500904089}
   pauseMenu: {fileID: 5038073714852006999}
   settingsMenu: {fileID: 3748552894650205090}
   commandsMenu: {fileID: 2605030276509489211}
@@ -802,7 +802,6 @@ MonoBehaviour:
   health: 0
   destroyOnDeath: 0
   hasHealthBar: 0
-  check: {fileID: 0}
   life: {fileID: 0}
 --- !u!114 &7412776430906126572
 MonoBehaviour:
@@ -1350,10 +1349,45 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1261322305057248908}
+    - target: {fileID: 1108418471534456567, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_Name
+      value: TrapSelect3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1108418471534456567, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329659762467497095, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_Name
+      value: TrapSelect1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329659762467497095, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2603705272442256340, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
       propertyPath: m_Name
       value: HUDTraps
+      objectReference: {fileID: 0}
+    - target: {fileID: 2603705272442256340, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2679232586009521230, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_Name
+      value: TurretSelect4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2679232586009521230, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3023389419519533978, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
@@ -1460,6 +1494,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4160061258561119977, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_Name
+      value: TurretSelect1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160061258561119977, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391695257432399434, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_Name
+      value: TurretSelect3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391695257432399434, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5105662086206128342, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
       propertyPath: m_Name
@@ -1485,10 +1539,40 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 1261322305057248908}
+    - target: {fileID: 5914137938302332266, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_Name
+      value: TrapSelect2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914137938302332266, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537438146693757441, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_Name
+      value: TrapSelect4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537438146693757441, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7227276588349042670, guid: eefb12cbc2f5c94408774996ac5f7509,
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976054666984890919, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_Name
+      value: TurretSelect2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8976054666984890919, guid: eefb12cbc2f5c94408774996ac5f7509,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eefb12cbc2f5c94408774996ac5f7509, type: 3}

@@ -18,7 +18,7 @@ public class Health : NetworkBehaviour
     private NetworkStartPosition[] spawnPoints;
     private bool doDrop;
     public bool hasHealthBar;
-    public EnemyKill check;
+    private EnemyKill check;
     public Text life;
 
     private void Start(){
@@ -42,23 +42,7 @@ public class Health : NetworkBehaviour
 
     }
 
-    public IEnumerator GetBurned(int burnDamage, int nbTick){
-        for(int i = 0; i < nbTick; i++){
-            yield return new WaitForSeconds(0.5f);
-            if(!dead){
-                TakeDamage(burnDamage);
-            }
-        }
-    }
-
-    //Give damage to entity
-    public void TakeDamage(int damage){
-        if(!isServer){
-            return;
-        }
-
-        health -= damage;
-
+    private void Update() {
         if(health <= 0){
             if(destroyOnDeath){
                 if(tag == "Core")
@@ -75,9 +59,10 @@ public class Health : NetworkBehaviour
                 }
                 else if(tag == "Enemy")
                 {
+                    Debug.Log("pouet");
                     dead = true;
                     doDrop = Random.Range(0.0f, 1.0f) < 0.6f; //Check if entity drop ammunition on death
-                    check.killedEnemies.Add(gameObject.GetComponent<EnemyType>().type);
+                    check.killedEnemies.Add(gameObject.GetComponent<EnemyMovement>().type);
                     gameObject.GetComponent<Money>().EnemyDropMoney();
                     FindObjectOfType<EnemiesSpawner>().enemiesLeft--;
                     if (doDrop) {
@@ -103,6 +88,23 @@ public class Health : NetworkBehaviour
 
             }
         }
+    }
+
+    public IEnumerator GetBurned(int burnDamage, int nbTick){
+        for(int i = 0; i < nbTick; i++){
+            yield return new WaitForSeconds(0.5f);
+            if(!dead){
+                TakeDamage(burnDamage);
+            }
+        }
+    }
+
+    //Give damage to entity
+    public void TakeDamage(int damage){
+        if(!isServer){
+            return;
+        }
+        health -= damage;
     }
 
     //Respawn player

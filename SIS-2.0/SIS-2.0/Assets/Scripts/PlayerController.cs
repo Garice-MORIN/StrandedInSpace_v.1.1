@@ -52,15 +52,14 @@ public class PlayerController : NetworkBehaviour
 
     public GameObject hudTrap;
     public GameObject hudTurret;
-    public Image selection1;
-    public Image selection2;
-    public Image selection3;
-    public Image selection4;
-    public Image select1;
-    public Image select2;
-    public Image select3;
-    public Image select4;
-
+    public Image TurretSelect1;
+    public Image TurretSelect2;
+    public Image TurretSelect3;
+    public Image TurretSelect4;
+    public Image TrapSelect1;
+    public Image TrapSelect2;
+    public Image TrapSelect3;
+    public Image TrapSelect4;
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public GameObject commandsMenu;
@@ -106,7 +105,8 @@ public class PlayerController : NetworkBehaviour
     int nbMunitions; //Ammunitions currently in the gun chamber
     int indexWeapon;
     int indexPlacement;
-    private void Start() {
+    private void Start()
+    {
         //Initialize all variables
         constructionMode = false;
         currentSpeed = 5f;
@@ -125,8 +125,10 @@ public class PlayerController : NetworkBehaviour
         money = (int)(PlayerPrefs.GetFloat("StartingMoney") * money);
     }
 
-    void Update() {
-        if (!isLocalPlayer) {
+    void Update()
+    {
+        if (!isLocalPlayer)
+        {
             return;
         }
 
@@ -138,18 +140,23 @@ public class PlayerController : NetworkBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //Change the state of the cursor
-        if (Input.GetButtonDown("Cursor") && !settingsMenu.activeSelf && !commandsMenu.activeSelf && !sureMenu.activeSelf) {
+        if (Input.GetButtonDown("Cursor") && !settingsMenu.activeSelf && !commandsMenu.activeSelf && !sureMenu.activeSelf)
+        {
             ChangeCursorLockState();
         }
         //Change ShootMode into ConstructionMode and vice-versa
-        if (Input.GetButtonDown("TCM")) {
+        if (Input.GetButtonDown("TCM"))
+        {
             constructionMode = !constructionMode;
         }
         //Following instructions executed only if the player isn't in a menu
-        if (Cursor.lockState == CursorLockMode.Locked) {
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
 
-            if (Input.GetButtonDown("StartGame")) {
-                if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted) {
+            if (Input.GetButtonDown("StartGame"))
+            {
+                if (isServer && !FindObjectOfType<EnemiesSpawner>().isStarted)
+                {
                     doorScript.OpenDoor();
                     panel.SetActive(false);
                 }
@@ -166,17 +173,20 @@ public class PlayerController : NetworkBehaviour
             controller.Move(move * currentSpeed * Time.deltaTime);
 
             //Run command
-            if (Input.GetButtonDown("Run") && isGrounded) {
+            if (Input.GetButtonDown("Run") && isGrounded)
+            {
                 currentSpeed = currentSpeed == 5f ? 8f : 5f;
             }
 
             //Reset gravity to keep constant velocity
-            if (isGrounded && velocity.y < 0) {
+            if (isGrounded && velocity.y < 0)
+            {
                 velocity.y = -2f;
             }
 
             //Jump command
-            if (Input.GetButtonDown("Jump") && isGrounded) {
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
 
@@ -185,18 +195,25 @@ public class PlayerController : NetworkBehaviour
 
             //Fire command
 
-            if (Input.GetButtonDown("Fire1")) {
-                if (constructionMode) {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (constructionMode)
+                {
                     CmdBuild(); //Build or upgrade a turret/trap
                 }
-                else {
-                    if (!isReloading) {
-                        if (nbMunitions > 0 && canShoot) {
+                else
+                {
+                    if (!isReloading)
+                    {
+                        if (nbMunitions > 0 && canShoot)
+                        {
                             StartCoroutine(Shoot());
                             nbMunitions--;
                         }
-                        else {
-                            if (nbMunitions <= 0 && canShoot) {
+                        else
+                        {
+                            if (nbMunitions <= 0 && canShoot)
+                            {
                                 gunSource.clip = GetNetworkManager().GetComponentInParent<SpawnTable>().GetGunSound(0);
                                 gunSource.Play();
                             }
@@ -205,25 +222,31 @@ public class PlayerController : NetworkBehaviour
                 }
             }
 
-            if (Input.GetButtonDown("Fire2") && constructionMode) {
+            if (Input.GetButtonDown("Fire2") && constructionMode)
+            {
                 CmdDestroy();
             }
 
-            if (Input.GetButtonDown("Reload")) {
-                if (munitions > 0 && nbMunitions < maxMunitions) { //if gun isn't full and player have ammunations left, reload gun
+            if (Input.GetButtonDown("Reload"))
+            {
+                if (munitions > 0 && nbMunitions < maxMunitions)
+                { //if gun isn't full and player have ammunations left, reload gun
                     StartCoroutine(Reload());
                     return;
                 }
             }
 
 
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f) {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
                 //If user scroll up
-                if(constructionMode) {
+                if (constructionMode)
+                {
                     //Change construction to build
                     indexPlacement = indexPlacement == 3 ? 0 : indexPlacement + 1;
                 }
-                else {
+                else
+                {
                     //Change equipped weapon
                     indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
                     CmdChangeActiveWeapon(indexWeapon);
@@ -232,13 +255,16 @@ public class PlayerController : NetworkBehaviour
 
             }
 
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f) {
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
                 //If user scroll down
-                if(constructionMode) {
+                if (constructionMode)
+                {
                     //Change construction to build
                     indexPlacement = indexPlacement == 0 ? 3 : indexPlacement - 1;
                 }
-                else {
+                else
+                {
                     //Change equipped weapon
                     indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
                     CmdChangeActiveWeapon(indexWeapon);
@@ -249,126 +275,155 @@ public class PlayerController : NetworkBehaviour
 
             /*____________________________SCOREBOARD_____________________________*/
 
-            if (Input.GetKeyDown(KeyCode.Tab)) {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
                 scoreBoard.SetActive(!scoreBoard.activeSelf);
                 Debug.Log(_name);
             }
 
             /*___________________________HUDforConstruction______________________*/
-            if (constructionMode) {
+            if (constructionMode)
+            {
                 GameObject aimed = getAimingObject();
-                if (aimed != null) {
-                    if (aimed.tag == "TurretSpawnPoints") {
+                if (aimed != null)
+                {
+                    if (aimed.tag == "TurretSpawnPoints")
+                    {
                         hudTrap.SetActive(false);
                         hudTurret.SetActive(true);
-                        switch (indexPlacement) {
+                        switch (indexPlacement)
+                        {
                             case 0:
-                                selection1.gameObject.SetActive(true);
-                                selection2.gameObject.SetActive(false);
-                                selection3.gameObject.SetActive(false);
-                                selection4.gameObject.SetActive(false);
+                                TurretSelect1.gameObject.SetActive(true);
+                                TurretSelect2.gameObject.SetActive(false);
+                                TurretSelect3.gameObject.SetActive(false);
+                                TurretSelect4.gameObject.SetActive(false);
                                 break;
                             case 1:
-                                selection1.gameObject.SetActive(false);
-                                selection2.gameObject.SetActive(true);
-                                selection3.gameObject.SetActive(false);
-                                selection4.gameObject.SetActive(false);
+                                TurretSelect1.gameObject.SetActive(false);
+                                TurretSelect2.gameObject.SetActive(true);
+                                TurretSelect3.gameObject.SetActive(false);
+                                TurretSelect4.gameObject.SetActive(false);
                                 break;
                             case 2:
-                                selection1.gameObject.SetActive(false);
-                                selection2.gameObject.SetActive(false);
-                                selection3.gameObject.SetActive(true);
-                                selection4.gameObject.SetActive(false);
+                                TurretSelect1.gameObject.SetActive(false);
+                                TurretSelect2.gameObject.SetActive(false);
+                                TurretSelect3.gameObject.SetActive(true);
+                                TurretSelect4.gameObject.SetActive(false);
                                 break;
                             default:
-                                selection1.gameObject.SetActive(false);
-                                selection2.gameObject.SetActive(false);
-                                selection3.gameObject.SetActive(false);
-                                selection4.gameObject.SetActive(true);
+                                TurretSelect1.gameObject.SetActive(false);
+                                TurretSelect2.gameObject.SetActive(false);
+                                TurretSelect3.gameObject.SetActive(false);
+                                TurretSelect4.gameObject.SetActive(true);
                                 break;
                         }
-                    } else if (aimed.tag == "TrapSpawnPoint") {
+                    }
+                    else if (aimed.tag == "TrapSpawnPoint")
+                    {
                         hudTrap.SetActive(true);
                         hudTurret.SetActive(false);
-                        switch (indexPlacement) {
+                        switch (indexPlacement)
+                        {
                             case 0:
-                                select1.gameObject.SetActive(true);
-                                select2.gameObject.SetActive(false);
-                                select3.gameObject.SetActive(false);
-                                select4.gameObject.SetActive(false);
+                                TrapSelect1.gameObject.SetActive(true);
+                                TrapSelect2.gameObject.SetActive(false);
+                                TrapSelect3.gameObject.SetActive(false);
+                                TrapSelect4.gameObject.SetActive(false);
                                 break;
                             case 1:
-                                select1.gameObject.SetActive(false);
-                                select2.gameObject.SetActive(true);
-                                select3.gameObject.SetActive(false);
-                                select4.gameObject.SetActive(false);
+                                TrapSelect1.gameObject.SetActive(false);
+                                TrapSelect2.gameObject.SetActive(true);
+                                TrapSelect3.gameObject.SetActive(false);
+                                TrapSelect4.gameObject.SetActive(false);
                                 break;
                             case 2:
-                                select1.gameObject.SetActive(false);
-                                select2.gameObject.SetActive(false);
-                                select3.gameObject.SetActive(true);
-                                select4.gameObject.SetActive(false);
+                                TrapSelect1.gameObject.SetActive(false);
+                                TrapSelect2.gameObject.SetActive(false);
+                                TrapSelect3.gameObject.SetActive(true);
+                                TrapSelect4.gameObject.SetActive(false);
                                 break;
                             default:
-                                select1.gameObject.SetActive(false);
-                                select2.gameObject.SetActive(false);
-                                select3.gameObject.SetActive(false);
-                                select4.gameObject.SetActive(true);
+                                TrapSelect1.gameObject.SetActive(false);
+                                TrapSelect2.gameObject.SetActive(false);
+                                TrapSelect3.gameObject.SetActive(false);
+                                TrapSelect4.gameObject.SetActive(true);
                                 break;
                         }
-                    } else {
+                    }
+                    else
+                    {
                         hudTrap.SetActive(false);
                         hudTurret.SetActive(false);
                     }
                 }
-            } else {
+                else
+                {
+                    hudTrap.SetActive(false);
+                    hudTurret.SetActive(false);
+                }
+            }
+            else
+            {
                 hudTrap.SetActive(false);
                 hudTurret.SetActive(false);
             }
         }
     }
-    public void OnAmmoChanged(int _old, int _new) {
+    public void OnAmmoChanged(int _old, int _new)
+    {
         UImunitions.text = $"{nbMunitions} / {maxMunitions} ";
     }
-    public void OnStockChanged(int _old, int _new) {
+    public void OnStockChanged(int _old, int _new)
+    {
         UIstock.text = $"Stock: {munitions}";
     }
-    public void OnMoneyChanged(int _old, int _new) {
+    public void OnMoneyChanged(int _old, int _new)
+    {
         UIMoney.text = $"{money}";
     }
-    public void OnStateChanged(bool _old, bool _new) {
-        if(!_old) {
+    public void OnStateChanged(bool _old, bool _new)
+    {
+        if (!_old)
+        {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        else {
+        else
+        {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
 
     }
 
-    public void IpPanel(bool _old, bool _new) {
+    public void IpPanel(bool _old, bool _new)
+    {
         panel.SetActive(!_new);
     }
 
 
-     //Activate new equipped weapon and deactivate the previous one
-    public void OnWeaponChanged(int _old, int _new) {
-        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null) {
+    //Activate new equipped weapon and deactivate the previous one
+    public void OnWeaponChanged(int _old, int _new)
+    {
+        if (_old >= 0 && _old < holsterArray.Length && holsterArray[_old] != null)
+        {
             holsterArray[_old].SetActive(false);
         }
-        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null) {
+        if (_new >= 0 && _new < holsterArray.Length && holsterArray[_new] != null)
+        {
             holsterArray[_new].SetActive(true);
         }
     }
     //Synchronize new weapon on server
     [Command]
-    public void CmdChangeActiveWeapon(int newIndex) {
+    public void CmdChangeActiveWeapon(int newIndex)
+    {
         activeWeapon = newIndex;
     }
     //Update weapon characteristics to those of the new weapon
-    public void ChangeWeaponStats(int index) {
+    public void ChangeWeaponStats(int index)
+    {
         var weapon = holsterArray[index];
         gunDamage = weapon.GetComponent<WeaponCharacteristics>().damage;
         reloadTime = weapon.GetComponent<WeaponCharacteristics>().reloadSpeed;
@@ -378,40 +433,52 @@ public class PlayerController : NetworkBehaviour
         nbMunitions = weapon.GetComponent<WeaponCharacteristics>().currentAmmo;
     }
     //Change lock state of cursor
-    public void ChangeCursorLockState() {
-        if (Cursor.lockState == CursorLockMode.None) {
+    public void ChangeCursorLockState()
+    {
+        if (Cursor.lockState == CursorLockMode.None)
+        {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-        else {
+        else
+        {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
         pauseMenu.SetActive(!pauseMenu.activeSelf);
         pauseMenuActive = !pauseMenuActive;
     }
-    void UpdateMunitions(bool isClipEmpty, bool canFullLoad) {
-        if (isClipEmpty) {
-            if (canFullLoad) {
+    void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
+    {
+        if (isClipEmpty)
+        {
+            if (canFullLoad)
+            {
                 nbMunitions = maxMunitions;
                 munitions -= maxMunitions;
             }
-            else {
+            else
+            {
                 nbMunitions = munitions;
                 munitions = 0;
             }
         }
-        else {
-            if (canFullLoad) {
+        else
+        {
+            if (canFullLoad)
+            {
                 munitions -= maxMunitions - nbMunitions;
                 nbMunitions = maxMunitions;
             }
-            else {
-                if (maxMunitions - nbMunitions >= munitions) {
+            else
+            {
+                if (maxMunitions - nbMunitions >= munitions)
+                {
                     nbMunitions += munitions;
                     munitions = 0;
                 }
-                else {
+                else
+                {
                     munitions -= maxMunitions - nbMunitions;
                     nbMunitions = maxMunitions;
                 }
@@ -419,7 +486,8 @@ public class PlayerController : NetworkBehaviour
         }
     }
     //Reloading function
-    IEnumerator Reload() {
+    IEnumerator Reload()
+    {
         isReloading = true;
         animator.SetBool("isReloading", true);
         gunSource.clip = GetNetworkManager().GetComponentInParent<SpawnTable>().GetGunSound(3);
@@ -432,7 +500,8 @@ public class PlayerController : NetworkBehaviour
         animator.SetBool("isReloading", false);
         isReloading = false;
     }
-    IEnumerator Shoot() {
+    IEnumerator Shoot()
+    {
         canShoot = false;
         CmdTryShoot(myCam.transform.position, myCam.transform.forward, gunRange);
         var weapon = holsterArray[indexWeapon];
@@ -445,12 +514,15 @@ public class PlayerController : NetworkBehaviour
     // Client --> Server
     //Try shooting a ray between gun muzzle and a point in front of the camera
     [Command]
-    void CmdTryShoot(Vector3 origin, Vector3 direction, float range) {
+    void CmdTryShoot(Vector3 origin, Vector3 direction, float range)
+    {
         // Création d'un raycast
-        if (!gunParticle.isPlaying) {
+        if (!gunParticle.isPlaying)
+        {
             RpcStartParticles();
         }
-        if (gunSource.isPlaying) {
+        if (gunSource.isPlaying)
+        {
             gunSource.Stop();
         }
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
@@ -458,8 +530,10 @@ public class PlayerController : NetworkBehaviour
         gunSource.Play();
         Ray ray = new Ray(origin, direction);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, range, rayMask)) {
-            if (hit.collider.tag == "Enemy") {
+        if (Physics.Raycast(ray, out hit, range, rayMask))
+        {
+            if (hit.collider.tag == "Enemy")
+            {
                 hit.collider.GetComponent<Health>().TakeDamage(gunDamage);
             }
             else if (hit.collider.tag == "TurretSpawnPoints")
@@ -468,16 +542,21 @@ public class PlayerController : NetworkBehaviour
     }
     //Build a turret/trap
     [Command]
-    void CmdBuild() {
+    void CmdBuild()
+    {
         GameObject aimed = getAimingObject();
-        if (aimed != null) {
-            if(aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower") {
+        if (aimed != null)
+        {
+            if (aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower")
+            {
                 money -= (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
             }
-            if(aimed.tag == "TrapSpawnPoint") {
+            if (aimed.tag == "TrapSpawnPoint")
+            {
                 money -= aimed.GetComponent<TrapSpawning>().TryBuild(money, indexPlacement);
             }
-            if(aimed.tag == "BarricadeSpawnPoint") {
+            if (aimed.tag == "BarricadeSpawnPoint")
+            {
                 money -= aimed.GetComponent<BarricadeSpawning>().TryBuild(money);
             }
         }
@@ -485,13 +564,17 @@ public class PlayerController : NetworkBehaviour
 
     //Destroy a turret/trap
     [Command]
-    void CmdDestroy() {
+    void CmdDestroy()
+    {
         GameObject aimed = getAimingObject();
-        if (aimed != null) {
-            if(aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower") {
+        if (aimed != null)
+        {
+            if (aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower")
+            {
                 money += (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryDestroy();
             }
-            if(aimed.tag == "TrapSpawnPoint" || aimed.tag == "Trap") {
+            if (aimed.tag == "TrapSpawnPoint" || aimed.tag == "Trap")
+            {
                 money += (aimed.tag == "Trap" ? aimed.GetComponent<TrapInfo>().linkedSpawner : aimed).GetComponent<TrapSpawning>().TryDestroy();
             }
         }
@@ -499,16 +582,20 @@ public class PlayerController : NetworkBehaviour
     //Server --> Client
     //Both next functions : Start playing gun particles
     [ClientRpc]
-    public void RpcStartParticles() {
+    public void RpcStartParticles()
+    {
         StartParticles();
     }
-    public void StartParticles() {
+    public void StartParticles()
+    {
         gunParticle.Play();
     }
     //Enable camera and audioListener on connection of the player
-    public override void OnStartLocalPlayer() {
+    public override void OnStartLocalPlayer()
+    {
         GetComponent<MeshRenderer>().material.color = Color.blue;
-        if (!myCam.enabled || !myAudioListener.enabled || !myCanvas || !miniMapCamera.enabled) {
+        if (!myCam.enabled || !myAudioListener.enabled || !myCanvas || !miniMapCamera.enabled)
+        {
             myCanvas.gameObject.SetActive(true);
             myCam.enabled = true;
             myAudioListener.enabled = true;
@@ -523,10 +610,12 @@ public class PlayerController : NetworkBehaviour
         ChangeWeaponStats(0);
         nbMunitions = maxMunitions;
         networkAnimator.animator = weapon.GetComponent<WeaponCharacteristics>().animator;
-        foreach(var gun in holsterArray) {
+        foreach (var gun in holsterArray)
+        {
             gun.GetComponent<WeaponCharacteristics>().currentAmmo = gun.GetComponent<WeaponCharacteristics>().munitions;
         }
-        if (isServer) {
+        if (isServer)
+        {
             panel.SetActive(true);
             panelText.text = LocalIPAddress();
             door = GameObject.FindGameObjectWithTag("Door");
@@ -538,21 +627,27 @@ public class PlayerController : NetworkBehaviour
 
 
     //Get the point where player is looking at
-    public GameObject getAimingObject() {
+    public GameObject getAimingObject()
+    {
         Ray ray = new Ray(myCam.transform.position, myCam.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 7.5f)) {
+        if (Physics.Raycast(ray, out hit, 7.5f))
+        {
             return hit.transform.gameObject;
         }
-        else {
+        else
+        {
             return null;
         }
     }
-    public void OnMainMenu() {
-        if (isClientOnly) {
+    public void OnMainMenu()
+    {
+        if (isClientOnly)
+        {
             networkManager.StopClient();
         }
-        else {
+        else
+        {
             networkManager.StopHost();
         }
     }
@@ -563,41 +658,50 @@ public class PlayerController : NetworkBehaviour
 
         return Math.Abs(tmp).ToString();
     }
-    public void OnEndGame(bool victory) {
+    public void OnEndGame(bool victory)
+    {
         win = victory;
         canWinPoints = startRoundThree != -1f;
         Cursor.lockState = CursorLockMode.None;
         deltaMoney = canWinPoints ? CountPoints(FindObjectOfType<EnemyKill>().killedEnemies) : 0;
         PlayerPrefs.SetInt("krux", PlayerPrefs.GetInt("krux") + deltaMoney);
         networkManager.offlineScene = "WinScene";
-        if (!isClientOnly) {
+        if (!isClientOnly)
+        {
             networkManager.StopHost();
             NetworkServer.Shutdown();
         }
-        else {
+        else
+        {
             networkManager.StopClient();
         }
-        
+
     }
 
-    public void SavePlayer() {
+    public void SavePlayer()
+    {
         StatsManager.instance.money += CountPoints(FindObjectOfType<EnemyKill>().killedEnemies);
     }
 
     public void SetRoundThree(float start) => startRoundThree = start;
 
-    string RandomString() {
+    string RandomString()
+    {
         string s = "";
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++)
+        {
             s += (char)UnityEngine.Random.Range(65, 91);
         }
         return s;
     }
 
-    public int CountPoints(List<Type> list) {
+    public int CountPoints(List<Type> list)
+    {
         float total = 0;
-        foreach(var enemyType in list) {
-            switch(enemyType) {
+        foreach (var enemyType in list)
+        {
+            switch (enemyType)
+            {
                 case Type.FLYING:
                     total += 15;
                     break;
@@ -610,12 +714,12 @@ public class PlayerController : NetworkBehaviour
                 default:
                     total += 100;
                     break;
-			}
-		}
-        total /= death < 2 ? 1 : death/2;
+            }
+        }
+        total /= death < 2 ? 1 : death / 2;
         total += money / 100;
         total /= 26;
 
         return Mathf.CeilToInt(total);
-	}
+    }
 }
