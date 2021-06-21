@@ -479,7 +479,6 @@ GameObject:
   - component: {fileID: 3008791157584332292}
   - component: {fileID: 878283999157080190}
   - component: {fileID: 2911537236261443930}
-  - component: {fileID: 2089294125662036813}
   - component: {fileID: 6308257279819105055}
   m_Layer: 9
   m_Name: Boss
@@ -622,8 +621,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  maxHP: 200
-  health: 200
+  maxHP: 350
+  health: 350
   destroyOnDeath: 1
   hasHealthBar: 1
   check: {fileID: 0}
@@ -706,20 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bdf51aded49aef4bb2b0c435b4e6e05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
---- !u!65 &2089294125662036813
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3322807278183714812}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  type: 3
 --- !u!82 &6308257279819105055
 AudioSource:
   m_ObjectHideFlags: 0
