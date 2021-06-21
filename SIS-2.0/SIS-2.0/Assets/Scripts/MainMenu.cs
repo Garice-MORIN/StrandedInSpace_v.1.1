@@ -24,12 +24,22 @@ namespace Mirror.Discovery {
         public NetworkManager networkManager;
         public InputField inputField;
         public Vector2 position = Vector2.zero;
-        int firstRun = 0;
 
         //Servers search
         public NetworkDiscovery networkDiscovery;
 
         private void Start() {
+            int hasPlayed = PlayerPrefs.GetInt("hasPlayed");
+            if(hasPlayed == 0){
+                PlayerPrefs.SetInt("hasPlayed", 1);
+                PlayerPrefs.SetInt("krux", 0);
+                PlayerPrefs.SetFloat("StartingMoney", 1f);
+                PlayerPrefs.SetFloat("MaxHealth", 1f);
+                PlayerPrefs.SetFloat("TowerDamage", 1f);
+                PlayerPrefs.SetFloat("TowerStatus", 1f);
+                PlayerPrefs.SetFloat("TrapDamage", 1f);
+                PlayerPrefs.SetFloat("TrapUSes", 1f);
+            }
             
             volumeSlider.value = 0.5f;
             effectSlider.value = 0.5f;
@@ -42,7 +52,6 @@ namespace Mirror.Discovery {
             PlayerPrefs.SetFloat("Sensi", 1125);
             networkManager = NetworkManager.singleton;
         }
-
         //Quit button behaviour
         public void OnExitButton() {
             Application.Quit();

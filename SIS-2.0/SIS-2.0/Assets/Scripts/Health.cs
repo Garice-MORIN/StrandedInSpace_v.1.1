@@ -22,6 +22,11 @@ public class Health : NetworkBehaviour
     public Text life;
 
     private void Start(){
+        if (isLocalPlayer){
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+            maxHP = (int)(maxHP * PlayerPrefs.GetFloat("MaxHealth"));
+            gameObject.GetComponent<PlayerController>().life.text = $"{maxHP} / {maxHP}";
+        }
         check = FindObjectOfType<EnemyKill>();
         health = maxHP;
         if (!hasHealthBar)
@@ -29,11 +34,7 @@ public class Health : NetworkBehaviour
         else
             life.text = health.ToString();
 
-        if (isLocalPlayer){
-            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
-            
-            gameObject.GetComponent<PlayerController>().life.text = $"{maxHP} / {maxHP}";
-        }
+        
         if(hasHealthBar) {
             //Initialize health bars
             /*background.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxHP);
