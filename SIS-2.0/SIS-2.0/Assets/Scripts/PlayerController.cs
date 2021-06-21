@@ -255,67 +255,73 @@ public class PlayerController : NetworkBehaviour
             }
 
             /*___________________________HUDforConstruction______________________*/
-            if (constructionMode && getAimingObject().tag == "TurretSpawnPoints") {
-                hudTrap.SetActive(false);
-                hudTurret.SetActive(true);
-                switch (indexPlacement) {
-                    case 0:
-                        selection1.gameObject.SetActive(true);
-                        selection2.gameObject.SetActive(false);
-                        selection3.gameObject.SetActive(false);
-                        selection4.gameObject.SetActive(false);
-                        break;
-                    case 1:
-                        selection1.gameObject.SetActive(false);
-                        selection2.gameObject.SetActive(true);
-                        selection3.gameObject.SetActive(false);
-                        selection4.gameObject.SetActive(false);
-                        break;
-                    case 2:
-                        selection1.gameObject.SetActive(false);
-                        selection2.gameObject.SetActive(false);
-                        selection3.gameObject.SetActive(true);
-                        selection4.gameObject.SetActive(false);
-                        break;
-                    default:
-                        selection1.gameObject.SetActive(false);
-                        selection2.gameObject.SetActive(false);
-                        selection3.gameObject.SetActive(false);
-                        selection4.gameObject.SetActive(true);
-                        break;
+            if (constructionMode) {
+                GameObject aimed = getAimingObject();
+                if (aimed != null) {
+                    if (aimed.tag == "TurretSpawnPoints") {
+                        hudTrap.SetActive(false);
+                        hudTurret.SetActive(true);
+                        switch (indexPlacement) {
+                            case 0:
+                                selection1.gameObject.SetActive(true);
+                                selection2.gameObject.SetActive(false);
+                                selection3.gameObject.SetActive(false);
+                                selection4.gameObject.SetActive(false);
+                                break;
+                            case 1:
+                                selection1.gameObject.SetActive(false);
+                                selection2.gameObject.SetActive(true);
+                                selection3.gameObject.SetActive(false);
+                                selection4.gameObject.SetActive(false);
+                                break;
+                            case 2:
+                                selection1.gameObject.SetActive(false);
+                                selection2.gameObject.SetActive(false);
+                                selection3.gameObject.SetActive(true);
+                                selection4.gameObject.SetActive(false);
+                                break;
+                            default:
+                                selection1.gameObject.SetActive(false);
+                                selection2.gameObject.SetActive(false);
+                                selection3.gameObject.SetActive(false);
+                                selection4.gameObject.SetActive(true);
+                                break;
+                        }
+                    } else if (aimed.tag == "TrapSpawnPoint") {
+                        hudTrap.SetActive(true);
+                        hudTurret.SetActive(false);
+                        switch (indexPlacement) {
+                            case 0:
+                                select1.gameObject.SetActive(true);
+                                select2.gameObject.SetActive(false);
+                                select3.gameObject.SetActive(false);
+                                select4.gameObject.SetActive(false);
+                                break;
+                            case 1:
+                                select1.gameObject.SetActive(false);
+                                select2.gameObject.SetActive(true);
+                                select3.gameObject.SetActive(false);
+                                select4.gameObject.SetActive(false);
+                                break;
+                            case 2:
+                                select1.gameObject.SetActive(false);
+                                select2.gameObject.SetActive(false);
+                                select3.gameObject.SetActive(true);
+                                select4.gameObject.SetActive(false);
+                                break;
+                            default:
+                                select1.gameObject.SetActive(false);
+                                select2.gameObject.SetActive(false);
+                                select3.gameObject.SetActive(false);
+                                select4.gameObject.SetActive(true);
+                                break;
+                        }
+                    } else {
+                        hudTrap.SetActive(false);
+                        hudTurret.SetActive(false);
+                    }
                 }
-            }
-            else if (constructionMode && getAimingObject().tag == "TrapSpawnPoint") {
-                hudTrap.SetActive(true);
-                hudTurret.SetActive(false);
-                switch (indexPlacement) {
-                    case 0:
-                        select1.gameObject.SetActive(true);
-                        select2.gameObject.SetActive(false);
-                        select3.gameObject.SetActive(false);
-                        select4.gameObject.SetActive(false);
-                        break;
-                    case 1:
-                        select1.gameObject.SetActive(false);
-                        select2.gameObject.SetActive(true);
-                        select3.gameObject.SetActive(false);
-                        select4.gameObject.SetActive(false);
-                        break;
-                    case 2:
-                        select1.gameObject.SetActive(false);
-                        select2.gameObject.SetActive(false);
-                        select3.gameObject.SetActive(true);
-                        select4.gameObject.SetActive(false);
-                        break;
-                    default:
-                        select1.gameObject.SetActive(false);
-                        select2.gameObject.SetActive(false);
-                        select3.gameObject.SetActive(false);
-                        select4.gameObject.SetActive(true);
-                        break;
-                }
-            }
-            else {
+            } else {
                 hudTrap.SetActive(false);
                 hudTurret.SetActive(false);
             }
@@ -508,7 +514,7 @@ public class PlayerController : NetworkBehaviour
             myAudioListener.enabled = true;
             miniMapCamera.enabled = true;
         }
-        _name = RandomString();
+        _name = PlayerPrefs.GetString("name");
         score = 0;
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
         munitions = 20;
