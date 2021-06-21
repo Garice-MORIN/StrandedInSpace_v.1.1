@@ -31,6 +31,7 @@ namespace Mirror.Discovery {
         private void Start() {
             int hasPlayed = PlayerPrefs.GetInt("hasPlayed");
             if(hasPlayed == 0){
+                PlayerPrefs.SetString("name","");
                 PlayerPrefs.SetInt("hasPlayed", 1);
                 PlayerPrefs.SetInt("krux", 0);
                 PlayerPrefs.SetFloat("StartingMoney", 1f);

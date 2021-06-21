@@ -8,9 +8,6 @@ public class SkillTree : MonoBehaviour
     public SkillTree(){
         Tree = new List<SkillType>{};
     }
-    public SkillTree(List<bool> listBool){
-        Tree = GetAllUnlockedSkills(listBool);
-    }
     public enum SkillType{
         None,
         StartingMoney1,
