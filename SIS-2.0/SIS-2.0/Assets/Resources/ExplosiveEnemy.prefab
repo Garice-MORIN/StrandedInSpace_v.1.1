@@ -403,11 +403,10 @@ GameObject:
   - component: {fileID: 7504748251946289719}
   - component: {fileID: 3828022650356877755}
   - component: {fileID: 1220136199153754049}
-  - component: {fileID: -5424204783539792155}
   - component: {fileID: 9051438540401906}
   - component: {fileID: -3794863921720030048}
   m_Layer: 9
-  m_Name: HeavyEnemy
+  m_Name: ExplosiveEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,8 +546,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  maxHP: 200
-  health: 200
+  maxHP: 75
+  health: 75
   destroyOnDeath: 1
   hasHealthBar: 1
   check: {fileID: 0}
@@ -591,20 +590,14 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 69632
-  explosionMask:
-    serializedVersion: 2
-    m_Bits: 4353
   enemyPosition: {fileID: 3657620336170778689}
   navMesh: {fileID: 7504748251946289719}
   isToGoRight: 0
   damage: 50
   cooldownTime: 0
   goToTurret: 0
-  explosion: {fileID: -3794863921720030048}
-  attackCooldown: 1
-  explosionDamage: 10
+  explosionDamage: 50
   slowed: 0
-  canAttack: 0
   baseSpeed: 0
   slowDuration: 0
 --- !u!114 &1220136199153754049
@@ -619,20 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 24
---- !u!114 &-5424204783539792155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3657620336170778691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bdf51aded49aef4bb2b0c435b4e6e05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
+  money: 32
 --- !u!65 &9051438540401906
 BoxCollider:
   m_ObjectHideFlags: 0

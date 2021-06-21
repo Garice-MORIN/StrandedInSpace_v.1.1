@@ -385,11 +385,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2583387488365510198}
-  munitions: 10
+  munitions: 12
   reloadSpeed: 1
-  damage: 1000
+  damage: 30
   fireRate: 0.4
-  currentAmmo: 10
+  currentAmmo: 12
   isPulse: 0
 --- !u!1 &2387940644072447195
 GameObject:

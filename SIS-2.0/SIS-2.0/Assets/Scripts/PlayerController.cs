@@ -614,7 +614,7 @@ public class PlayerController : NetworkBehaviour
 		}
         total /= death < 2 ? 1 : death/2;
         total += money / 100;
-        total *= (1 + (EnemiesSpawner.waveNumber-1 / 5)*0.5f);
+        total /= 26;
 
         return Mathf.CeilToInt(total);
 	}

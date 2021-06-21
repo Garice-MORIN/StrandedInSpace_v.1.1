@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 7880699171596970845}
   - component: {fileID: 3073041167185578109}
   - component: {fileID: 2179162136719156473}
-  - component: {fileID: 682196207717676912}
   - component: {fileID: 84572743576137739}
   m_Layer: 9
   m_Name: NormalEnemy
@@ -259,8 +258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  maxHP: 100
-  health: 100
+  maxHP: 200
+  health: 200
   destroyOnDeath: 1
   hasHealthBar: 1
   check: {fileID: 0}
@@ -275,7 +274,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -303,20 +302,14 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4096
-  explosionMask:
-    serializedVersion: 2
-    m_Bits: 0
   enemyPosition: {fileID: 170188676883244101}
   navMesh: {fileID: 7880699171596970845}
   isToGoRight: 1
-  damage: 12
-  cooldownTime: 0
+  damage: 30
+  cooldownTime: 1.25
   goToTurret: 0
-  explosion: {fileID: 84572743576137739}
-  attackCooldown: 1
   explosionDamage: 0
   slowed: 0
-  canAttack: 0
   baseSpeed: 0
   slowDuration: 0
 --- !u!114 &2179162136719156473
@@ -331,20 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 12
---- !u!114 &682196207717676912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170188676883244103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bdf51aded49aef4bb2b0c435b4e6e05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
+  money: 16
 --- !u!82 &84572743576137739
 AudioSource:
   m_ObjectHideFlags: 0

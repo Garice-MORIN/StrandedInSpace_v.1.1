@@ -16,7 +16,6 @@ public class EnemyMovement : MonoBehaviour
     public Type type;
 
     public LayerMask mask;
-    public LayerMask explosionMask;
     public Transform enemyPosition;
     public NavMeshAgent navMesh;
     public bool isToGoRight;
@@ -31,10 +30,9 @@ public class EnemyMovement : MonoBehaviour
     AudioSource explosion;
     //Animator animator;
     
-    public float attackCooldown;
     public int explosionDamage;
     public bool slowed;
-    public bool canAttack;
+    private bool canAttack;
     public float baseSpeed;
     public float slowDuration;
     void Start()
