@@ -39,7 +39,7 @@ namespace Mirror.Discovery {
                 PlayerPrefs.SetFloat("TowerDamage", 1f);
                 PlayerPrefs.SetFloat("TowerStatus", 1f);
                 PlayerPrefs.SetFloat("TrapDamage", 1f);
-                PlayerPrefs.SetFloat("TrapUSes", 1f);
+                PlayerPrefs.SetFloat("TrapUses", 1f);
             }
             
             volumeSlider.value = 0.5f;

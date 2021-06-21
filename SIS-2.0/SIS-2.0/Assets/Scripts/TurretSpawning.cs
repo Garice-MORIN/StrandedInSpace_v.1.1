@@ -13,6 +13,10 @@ public class TurretSpawning : NetworkBehaviour
     private GameObject towerPrefab;
     private Vector3 position;
     private Quaternion orientation;
+    private float upgradeDamageKept;
+    private float upgradeStatusKept;
+    public float upgradeDamageSent;
+    public float upgradeStatusSent;
     void Start(){
         position = transform.position;
         orientation = Quaternion.Euler(0f, 0f, 0f);
@@ -33,6 +37,10 @@ public class TurretSpawning : NetworkBehaviour
         int priceNeeded = towerPrefab.GetComponent<Money>().money;
         if(playerMoney >= priceNeeded) {
             towerType = towerToBuild;
+            upgradeDamageKept = upgradeDamageSent;
+            upgradeStatusKept = upgradeStatusSent;
+            towerPrefab.GetComponent<TurretInfo>().damage = (int)(towerPrefab.GetComponent<TurretInfo>().damage * upgradeDamageKept);
+            towerPrefab.GetComponent<TurretInfo>().statusDuration = (int)(towerPrefab.GetComponent<TurretInfo>().statusDuration * upgradeStatusKept);
             towerPrefab.GetComponent<TurretInfo>().linkedSpawner = this.transform.gameObject;
             toSpawn = (GameObject)Instantiate(towerPrefab, position, orientation);
             NetworkServer.Spawn(toSpawn);
@@ -46,6 +54,8 @@ public class TurretSpawning : NetworkBehaviour
         if(playerMoney >= priceNeeded) {
             Destroy(toSpawn);
             towerPrefab = GetNetworkManager().GetComponentInParent<SpawnTable>().GetTower(towerType,level);
+            towerPrefab.GetComponent<TurretInfo>().damage = (int)(towerPrefab.GetComponent<TurretInfo>().damage * upgradeDamageKept);
+            towerPrefab.GetComponent<TurretInfo>().statusDuration = (int)(towerPrefab.GetComponent<TurretInfo>().statusDuration * upgradeStatusKept);
             towerPrefab.GetComponent<TurretInfo>().linkedSpawner = this.transform.gameObject;
             toSpawn = (GameObject)Instantiate(towerPrefab, position, orientation);
             NetworkServer.Spawn(toSpawn);

@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 695165795465135919}
   - component: {fileID: -5063921288281063847}
   - component: {fileID: 3072215078585137365}
-  - component: {fileID: 6611530877551182642}
   - component: {fileID: -5721121003856613583}
   - component: {fileID: -1318597332587607870}
+  - component: {fileID: -2841506446934043453}
   m_Layer: 12
   m_Name: Fire1Tower
   m_TagString: Tower
@@ -124,35 +124,9 @@ MonoBehaviour:
   syncInterval: 0.1
   maxHP: 3
   health: 3
-  HPBar: {fileID: 0}
-  background: {fileID: 0}
   destroyOnDeath: 0
   hasHealthBar: 0
-  check: {fileID: 0}
---- !u!114 &6611530877551182642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141842653236193101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb95c87a9728165468d42d0f24f936d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  linkedSpawner: {fileID: 0}
-  typeOfTower: 2
-  range: 4
-  attackDelay: 0.2
-  cooldown: 0
-  damage: 2
-  targetsPerAttack: 1
-  slowDuration: 0
-  slowPower: 0
-  burnDuration: 2
+  life: {fileID: 0}
 --- !u!114 &-5721121003856613583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +153,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 5, z: 4}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &-2841506446934043453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141842653236193101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb95c87a9728165468d42d0f24f936d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  linkedSpawner: {fileID: 0}
+  typeOfTower: 2
+  range: 4
+  attackDelay: 0.2
+  cooldown: 0
+  damage: 2
+  targetsPerAttack: 1
+  statusDuration: 2
+  slowPower: 0
 --- !u!1 &2516239233974601373
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class TrapSpawning : MonoBehaviour
     private Vector3 position;
     private Quaternion orientation;
     private Quaternion orientation2;
+    public float upgradeDamageKept;
+    public float upgradeUsesKept;
 
     void Start(){
         position = transform.position;
@@ -32,6 +34,8 @@ public class TrapSpawning : MonoBehaviour
             trapType = trapToBuild;
             level += 1;
             trapPrefab.GetComponent<TrapInfo>().linkedSpawner = this.transform.gameObject;
+            trapPrefab.GetComponent<TrapInfo>().damage = (int)(trapPrefab.GetComponent<TrapInfo>().damage * upgradeDamageKept);
+            trapPrefab.GetComponent<TrapInfo>().usesLeft = (int)(trapPrefab.GetComponent<TrapInfo>().usesLeft * upgradeUsesKept);
             toSpawn = (GameObject)Instantiate(trapPrefab, position, trapToBuild == 2 ? orientation : orientation2);
             NetworkServer.Spawn(toSpawn);
             return priceNeeded;

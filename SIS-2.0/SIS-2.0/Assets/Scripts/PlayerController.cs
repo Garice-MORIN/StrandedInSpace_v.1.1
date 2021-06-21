@@ -549,10 +549,15 @@ public class PlayerController : NetworkBehaviour
         {
             if (aimed.tag == "TurretSpawnPoints" || aimed.tag == "Tower")
             {
-                money -= (aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed).GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
+                GameObject spawner = aimed.tag == "Tower" ? aimed.GetComponent<TurretInfo>().linkedSpawner : aimed;
+                spawner.GetComponent<TurretSpawning>().upgradeDamageSent = PlayerPrefs.GetFloat("TowerDamage");
+                spawner.GetComponent<TurretSpawning>().upgradeStatusSent = PlayerPrefs.GetFloat("TowerStatus");
+                money -= spawner.GetComponent<TurretSpawning>().TryBuild(money, indexPlacement);
             }
             if (aimed.tag == "TrapSpawnPoint")
             {
+                aimed.GetComponent<TrapSpawning>().upgradeDamageKept = PlayerPrefs.GetFloat("TrapDamage");
+                aimed.GetComponent<TrapSpawning>().upgradeUsesKept = PlayerPrefs.GetFloat("TrapUses");
                 money -= aimed.GetComponent<TrapSpawning>().TryBuild(money, indexPlacement);
             }
             if (aimed.tag == "BarricadeSpawnPoint")

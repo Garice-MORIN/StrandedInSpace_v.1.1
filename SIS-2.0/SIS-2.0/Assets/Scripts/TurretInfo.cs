@@ -19,9 +19,8 @@ public class TurretInfo : NetworkBehaviour
     public float cooldown;
     public int damage;
     public int targetsPerAttack;
-    public float slowDuration;
+    public float statusDuration;
     public float slowPower;
-    public float burnDuration;
     void Start() {
         cooldown = attackDelay;
     }
@@ -122,7 +121,7 @@ public class TurretInfo : NetworkBehaviour
     }
     void Burn(GameObject enemy) {
         if(enemy != null) {
-            StartCoroutine(enemy.GetComponent<Health>().GetBurned(damage, (int)(burnDuration/0.5f)));
+            StartCoroutine(enemy.GetComponent<Health>().GetBurned(damage, (int)(statusDuration/0.5f)));
         }
     }
     GameObject[] FlameThrowerAim(GameObject[] enemiesLeft) {
@@ -155,7 +154,7 @@ public class TurretInfo : NetworkBehaviour
     }
     void Slow(GameObject enemy) {
         if(enemy != null) {
-            enemy.GetComponent<EnemyMovement>().Slow(slowPower, slowDuration);
+            enemy.GetComponent<EnemyMovement>().Slow(slowPower, statusDuration);
         }
     }
     RaycastHit[] SlowAim() {
