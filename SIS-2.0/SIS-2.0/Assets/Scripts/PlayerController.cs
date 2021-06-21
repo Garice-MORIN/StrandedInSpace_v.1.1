@@ -41,11 +41,6 @@ public class PlayerController : NetworkBehaviour
     float gravity = -19.62f;
     float jumpHeight = 2f;
     int points;
-
-
-    [SyncVar(hook = "OnStateChanged")] bool pauseMenuActive;
-
-
     //Interface & Sound related variables
     public GameObject myCanvas;
     public AudioSource gunSource;
@@ -111,7 +106,6 @@ public class PlayerController : NetworkBehaviour
         constructionMode = false;
         currentSpeed = 5f;
         pauseMenu.SetActive(false);
-        pauseMenuActive = false;
         settingsMenu.SetActive(false);
         commandsMenu.SetActive(false);
         sureMenu.SetActive(false);
@@ -382,20 +376,6 @@ public class PlayerController : NetworkBehaviour
     {
         UIMoney.text = $"{money}";
     }
-    public void OnStateChanged(bool _old, bool _new)
-    {
-        if (!_old)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-
-    }
 
     public void IpPanel(bool _old, bool _new)
     {
@@ -445,8 +425,9 @@ public class PlayerController : NetworkBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+        hudTrap.SetActive(false);
+        hudTurret.SetActive(false);
         pauseMenu.SetActive(!pauseMenu.activeSelf);
-        pauseMenuActive = !pauseMenuActive;
     }
     void UpdateMunitions(bool isClipEmpty, bool canFullLoad)
     {
