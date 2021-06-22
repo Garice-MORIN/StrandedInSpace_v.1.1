@@ -19,6 +19,7 @@ TagManager:
   - Trap
   - Barricade
   - Checkpoint
+  - Check
   layers:
   - Default
   - TransparentFX

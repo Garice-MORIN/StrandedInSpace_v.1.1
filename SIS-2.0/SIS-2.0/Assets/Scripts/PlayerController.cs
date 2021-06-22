@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using Mirror;
-using System.Net;
 using System;
 
 public class PlayerController : NetworkBehaviour
@@ -47,6 +45,7 @@ public class PlayerController : NetworkBehaviour
 
     public GameObject hudTrap;
     public GameObject hudTurret;
+    public ScoreBoard boardOfScores;
     public Image TurretSelect1;
     public Image TurretSelect2;
     public Image TurretSelect3;
@@ -609,6 +608,8 @@ public class PlayerController : NetworkBehaviour
         }
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
+        var dictionnary = GameObject.FindGameObjectWithTag("Check");
+        dictionnary.GetComponent<ListOfPlayers>().AddPlayer(_name, (money, 0));
     }
 
 
@@ -635,6 +636,7 @@ public class PlayerController : NetworkBehaviour
         else
         {
             networkManager.StopHost();
+            NetworkServer.Shutdown();
         }
     }
     public static string LocalIPAddress()
