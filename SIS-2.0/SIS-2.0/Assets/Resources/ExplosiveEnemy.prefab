@@ -405,6 +405,7 @@ GameObject:
   - component: {fileID: 1220136199153754049}
   - component: {fileID: 9051438540401906}
   - component: {fileID: -3794863921720030048}
+  - component: {fileID: -3448560473288232483}
   m_Layer: 9
   m_Name: ExplosiveEnemy
   m_TagString: Enemy
@@ -550,7 +551,6 @@ MonoBehaviour:
   health: 75
   destroyOnDeath: 1
   hasHealthBar: 1
-  check: {fileID: 0}
   life: {fileID: 3488344975522038330}
 --- !u!195 &7504748251946289719
 NavMeshAgent:
@@ -595,7 +595,6 @@ MonoBehaviour:
   isToGoRight: 0
   damage: 50
   cooldownTime: 0
-  goToTurret: 0
   explosionDamage: 50
   slowed: 0
   baseSpeed: 0
@@ -722,6 +721,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &-3448560473288232483
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3657620336170778691}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3657620336743280704
 GameObject:
   m_ObjectHideFlags: 0
