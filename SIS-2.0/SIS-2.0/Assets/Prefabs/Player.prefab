@@ -710,8 +710,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 67584
-  towerPrefab: {fileID: 9000190440345884112, guid: e0fdc35a1e667454d967455d9fed5fa1,
-    type: 3}
   myCam: {fileID: 4242103549988627682}
   miniMapCamera: {fileID: 4620588856091096578}
   myAudioListener: {fileID: 4242103549988627683}
@@ -720,6 +718,7 @@ MonoBehaviour:
   state: {fileID: 0}
   isGrounded: 0
   myCanvas: {fileID: 7078293398212962893}
+  myMinimap: {fileID: 9145703420242795720}
   gunSource: {fileID: 6794398522717391947}
   hudTrap: {fileID: 2474006382647983735}
   hudTurret: {fileID: 4660560451687171445}
