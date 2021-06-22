@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class BarricadeSpawning : MonoBehaviour
+public class BarricadeSpawning : NetworkBehaviour
 {
     public NetworkManager GetNetworkManager() => FindObjectOfType<NetworkManager>();
     public Transform coreTransform;
@@ -53,14 +53,11 @@ public class BarricadeSpawning : MonoBehaviour
             EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
             (bool, bool) path = enemyMovement.GetPath();
             if (enemyMovement.GetGoal().position  == transform.position) {
-                Debug.Log("Entered Loop...");
                 if (rdc) {
                     enemyMovement.SetGoal(GameObject.FindGameObjectWithTag("Checkpoint").transform);
                 }
                 else {
-                    Debug.Log("Entering else statement...");
                     enemyMovement.SetGoal(coreTransform);
-                    Debug.Log("Exiting");
                 }
             }
         }

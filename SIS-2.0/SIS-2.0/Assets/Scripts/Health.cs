@@ -59,7 +59,6 @@ public class Health : NetworkBehaviour
                 }
                 else if(tag == "Enemy")
                 {
-                    Debug.Log("pouet");
                     dead = true;
                     doDrop = Random.Range(0.0f, 1.0f) < 0.6f; //Check if entity drop ammunition on death
                     check.killedEnemies.Add(gameObject.GetComponent<EnemyMovement>().type);
@@ -79,9 +78,7 @@ public class Health : NetworkBehaviour
             else{
                 health = maxHP;
                 gameObject.GetComponent<PlayerController>().death += 1;
-                Debug.Log("prout");
-                RpcRespawn();
-                Debug.Log("pouetteeeeee");
+                Respawn();
                 EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
                 for(int i = 0; i < enemies.Length; i++) {
                     if (enemies[i].type == Type.FLYING && enemies[i].GetFocusedObject() == gameObject)
@@ -109,9 +106,7 @@ public class Health : NetworkBehaviour
         health -= damage;
     }
 
-    //Respawn player
-    [ClientRpc]
-    public void RpcRespawn()
+    public void Respawn()
     {
         if(isLocalPlayer)
         {
@@ -121,7 +116,7 @@ public class Health : NetworkBehaviour
                 spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
             }
             transform.position = spawnPoint;
-            Debug.Log(transform.position);
+            //Debug.Log(transform.position);
         }
     }
 

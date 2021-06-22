@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class TrapSpawning : MonoBehaviour
+public class TrapSpawning : NetworkBehaviour
 {
     public NetworkManager GetNetworkManager() => FindObjectOfType<NetworkManager>();
     private int level = 0;
