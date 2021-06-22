@@ -6,6 +6,7 @@ public class CheckPoint : MonoBehaviour
 	public Transform checkpoint;
 
 	private void OnTriggerEnter(Collider other) {
+		
 		if(other.tag == "Enemy" && ShouldChangeDirection(other.GetComponent<EnemyMovement>(),checkpoint)) {
 			if (other.GetComponent<EnemyMovement>().type == Type.EXPLOSIVE) {
 				EnemyMovement tmp = other.GetComponent<EnemyMovement>();
