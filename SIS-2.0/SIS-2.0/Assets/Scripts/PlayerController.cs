@@ -14,6 +14,7 @@ public class PlayerController : NetworkBehaviour
     //Player related variables
     private float startRoundThree = -1f;
     public CharacterController controller;
+    public Infos info;
     public EnemyKill kills;
     public EnemiesSpawner spawner;
     public StopWatch watch;
@@ -35,7 +36,7 @@ public class PlayerController : NetworkBehaviour
     public bool isGrounded;
     Vector3 velocity;
     float gravity = -19.62f;
-    float jumpHeight = 2f;
+    float jumpHeight = 1.1f;
     int points;
     //Interface & Sound related variables
     public GameObject myCanvas;
