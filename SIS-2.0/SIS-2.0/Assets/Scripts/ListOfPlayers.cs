@@ -5,20 +5,15 @@ using Mirror;
 
 public class ListOfPlayers : NetworkBehaviour
 {
-    private Dictionary<string, (int, int)> _stats;
-
-	private void Awake() {
-		if(_stats is null)
-			_stats = new Dictionary<string, (int, int)>();
-	}
-
-	public void AddPlayer(string name, (int, int) stats) {
-		if (!_stats.ContainsKey(name)) {
-			_stats[name] = stats;
+    private SyncList<GameObject> players = new SyncList<GameObject>();
+	
+	public void AddPlayer(GameObject player) {
+		if (!players.Contains(player)) {
+			players.Add(player);
 		}
 	}
 
-	public Dictionary<string, (int, int)> GetList() {
-		return _stats;
+	public SyncList<GameObject> GetList() {
+		return players;
 	}
 }

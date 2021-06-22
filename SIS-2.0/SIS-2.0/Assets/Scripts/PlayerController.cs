@@ -15,6 +15,7 @@ public class PlayerController : NetworkBehaviour
     //Player related variables
     private float startRoundThree = -1f;
     public CharacterController controller;
+    public Infos info;
     public EnemyKill kills;
     public EnemiesSpawner spawner;
     public StopWatch watch;
@@ -36,7 +37,7 @@ public class PlayerController : NetworkBehaviour
     public bool isGrounded;
     Vector3 velocity;
     float gravity = -19.62f;
-    float jumpHeight = 2f;
+    float jumpHeight = 1.1f;
     int points;
     //Interface & Sound related variables
     public GameObject myCanvas;
@@ -609,7 +610,14 @@ public class PlayerController : NetworkBehaviour
         }
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
-        GameObject.FindGameObjectWithTag("Check").GetComponent<ListOfPlayers>().AddPlayer(_name, (money, 0));
+        info._name = _name; info.money = money; info.death = 0;
+        UpdateScoreBoard();
+    }
+
+
+    [Command]
+    public void UpdateScoreBoard() {
+        GameObject.FindGameObjectWithTag("Check").GetComponent<ListOfPlayers>().AddPlayer(this.gameObject);
     }
 
 
