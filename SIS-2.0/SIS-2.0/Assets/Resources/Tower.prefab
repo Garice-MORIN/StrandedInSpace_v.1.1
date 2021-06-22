@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.10000038}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8753894605081834121
@@ -357,11 +357,11 @@ GameObject:
   - component: {fileID: 3561873878526864249}
   m_Layer: 12
   m_Name: Tower
-  m_TagString: Tower
+  m_TagString: Core
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9000190440345884114
 Transform:
   m_ObjectHideFlags: 0
@@ -493,9 +493,8 @@ MonoBehaviour:
   maxHP: 30
   health: 30
   destroyOnDeath: 1
-  hasHealthBar: 0
-  check: {fileID: 0}
-  life: {fileID: 0}
+  hasHealthBar: 1
+  life: {fileID: 6041498847032148487}
 --- !u!1 &9197610479563458598
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +530,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -20.2}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1227892859418164083

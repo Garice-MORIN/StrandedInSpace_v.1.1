@@ -79,10 +79,12 @@ public class Health : NetworkBehaviour
             else{
                 health = maxHP;
                 gameObject.GetComponent<PlayerController>().death += 1;
+                Debug.Log("prout");
                 RpcRespawn();
+                Debug.Log("pouetteeeeee");
                 EnemyMovement[] enemies = FindObjectsOfType<EnemyMovement>();
                 for(int i = 0; i < enemies.Length; i++) {
-                    if (enemies[i].type == Type.NORMAL && enemies[i].GetFocusedObject() == gameObject)
+                    if (enemies[i].type == Type.FLYING && enemies[i].GetFocusedObject() == gameObject)
                         enemies[i].ChooseTarget();
 				}
 
@@ -119,6 +121,7 @@ public class Health : NetworkBehaviour
                 spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
             }
             transform.position = spawnPoint;
+            Debug.Log(transform.position);
         }
     }
 
