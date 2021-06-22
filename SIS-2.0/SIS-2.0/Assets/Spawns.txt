@@ -1,4 +1,4 @@
-NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy
+Petit,Petit,Petit,Petit
 NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy
 NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy,FlyingEnemy,FlyingEnemy,FlyingEnemy,FlyingEnemy
 NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy,NormalEnemy,FlyingEnemy,FlyingEnemy,FlyingEnemy,FlyingEnemy
