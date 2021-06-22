@@ -21,7 +21,6 @@ public class PlayerController : NetworkBehaviour
     public Transform groundCheck;
     public Transform playerBody;
     public LayerMask groundMask;
-    public GameObject towerPrefab;
     private GameObject door;
     private Door doorScript;
     public Camera myCam;
@@ -41,6 +40,7 @@ public class PlayerController : NetworkBehaviour
     int points;
     //Interface & Sound related variables
     public GameObject myCanvas;
+    public GameObject myMinimap;
     public AudioSource gunSource;
 
     public GameObject hudTrap;
@@ -582,6 +582,7 @@ public class PlayerController : NetworkBehaviour
         if (!myCam.enabled || !myAudioListener.enabled || !myCanvas || !miniMapCamera.enabled)
         {
             myCanvas.gameObject.SetActive(true);
+            myMinimap.gameObject.SetActive(true);
             myCam.enabled = true;
             myAudioListener.enabled = true;
             miniMapCamera.enabled = true;
