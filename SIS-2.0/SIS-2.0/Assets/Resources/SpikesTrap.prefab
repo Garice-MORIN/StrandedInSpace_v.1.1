@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 8138151687519723547}
   - component: {fileID: -5052977544345929945}
   - component: {fileID: -2659710391235411878}
+  - component: {fileID: 1668155181564069124}
   m_Layer: 12
   m_Name: SpikesTrap
   m_TagString: Trap
@@ -232,6 +233,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 75
+--- !u!95 &1668155181564069124
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4732598266293926871}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 37f1e8c1f16d56547a8a61a88daa2d21, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5107252752293770466
 GameObject:
   m_ObjectHideFlags: 0
