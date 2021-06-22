@@ -7,7 +7,6 @@ using System;
 
 public class PlayerController : NetworkBehaviour
 {
-    int startingMoney;
     [SyncVar(hook = "OnMoneyChanged")] public int money;
     public string _name;
     public int death;
@@ -115,7 +114,6 @@ public class PlayerController : NetworkBehaviour
         isGameLaunched = false;
         networkManager.offlineScene = "MainMenu";
         killedEnemies = FindObjectOfType<EnemyKill>().killedEnemies;
-        money = (int)(PlayerPrefs.GetFloat("StartingMoney") * money);
     }
 
     void Update()
@@ -516,8 +514,6 @@ public class PlayerController : NetworkBehaviour
             {
                 hit.collider.GetComponent<Health>().TakeDamage(gunDamage);
             }
-            else if (hit.collider.tag == "TurretSpawnPoints")
-                Debug.Log("Raycast hit");
         }
     }
     //Build a turret/trap
@@ -607,8 +603,7 @@ public class PlayerController : NetworkBehaviour
             door = GameObject.FindGameObjectWithTag("Door");
             doorScript = door.GetComponent<Door>();
         }
-        startingMoney = GetComponent<Money>().money;
-        money = startingMoney;
+        money = (int)(PlayerPrefs.GetFloat("StartingMoney") * GetComponent<Money>().money);
         GameObject.FindGameObjectWithTag("Check").GetComponent<ListOfPlayers>().AddPlayer(_name, (money, 0));
     }
 
