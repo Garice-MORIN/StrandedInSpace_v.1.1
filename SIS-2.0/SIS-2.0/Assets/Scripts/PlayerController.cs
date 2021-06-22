@@ -9,9 +9,11 @@ using System;
 
 public class PlayerController : NetworkBehaviour
 {
+    int startingMoney;
     [SyncVar(hook = "OnMoneyChanged")] public int money;
     public string _name;
     public int death;
+
     //Player related variables
     private float startRoundThree = -1f;
     public CharacterController controller;
@@ -21,6 +23,7 @@ public class PlayerController : NetworkBehaviour
     public Transform groundCheck;
     public Transform playerBody;
     public LayerMask groundMask;
+    public GameObject towerPrefab;
     private GameObject door;
     private Door doorScript;
     public Camera myCam;
@@ -40,7 +43,6 @@ public class PlayerController : NetworkBehaviour
     int points;
     //Interface & Sound related variables
     public GameObject myCanvas;
-    public GameObject myMiniMap;
     public AudioSource gunSource;
 
     public GameObject hudTrap;
@@ -114,6 +116,7 @@ public class PlayerController : NetworkBehaviour
         isGameLaunched = false;
         networkManager.offlineScene = "MainMenu";
         killedEnemies = FindObjectOfType<EnemyKill>().killedEnemies;
+        money = (int)(PlayerPrefs.GetFloat("StartingMoney") * money);
     }
 
     void Update()
@@ -582,10 +585,9 @@ public class PlayerController : NetworkBehaviour
             myCanvas.gameObject.SetActive(true);
             myCam.enabled = true;
             myAudioListener.enabled = true;
-            myMiniMap.gameObject.SetActive(true);
             miniMapCamera.enabled = true;
         }
-        _name = PlayerPrefs.GetString("name") == "" ? RandomString() : PlayerPrefs.GetString("name");
+        _name = PlayerPrefs.GetString("name");
         score = 0;
         gunSource.volume = PlayerPrefs.GetFloat("Effects");
         munitions = 20;
@@ -605,7 +607,8 @@ public class PlayerController : NetworkBehaviour
             door = GameObject.FindGameObjectWithTag("Door");
             doorScript = door.GetComponent<Door>();
         }
-        money = (int)(PlayerPrefs.GetFloat("StartingMoney") * GetComponent<Money>().money);
+        startingMoney = GetComponent<Money>().money;
+        money = startingMoney;
     }
 
 
@@ -660,7 +663,14 @@ public class PlayerController : NetworkBehaviour
         }
 
     }
+
+    public void SavePlayer()
+    {
+        StatsManager.instance.money += CountPoints(FindObjectOfType<EnemyKill>().killedEnemies);
+    }
+
     public void SetRoundThree(float start) => startRoundThree = start;
+
     string RandomString()
     {
         string s = "";
@@ -670,6 +680,7 @@ public class PlayerController : NetworkBehaviour
         }
         return s;
     }
+
     public int CountPoints(List<Type> list)
     {
         float total = 0;
