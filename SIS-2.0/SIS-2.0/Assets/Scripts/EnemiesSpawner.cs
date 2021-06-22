@@ -118,7 +118,6 @@ public class EnemiesSpawner : NetworkBehaviour
     }
 
     void OnStateChanged(bool oldState, bool newState) {
-        Debug.Log("StateChanged");
         if (newState)
             doorScript.OpenDoor();
         else

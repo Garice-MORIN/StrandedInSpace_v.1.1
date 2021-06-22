@@ -608,8 +608,7 @@ public class PlayerController : NetworkBehaviour
         }
         startingMoney = GetComponent<Money>().money;
         money = startingMoney;
-        var dictionnary = GameObject.FindGameObjectWithTag("Check");
-        dictionnary.GetComponent<ListOfPlayers>().AddPlayer(_name, (money, 0));
+        GameObject.FindGameObjectWithTag("Check").GetComponent<ListOfPlayers>().AddPlayer(_name, (money, 0));
     }
 
 
