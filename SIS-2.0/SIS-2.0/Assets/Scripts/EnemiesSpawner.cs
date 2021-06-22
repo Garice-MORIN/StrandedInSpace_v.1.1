@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class EnemiesSpawner : NetworkBehaviour
 {
-    const int maxWave = 3;
+    const int maxWave = 15;
     DateTime startTime;
     DateTime endTime;
     public DateTime startWaveTwo;

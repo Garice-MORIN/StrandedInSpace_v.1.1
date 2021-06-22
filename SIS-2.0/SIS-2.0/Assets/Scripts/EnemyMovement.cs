@@ -24,7 +24,6 @@ public class EnemyMovement : MonoBehaviour
     Collider[] colliders;
     GameObject target = null;
     Transform goal;
-    public bool goToTurret;
     private bool hasPassedFirstBarricade = false;
     private bool hasPassedSecondBarricade = false;
     AudioSource explosion;
@@ -64,7 +63,6 @@ public class EnemyMovement : MonoBehaviour
 	private void OnTriggerEnter(Collider other) {
 		if(other.tag == "Barricade") {
             StartCoroutine(CommitSuicide());
-            Debug.Log("KABOOM");
 		}
 	}
 
@@ -76,7 +74,7 @@ public class EnemyMovement : MonoBehaviour
                 touchedObject.GetComponent<BarricadeInfo>().explosionLeft -= 1;
 			}
             else if(touchedObject.tag == "Turret") {
-                touchedObject.GetComponent<Health>().TakeDamage(explosionDamage);
+                touchedObject.GetComponent<Health>().TakeDamage(1);
 			}
             else if(touchedObject.tag == "Player") {
                 touchedObject.GetComponent<Health>().TakeDamage(explosionDamage);
@@ -97,8 +95,8 @@ public class EnemyMovement : MonoBehaviour
                 if (obj.tag == "Player" )
                     obj.GetComponent<Health>().TakeDamage(damage);
                 else if(obj.tag == "Core")
-                    obj.GetComponent<Health>().TakeDamage(type == Type.BOSS ? 5 : damage);
-                else if (obj.tag == "Turret")
+                    obj.GetComponent<Health>().TakeDamage(type == Type.BOSS ? 5 : 1);
+                else if (obj.tag == "Turret" && type == Type.BOSS)
                     obj.GetComponent<Health>().TakeDamage(1);
                 else if (obj.tag == "Barricade")
                     obj.GetComponent<BarricadeInfo>().explosionLeft -= 2;
