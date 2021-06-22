@@ -4511,13 +4511,12 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 170188676883244103, guid: 4a90ef062a8401f4da9cb0a9c31bbf68, type: 3}
+  - {fileID: 3131851406412282831, guid: f86c75aef3c9a3b4ba3761d19736df27, type: 3}
   - {fileID: 3657620336170778691, guid: 258e25f7b8b12564d822ae4dfc133d3d, type: 3}
-  - {fileID: 6931518593030710514, guid: 6ec9d731cdddec545bd97f1cb0fdc0e1, type: 3}
-  - {fileID: 3322807278183714812, guid: 0e1df7def4df34a46a6e45707f40fe3f, type: 3}
-  - {fileID: 7042300489701992233, guid: 65f98ea044f3c754ebf84184e7909f18, type: 3}
   - {fileID: 3916440759951999373, guid: 3f11a11ffdf48fd4b890fa2684dae42c, type: 3}
   - {fileID: 2357709426800646527, guid: cc3c970c8f7474c4bbcd0b68ad1ee6cf, type: 3}
   - {fileID: 2277879888500575644, guid: 531176267595b244f8dae8f74475da2d, type: 3}
+  - {fileID: 7042300489701992233, guid: 65f98ea044f3c754ebf84184e7909f18, type: 3}
   - {fileID: 2810235505072141318, guid: 49a5542fb6394ea4b8f8efc5ea38e460, type: 3}
   - {fileID: 6100039529834685494, guid: bcdef7a2d4abcd84d8a795d71414ce3a, type: 3}
   - {fileID: 8198130766188152046, guid: 541c900e9461da44e8034148a9ce2ea1, type: 3}
@@ -4527,10 +4526,10 @@ MonoBehaviour:
   - {fileID: 5586642383872689451, guid: d54767c956e23e44f86f67e96a5b6159, type: 3}
   - {fileID: 5271344812122289508, guid: 731c189ec25dca64f9642d1a8773a7da, type: 3}
   - {fileID: 5460346544953488430, guid: ff1b050a66f394c4b97b51e95e0c0045, type: 3}
+  - {fileID: 4732598266293926871, guid: e007f6058e7586f4f93ae0a2a168ba6f, type: 3}
   - {fileID: 7477480515194431079, guid: 9a126b253fc76054ca5c62b9127933b9, type: 3}
   - {fileID: 1970287582223145808, guid: 363b1e7e28da71344a1f12a0155135e7, type: 3}
   - {fileID: 1181768819579399353, guid: 5754339cb3316bc4f96dd8c9a01d5a28, type: 3}
-  - {fileID: 4732598266293926871, guid: e007f6058e7586f4f93ae0a2a168ba6f, type: 3}
 --- !u!4 &550045063
 Transform:
   m_ObjectHideFlags: 0
