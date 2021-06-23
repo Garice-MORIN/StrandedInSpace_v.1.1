@@ -125,7 +125,7 @@ public class EnemiesSpawner : NetworkBehaviour
 	}
 
     System.Collections.IEnumerator WaitToSpawn() {
-        yield return new WaitForSecondsRealtime(40);
+        yield return new WaitForSecondsRealtime(15);
         SpawnEnemies();
     }
 

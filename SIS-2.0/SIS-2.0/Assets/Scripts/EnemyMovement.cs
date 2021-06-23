@@ -49,7 +49,7 @@ public class EnemyMovement : MonoBehaviour
     public void Update() {
 
         //Attack target if enemy is close enough
-        if (canAttack)
+        if (canAttack && type != Type.EXPLOSIVE)
         {
             StartCoroutine(TryAttack());
         }
@@ -61,7 +61,9 @@ public class EnemyMovement : MonoBehaviour
     }
 
 	private void OnTriggerEnter(Collider other) {
+        Debug.Log(other.tag);
 		if(other.tag == "Barricade") {
+            Debug.Log("Boom");
             StartCoroutine(CommitSuicide());
 		}
 	}
