@@ -1,5 +1,5 @@
-Moyen,Moyen,Moyen,Moyen
-Moyen,Moyen,Moyen,Moyen,Moyen,Moyen
+Moyen,Moyen,Moyen,Moyen,Petit,Petit
+Moyen,Moyen,Moyen,Moyen,Moyen,Moyen,Boss
 Moyen,Moyen,Moyen,Moyen,Volantt,Volantt,Volantt,Volantt
 Moyen,Moyen,Moyen,Moyen,Moyen,Moyen,Volantt,Volantt,Volantt,Volantt
 Moyen,Moyen,Volantt,Volantt,Boss

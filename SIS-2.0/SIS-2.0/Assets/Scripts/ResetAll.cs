@@ -19,5 +19,6 @@ public class ResetAll : MonoBehaviour
         PlayerPrefs.SetFloat("Effects", 0.5f);
         PlayerPrefs.SetInt("Inverted", 1);
         PlayerPrefs.SetFloat("Sensi", 1125);
+        PlayerPrefs.SetInt("krux", 2000);
     }
 }
