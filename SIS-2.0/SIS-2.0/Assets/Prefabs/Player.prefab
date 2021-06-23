@@ -615,6 +615,7 @@ MonoBehaviour:
   _name: 
   death: 0
   controller: {fileID: -7805777872003939710}
+  info: {fileID: 0}
   kills: {fileID: 0}
   spawner: {fileID: 0}
   watch: {fileID: -8914994413750309335}
@@ -667,7 +668,6 @@ MonoBehaviour:
   - {fileID: 3811397186890134240}
   - {fileID: 3760483833037587489}
   - {fileID: 7145036870087389559}
-  holsterTransform: {fileID: 2070219952241898209}
   UImunitions: {fileID: 7582339247258957927}
   UIstock: {fileID: 8954618304297311617}
   panel: {fileID: 8611231081892529692}
@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b16ebdbed42b441a8a8c54eef0baa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 2000
+  money: 200
 --- !u!114 &103616168511524659
 MonoBehaviour:
   m_ObjectHideFlags: 0
