@@ -240,11 +240,9 @@ MonoBehaviour:
   syncInterval: 0.1
   maxHP: 3
   health: 3
-  HPBar: {fileID: 0}
-  background: {fileID: 0}
   destroyOnDeath: 0
   hasHealthBar: 0
-  check: {fileID: 0}
+  life: {fileID: 0}
 --- !u!114 &5668913441801385412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,9 +264,8 @@ MonoBehaviour:
   cooldown: 0
   damage: 20
   targetsPerAttack: 1
-  slowDuration: 0
+  statusDuration: 0
   slowPower: 0
-  burnDuration: 0
 --- !u!114 &2387495263958516894
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8112392325394085166}
   - component: {fileID: 1440411010824793956}
   - component: {fileID: 7121448853331844096}
+  - component: {fileID: 8050679296679425722}
+  - component: {fileID: 3618073174179041700}
   m_Layer: 15
   m_Name: Cube (48)
   m_TagString: BarricadeSpawnPoint
@@ -120,9 +122,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcaf103a0d6b7a43865898629576957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coreTransform: {fileID: 0}
   rotNeeded: 0
   rdc: 1
   left: 1
+--- !u!114 &8050679296679425722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249300345488693595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &3618073174179041700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249300345488693595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  syncScale: 1
 --- !u!1 &2836479799070304837
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +178,8 @@ GameObject:
   - component: {fileID: 1097064195542936432}
   - component: {fileID: 6533618007814309483}
   - component: {fileID: 2029614865218983845}
+  - component: {fileID: 850918725542718123}
+  - component: {fileID: 8554888106516237472}
   m_Layer: 15
   m_Name: Cube (46)
   m_TagString: BarricadeSpawnPoint
@@ -243,9 +286,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcaf103a0d6b7a43865898629576957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coreTransform: {fileID: 0}
   rotNeeded: 1
   rdc: 0
   left: 0
+--- !u!114 &850918725542718123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836479799070304837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &8554888106516237472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836479799070304837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  syncScale: 1
 --- !u!1 &3689467107766596181
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +376,8 @@ GameObject:
   - component: {fileID: 3147497735691025295}
   - component: {fileID: 8115666967236235861}
   - component: {fileID: 3927063539925664665}
+  - component: {fileID: 5310190859606203164}
+  - component: {fileID: 8815480359274597128}
   m_Layer: 15
   m_Name: Cube (47)
   m_TagString: BarricadeSpawnPoint
@@ -400,9 +484,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcaf103a0d6b7a43865898629576957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coreTransform: {fileID: 0}
   rotNeeded: 0
   rdc: 1
   left: 0
+--- !u!114 &5310190859606203164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366101551103146582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &8815480359274597128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366101551103146582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  syncScale: 1
 --- !u!1 &6388175163040260845
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,6 +540,8 @@ GameObject:
   - component: {fileID: 6891898220813627771}
   - component: {fileID: 6395601057328416039}
   - component: {fileID: 1696204735380089865}
+  - component: {fileID: 5121019956562476558}
+  - component: {fileID: 4919132629094206260}
   m_Layer: 15
   m_Name: Cube (45)
   m_TagString: BarricadeSpawnPoint
@@ -523,6 +648,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcaf103a0d6b7a43865898629576957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coreTransform: {fileID: 0}
   rotNeeded: 1
   rdc: 0
   left: 1
+--- !u!114 &5121019956562476558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6388175163040260845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &4919132629094206260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6388175163040260845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  syncScale: 1

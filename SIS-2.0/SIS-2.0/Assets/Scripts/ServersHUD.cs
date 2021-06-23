@@ -37,7 +37,7 @@ public class ServersHUD : MonoBehaviour
     }
 
     public void OnDiscoveredServer(ServerResponse info) {
-        Debug.Log(info.adress);
+        //Debug.Log(info.adress);
 
         // Note that you can check the versioning to decide if you can connect to the server or not using this method
         if (!discoveredServers.ContainsKey(info.name)) {

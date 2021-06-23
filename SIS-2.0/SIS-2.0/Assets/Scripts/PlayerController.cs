@@ -76,7 +76,6 @@ public class PlayerController : NetworkBehaviour
     public GameObject holster;
     public GameObject weapon;
     public GameObject[] holsterArray;
-    public Transform holsterTransform;
     public Text UImunitions;
     public Text UIstock;
     public GameObject panel;
@@ -110,6 +109,7 @@ public class PlayerController : NetworkBehaviour
         sureMenu.SetActive(false);
         scoreBoard.SetActive(false);
         networkManager = NetworkManager.singleton;
+        indexPlacement = 0;
         indexWeapon = 0;
         canShoot = true;
         isGameLaunched = false;
@@ -604,11 +604,11 @@ public class PlayerController : NetworkBehaviour
             door = GameObject.FindGameObjectWithTag("Door");
             doorScript = door.GetComponent<Door>();
         }
+        //PlayerPrefs.SetInt("money", (int)(PlayerPrefs.GetFloat("StartingMoney") * GetComponent<Money>().money));
         money = (int)(PlayerPrefs.GetFloat("StartingMoney") * GetComponent<Money>().money);
+        Debug.Log(money + " - " + PlayerPrefs.GetFloat("StartingMoney"));
         GameObject.FindGameObjectWithTag("Check").GetComponent<ListOfPlayers>().AddPlayer(_name, (money, 0));
     }
-
-
     //Get the point where player is looking at
     public GameObject getAimingObject()
     {
@@ -661,14 +661,11 @@ public class PlayerController : NetworkBehaviour
         }
 
     }
-
     public void SavePlayer()
     {
         StatsManager.instance.money += CountPoints(FindObjectOfType<EnemyKill>().killedEnemies);
     }
-
     public void SetRoundThree(float start) => startRoundThree = start;
-
     string RandomString()
     {
         string s = "";
@@ -678,7 +675,6 @@ public class PlayerController : NetworkBehaviour
         }
         return s;
     }
-
     public int CountPoints(List<Type> list)
     {
         float total = 0;
@@ -702,7 +698,7 @@ public class PlayerController : NetworkBehaviour
         }
         total /= death < 2 ? 1 : death / 2;
         total += money / 100;
-        total /= 26;
+        total /= 14;
 
         return Mathf.CeilToInt(total);
     }

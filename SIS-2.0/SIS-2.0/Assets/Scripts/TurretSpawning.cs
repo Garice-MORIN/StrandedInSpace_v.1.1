@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class TurretSpawning : MonoBehaviour
+public class TurretSpawning : NetworkBehaviour
 {
     public NetworkManager GetNetworkManager() => FindObjectOfType<NetworkManager>();
     private int level = 0;
