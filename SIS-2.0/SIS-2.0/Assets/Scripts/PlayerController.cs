@@ -240,7 +240,7 @@ public class PlayerController : NetworkBehaviour
                 else
                 {
                     //Change equipped weapon
-                    indexWeapon = indexWeapon == 1 ? 0 : indexWeapon + 1;
+                    indexWeapon = indexWeapon == 2 ? 0 : indexWeapon + 1;
                     CmdChangeActiveWeapon(indexWeapon);
                     ChangeWeaponStats(indexWeapon);
                 }
@@ -258,7 +258,7 @@ public class PlayerController : NetworkBehaviour
                 else
                 {
                     //Change equipped weapon
-                    indexWeapon = indexWeapon == 0 ? 1 : indexWeapon - 1;
+                    indexWeapon = indexWeapon == 0 ? 2 : indexWeapon - 1;
                     CmdChangeActiveWeapon(indexWeapon);
                     ChangeWeaponStats(indexWeapon);
                 }
