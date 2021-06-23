@@ -110,7 +110,7 @@ public class Health : NetworkBehaviour
     }
 
     //Respawn player
-    [ClientRpc]
+    //[ClientRpc]
     public void RpcRespawn()
     {
         if(isLocalPlayer)
@@ -120,7 +120,7 @@ public class Health : NetworkBehaviour
             {
                 spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
             }
-            transform.position = spawnPoint;
+            this.transform.position = spawnPoint;
             Debug.Log(transform.position);
         }
     }
