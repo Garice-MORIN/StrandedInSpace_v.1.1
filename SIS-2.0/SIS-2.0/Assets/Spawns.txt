@@ -1,4 +1,4 @@
-Boss,Boss,Moyen,Moyen
+Volantt,Petit,Moyen,Moyen
 Moyen,Moyen,Moyen,Moyen,Moyen,Moyen
 Moyen,Moyen,Moyen,Moyen,FlyingEnemy,FlyingEnemy,FlyingEnemy,FlyingEnemy
 Moyen,Moyen,Moyen,Moyen,Moyen,Moyen,FlyingEnemy,FlyingEnemy,FlyingEnemy,FlyingEnemy

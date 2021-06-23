@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6433161833520520}
   - component: {fileID: 1617853880061463524}
   - component: {fileID: 4078993508613232943}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 3489263435994059412}
   - component: {fileID: 4150880935209561507}
   - component: {fileID: 508988739021937822}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 5663696599420334466}
   - component: {fileID: 1377094253131046927}
   - component: {fileID: 7248223266299493196}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: HPBar Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 5206419517949202859}
   - component: {fileID: 5037239207855529543}
   - component: {fileID: 3146436067496775220}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: Reactor
   m_TagString: Core
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 263051619134445598}
   - component: {fileID: 2407644659702039452}
   - component: {fileID: 5546246292533747426}
-  m_Layer: 12
+  m_Layer: 17
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 2524178322521231830}
   - component: {fileID: 194085807708815340}
   - component: {fileID: 2585920292902445776}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

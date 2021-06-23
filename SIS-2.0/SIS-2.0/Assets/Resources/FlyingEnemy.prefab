@@ -724,7 +724,6 @@ MonoBehaviour:
   health: 100
   destroyOnDeath: 1
   hasHealthBar: 1
-  check: {fileID: 0}
   life: {fileID: 3969148197528195865}
 --- !u!195 &4969366338107377879
 NavMeshAgent:
@@ -763,13 +762,12 @@ MonoBehaviour:
   type: 0
   mask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 131328
   enemyPosition: {fileID: 6931518593030710512}
   navMesh: {fileID: 4969366338107377879}
   isToGoRight: 0
   damage: 10
   cooldownTime: 0.75
-  goToTurret: 0
   explosionDamage: 0
   slowed: 0
   baseSpeed: 0

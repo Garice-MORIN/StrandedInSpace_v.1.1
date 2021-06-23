@@ -589,7 +589,7 @@ MonoBehaviour:
   type: 2
   mask:
     serializedVersion: 2
-    m_Bits: 69632
+    m_Bits: 196608
   enemyPosition: {fileID: 3657620336170778689}
   navMesh: {fileID: 7504748251946289719}
   isToGoRight: 0

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &2086632120357587608
+--- !u!65 &275987352703472947
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11,8 +11,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.6885953, y: 3.0414143, z: 4.1620355}
-  m_Center: {x: -0.41224813, y: 1.3292913, z: 0.1006639}
+  m_Size: {x: 2.2930176, y: 2.3639069, z: 2.7351139}
+  m_Center: {x: -0.41391265, y: 1.0808372, z: -0.0029797554}
 --- !u!95 &3367787926464034092
 Animator:
   serializedVersion: 3
@@ -84,11 +84,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821124206064599076}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.895752, y: 2.5068655, z: 2.3063135}
-  m_Center: {x: 0.14883995, y: -0.22063875, z: -0.34955454}
+  m_Size: {x: 10.475639, y: 2.5346823, z: 6.9281616}
+  m_Center: {x: 0.38991165, y: -0.23454714, z: -0.5103111}
 --- !u!33 &1005074424640427553
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   type: 2
   mask:
     serializedVersion: 2
-    m_Bits: 69632
+    m_Bits: 196608
   enemyPosition: {fileID: 4884665684837805353}
   navMesh: {fileID: 3911420637160346234}
   isToGoRight: 0
@@ -263,7 +263,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821124206064599076}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.019781532, y: 0.026520358, z: 0.022371136}
