@@ -697,7 +697,7 @@ public class PlayerController : NetworkBehaviour
         }
         total /= death < 2 ? 1 : death / 2;
         total += money / 100;
-        total /= 26;
+        total /= 14;
 
         return Mathf.CeilToInt(total);
     }
