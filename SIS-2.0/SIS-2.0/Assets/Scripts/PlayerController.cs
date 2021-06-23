@@ -607,7 +607,7 @@ public class PlayerController : NetworkBehaviour
         //PlayerPrefs.SetInt("money", (int)(PlayerPrefs.GetFloat("StartingMoney") * GetComponent<Money>().money));
         money = (int)(PlayerPrefs.GetFloat("StartingMoney") * GetComponent<Money>().money);
         Debug.Log(money + " - " + PlayerPrefs.GetFloat("StartingMoney"));
-        GameObject.FindGameObjectWithTag("Check").GetComponent<ListOfPlayers>().AddPlayer(_name, (money, 0));
+        GameObject.FindGameObjectWithTag("Check").GetComponent<ListOfPlayers>().AddPlayer(gameObject);
     }
     //Get the point where player is looking at
     public GameObject getAimingObject()
